@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class TesteInsert {
+public class TesteJPA {
 
     public static void main(String[] args) {
         Usuario usuario = new Usuario();
