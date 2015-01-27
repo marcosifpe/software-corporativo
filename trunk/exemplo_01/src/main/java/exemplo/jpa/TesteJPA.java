@@ -33,9 +33,9 @@ public class TesteJPA {
     }
 
     private static void preencherUsuario(Usuario usuario) {
-        usuario.setNome("Marcos Costa");
-        usuario.setEmail("marcoscosta@recife.ifpe.edu.br");
-        usuario.setLogin("marcoscosta");
+        usuario.setNome("Fulano da Silva");
+        usuario.setEmail("fulano@gmail.com");
+        usuario.setLogin("fulano");
         usuario.setSenha("teste");
     }
 }
