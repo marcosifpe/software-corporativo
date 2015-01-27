@@ -13,12 +13,11 @@ public class TesteInsert {
         EntityManagerFactory emf = null;
         EntityManager em = null;
         EntityTransaction et = null;
-        System.out.println("aqui");
         try {
             //EntityManagerFactory realiza a leitura das informações relativas à "persistence-unit".
             emf = Persistence.createEntityManagerFactory("exemplo_01");
             em = emf.createEntityManager(); //Criação do EntityManager.
-            et = em.getTransaction();
+            et = em.getTransaction(); //Recupera objeto responsável pelo gerenciamento de transação.
             et.begin();
             em.persist(usuario);
             et.commit();
