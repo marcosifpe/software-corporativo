@@ -22,7 +22,9 @@ public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TB_IDS")
-    @TableGenerator(name = "TB_IDS", table = "TB_GERADOR_ID", pkColumnName = "NM_SEQUENCIA", pkColumnValue = "TB_USUARIO_ID", valueColumnName = "ID_SEQUENCIA")
+    @TableGenerator(name = "TB_IDS", table = "TB_GERADOR_ID",
+                    pkColumnName = "NM_SEQUENCIA", pkColumnValue = "TB_USUARIO_ID", 
+                    valueColumnName = "ID_SEQUENCIA")
     private Long id;
     //Observe o nome da coluna, que não é nullable, tem length 14 e é única.
     @Column(name = "TXT_CPF", nullable = false, length = 14, unique = true)
