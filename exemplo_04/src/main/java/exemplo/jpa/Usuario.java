@@ -18,19 +18,19 @@ import javax.persistence.TemporalType;
 @Access(AccessType.FIELD)
 public class Usuario implements Serializable {
     @Id
-    @Column(name = "TXT_CPF")
+    @Column(name = "TXT_CPF", nullable = false, length = 14, unique = true)
     private String cpf;
     @Id
-    @Column(name = "TXT_LOGIN")
+    @Column(name = "TXT_LOGIN", nullable = false, length = 50, unique = true)
     private String login;
-    @Column(name = "TXT_NOME")
+    @Column(name = "TXT_NOME", nullable = false, length = 255)
     private String nome;    
-    @Column(name = "TXT_EMAIL")
+    @Column(name = "TXT_EMAIL", nullable = false, length = 50)
     private String email;
-    @Column(name = "TXT_SENHA")
+    @Column(name = "TXT_SENHA", nullable = false, length = 20)
     private String senha;
     @Temporal(TemporalType.DATE)
-    @Column(name = "DT_NASCIMENTO")
+    @Column(name = "DT_NASCIMENTO", nullable = true)
     private Date dataNascimento;
 
     public String getCpf() {
