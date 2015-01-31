@@ -42,7 +42,7 @@ public class Usuario implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "DT_NASCIMENTO", nullable = true)
     private Date dataNascimento;
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) //Use EnumType.ORDINAL para armazenar a enumeração como inteiro.
     @Column(name = "TXT_TIPO_USUARIO", nullable = false, length = 20)
     private TipoUsuario tipo;
     @ElementCollection
