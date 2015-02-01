@@ -9,6 +9,7 @@ import javax.persistence.AccessType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,6 +29,8 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Embedded
+    private Endereco endereco;
     @ElementCollection //O atributo será armazenado em uma tabela que representará a coleção.
     @CollectionTable(name = "TB_TELEFONE", //nome da tabela que representa a coleção.
             //atributo na tabela que faz referência à chave primária de TB_USUARIO
@@ -50,7 +53,15 @@ public class Usuario implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "DT_NASCIMENTO", nullable = true)
     private Date dataNascimento;
+    
+    public Endereco getEndereco() {
+        return endereco;
+    }
 
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+    
     public TipoUsuario getTipo() {
         return tipo;
     }
