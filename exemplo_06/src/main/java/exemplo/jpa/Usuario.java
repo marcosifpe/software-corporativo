@@ -28,8 +28,9 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ElementCollection
-    @CollectionTable(name = "TB_TELEFONE",
+    @ElementCollection //O atributo será armazenado em uma tabela que representará a coleção.
+    @CollectionTable(name = "TB_TELEFONE", //nome da tabela que representa a coleção.
+            //atributo na tabela que faz referência à chave primária de TB_USUARIO
             joinColumns = @JoinColumn(name = "ID_USUARIO", nullable = false))
     @Column(name = "TXT_NUM_TELEFONE", nullable = false, length = 20)
     private Collection<String> telefones;
