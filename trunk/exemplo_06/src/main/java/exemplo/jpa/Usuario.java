@@ -27,8 +27,10 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TB_USUARIO")
-@SecondaryTable(name="TB_FOTO_USUARIO",
-pkJoinColumns=@PrimaryKeyJoinColumn(name="ID_USUARIO"))
+@SecondaryTable(name = "TB_FOTO_USUARIO",
+        pkJoinColumns = {
+            @PrimaryKeyJoinColumn(name = "ID_USUARIO")}
+)
 @Access(AccessType.FIELD)
 public class Usuario implements Serializable {
 
@@ -48,7 +50,7 @@ public class Usuario implements Serializable {
     private Collection<String> telefones;
     @Enumerated(EnumType.STRING) //Use EnumType.ORDINAL para armazenar a enumeração como inteiro.
     @Column(name = "TXT_TIPO_USUARIO", nullable = false, length = 20)
-    private TipoUsuario tipo;    
+    private TipoUsuario tipo;
     @Column(name = "TXT_CPF", nullable = false, length = 14, unique = true)
     private String cpf;
     @Column(name = "TXT_LOGIN", nullable = false, length = 50, unique = true)
@@ -70,7 +72,7 @@ public class Usuario implements Serializable {
     public void setFoto(byte[] foto) {
         this.foto = foto;
     }
-    
+
     public Endereco getEndereco() {
         return endereco;
     }
@@ -78,7 +80,7 @@ public class Usuario implements Serializable {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-    
+
     public TipoUsuario getTipo() {
         return tipo;
     }
