@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Basic;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,22 +14,30 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TB_USUARIO")
+@SecondaryTable(name="TB_FOTO_USUARIO",
+pkJoinColumns=@PrimaryKeyJoinColumn(name="ID_USUARIO"))
 @Access(AccessType.FIELD)
 public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "IMG_FOTO", table = "TB_FOTO_USUARIO", nullable = true)
+    private byte[] foto;
     @Embedded
     private Endereco endereco;
     @ElementCollection //O atributo será armazenado em uma tabela que representará a coleção.
@@ -53,6 +62,14 @@ public class Usuario implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "DT_NASCIMENTO", nullable = true)
     private Date dataNascimento;
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
     
     public Endereco getEndereco() {
         return endereco;
