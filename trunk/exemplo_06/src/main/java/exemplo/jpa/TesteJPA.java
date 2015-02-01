@@ -43,5 +43,17 @@ public class TesteJPA {
         c.set(Calendar.MONTH, Calendar.FEBRUARY);
         c.set(Calendar.DAY_OF_MONTH, 25);
         usuario.setDataNascimento(c.getTime());
+        preencherEndereco(usuario);
+    }
+    
+    public static void preencherEndereco(Usuario usuario) {
+        Endereco endereco = new Endereco();
+        endereco.setLogradouro("Rua Iolanda Rodrigues Sobral");
+        endereco.setBairro("Iputinga");
+        endereco.setCidade("Recife");
+        endereco.setEstado("Pernambuco");
+        endereco.setCep("50690-220");
+        endereco.setNumero(550);
+        usuario.setEndereco(endereco);
     }
 }
