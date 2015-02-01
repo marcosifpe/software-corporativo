@@ -4,6 +4,10 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/*
+ * Todos os campos de Endereco serão armazenados na mesma tabela 
+ * que armazena os dados de Usuario.
+ */
 @Embeddable
 public class Endereco implements Serializable {
     @Column(name = "END_TXT_LOGRADOURO", length = 150, nullable = false)
