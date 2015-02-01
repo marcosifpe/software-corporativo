@@ -28,14 +28,14 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING) //Use EnumType.ORDINAL para armazenar a enumeração como inteiro.
-    @Column(name = "TXT_TIPO_USUARIO", nullable = false, length = 20)
-    private TipoUsuario tipo;
     @ElementCollection
     @CollectionTable(name = "TB_TELEFONE",
             joinColumns = @JoinColumn(name = "ID_USUARIO", nullable = false))
     @Column(name = "TXT_NUM_TELEFONE", nullable = false, length = 20)
     private Collection<String> telefones;
+    @Enumerated(EnumType.STRING) //Use EnumType.ORDINAL para armazenar a enumeração como inteiro.
+    @Column(name = "TXT_TIPO_USUARIO", nullable = false, length = 20)
+    private TipoUsuario tipo;    
     @Column(name = "TXT_CPF", nullable = false, length = 14, unique = true)
     private String cpf;
     @Column(name = "TXT_LOGIN", nullable = false, length = 50, unique = true)
