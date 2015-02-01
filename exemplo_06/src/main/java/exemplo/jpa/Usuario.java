@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -36,7 +37,7 @@ public class Usuario implements Serializable {
     @CollectionTable(name = "TB_TELEFONE",
             joinColumns = @JoinColumn(name = "ID_USUARIO", nullable = false))
     @Column(name = "TXT_NUM_TELEFONE", nullable = false, length = 20)
-    private List<String> telefones;
+    private Collection<String> telefones;
     @Column(name = "TXT_CPF", nullable = false, length = 14, unique = true)
     private String cpf;
     @Column(name = "TXT_LOGIN", nullable = false, length = 50, unique = true)
@@ -65,7 +66,7 @@ public class Usuario implements Serializable {
 
     public void addTelefone(String telefone) {
         if (telefones == null) {
-            telefones = new ArrayList<>();
+            telefones = new HashSet<>();
         }
         telefones.add(telefone);
     }
