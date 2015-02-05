@@ -14,7 +14,11 @@ public class TesteJPA {
     }
  
     private static void consultarUsuario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        System.out.println("Consultando usuário na base...");
+        Usuario usuario = em.find(Usuario.class, new Long(1));
+        System.out.println("Imprimindo usuário (telefones serão recuperados agora)...");
+        System.out.println(usuario.toString());
     }
 
     
