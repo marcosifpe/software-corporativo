@@ -16,8 +16,8 @@ public class TesteJPA {
     }
     
     public static void main(String[] args) {
-        //inserirUsuario();
-        consultarUsuario();
+        inserirUsuario();
+        //consultarUsuario();
     }
  
     private static void consultarUsuario() {
@@ -32,8 +32,10 @@ public class TesteJPA {
 
     
     public static void inserirUsuario() {
-        Usuario usuario = new Usuario();
-        preencherUsuario(usuario);
+        Usuario usuario = criarUsuario();
+        CartaoCredito cartaoCredito = criarCartaoCredito();
+        usuario.setCartaoCredito(cartaoCredito);
+
         EntityManager em = null;
         EntityTransaction et = null;
         try {
@@ -56,7 +58,8 @@ public class TesteJPA {
         }
     }
 
-    private static void preencherUsuario(Usuario usuario) {
+    private static Usuario criarUsuario() {
+        Usuario usuario = new Usuario();
         usuario.setNome("Fulano da Silva");
         usuario.setEmail("fulano@gmail.com");
         usuario.setLogin("fulano");
@@ -70,11 +73,11 @@ public class TesteJPA {
         c.set(Calendar.MONTH, Calendar.FEBRUARY);
         c.set(Calendar.DAY_OF_MONTH, 25);
         usuario.setDataNascimento(c.getTime());
-        preencherEndereco(usuario);
-        preencherCartaoCredito(usuario);
+        criarEndereco(usuario);
+        return usuario;
     }
     
-    public static void preencherEndereco(Usuario usuario) {
+    public static void criarEndereco(Usuario usuario) {
         Endereco endereco = new Endereco();
         endereco.setLogradouro("Rua Iolanda Rodrigues Sobral");
         endereco.setBairro("Iputinga");
@@ -85,7 +88,7 @@ public class TesteJPA {
         usuario.setEndereco(endereco);
     }
     
-    public static void preencherCartaoCredito(Usuario usuario) {
+    public static CartaoCredito criarCartaoCredito() {
         CartaoCredito cartaoCredito = new CartaoCredito();
         cartaoCredito.setBandeira("VISA");
         Calendar c = Calendar.getInstance();
@@ -94,6 +97,6 @@ public class TesteJPA {
         c.set(Calendar.DAY_OF_MONTH, 10);
         cartaoCredito.setDataExpiracao(c.getTime());
         cartaoCredito.setNumero("120000-100");
-        usuario.setCartaoCredito(cartaoCredito);
+        return cartaoCredito;
     }
 }
