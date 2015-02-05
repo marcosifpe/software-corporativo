@@ -33,7 +33,7 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "ID_CARTAO_CREDITO", referencedColumnName = "ID", nullable = false, unique = true)
     private CartaoCredito cartaoCredito;
     
