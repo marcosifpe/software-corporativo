@@ -1,15 +1,22 @@
 package exemplo.jpa;
 
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class TesteJPA {
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo_07");;
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo_07");
+    
+    static {
+        Logger.getGlobal().setLevel(Level.INFO);
+    }
     
     public static void main(String[] args) {
+        //inserirUsuario();
         consultarUsuario();
     }
  
@@ -19,6 +26,8 @@ public class TesteJPA {
         Usuario usuario = em.find(Usuario.class, new Long(1));
         System.out.println("Imprimindo usuário (telefones serão recuperados agora)...");
         System.out.println(usuario.toString());
+        em.close();
+        emf.close();
     }
 
     
@@ -26,13 +35,19 @@ public class TesteJPA {
         Usuario usuario = new Usuario();
         preencherUsuario(usuario);
         EntityManager em = null;
-        EntityTransaction et;
+        EntityTransaction et = null;
         try {
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();
             em.persist(usuario);
             et.commit();
+        } catch (Exception ex) {
+            if (et != null && et.isActive()) {
+                Logger.getGlobal().log(Level.SEVERE, "Cancelando transação com erro. Mensagem: {0}", ex.getMessage());
+                et.rollback();
+                Logger.getGlobal().info("Transação cancelada.");
+            }
         } finally {
             if (em != null)
                 em.close();       
