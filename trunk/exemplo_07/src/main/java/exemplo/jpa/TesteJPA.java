@@ -1,28 +1,29 @@
 package exemplo.jpa;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.net.URL;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class TesteJPA {
-
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo_07");;
+    
     public static void main(String[] args) {
+        consultarUsuario();
+    }
+ 
+    private static void consultarUsuario() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    public static void inserirUsuario() {
         Usuario usuario = new Usuario();
         preencherUsuario(usuario);
-        EntityManagerFactory emf = null;
         EntityManager em = null;
         EntityTransaction et;
         try {
-            emf = Persistence.createEntityManagerFactory("exemplo_07");
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();

@@ -40,7 +40,7 @@ public class Usuario implements Serializable {
      * possui uma instância correspondente de CartaoCredito.
      */
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "ID_CARTAO_CREDITO", referencedColumnName = "ID", nullable = false, unique = true)
+    @JoinColumn(name = "ID_CARTAO_CREDITO", referencedColumnName = "ID")
     private CartaoCredito cartaoCredito;
     
     @Embedded
