@@ -28,6 +28,7 @@ import javax.persistence.TemporalType;
 @Table(name = "TB_USUARIO")
 @Access(AccessType.FIELD)
 public class Usuario implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,10 +40,10 @@ public class Usuario implements Serializable {
      * optional = true informa que o relacionamento é obrigatório. Ou seja, toda instância de Usuario
      * possui uma instância correspondente de CartaoCredito.
      */
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "ID_CARTAO_CREDITO", referencedColumnName = "ID")
     private CartaoCredito cartaoCredito;
-    
+
     @Embedded
     private Endereco endereco;
     @ElementCollection //O atributo será armazenado em uma tabela que representará a coleção.
@@ -182,6 +183,21 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "exemplo.jpa.Usuario[ id=" + id + " ]";
+        StringBuilder sb = new StringBuilder("exemplo.jpa.Usuario[");
+        sb.append(this.id);
+        sb.append(", ");
+        sb.append(this.nome);        
+        sb.append(", ");
+        sb.append(this.login);
+        sb.append(", ");
+        sb.append(this.cpf);
+        
+        for (String telefone : this.telefones) {
+            sb.append(", ");
+            sb.append(telefone);
+        }
+        
+        sb.append("]");
+        return sb.toString();
     }
 }

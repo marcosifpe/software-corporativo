@@ -9,6 +9,8 @@
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="root"/>
       <property name="eclipselink.logging.level" value="FINE"/>      
+      <property name="eclipselink.weaving" value="static"/>
+      <property name="eclipselink.weaving.lazy" value="true"/>
       <property name="javax.persistence.schema-generation.database.action" value="none"/>
       <property name="eclipselink.application-location" value="C:\Users\MASC\Documents\NetBeansProjects\exemplo_07\src\main\DDL"/>
       <property name="eclipselink.ddl-generation.output-mode" value="both"/>
