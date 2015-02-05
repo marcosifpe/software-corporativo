@@ -9,17 +9,18 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class TesteJPA {
+
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo_07");
-    
+
     static {
         Logger.getGlobal().setLevel(Level.INFO);
     }
-    
+
     public static void main(String[] args) {
         inserirUsuario();
         //consultarUsuario();
     }
- 
+
     private static void consultarUsuario() {
         EntityManager em = emf.createEntityManager();
         System.out.println("Consultando usuário na base...");
@@ -30,7 +31,6 @@ public class TesteJPA {
         emf.close();
     }
 
-    
     public static void inserirUsuario() {
         Usuario usuario = criarUsuario();
         CartaoCredito cartaoCredito = criarCartaoCredito();
@@ -46,15 +46,18 @@ public class TesteJPA {
             et.commit();
         } catch (Exception ex) {
             if (et != null && et.isActive()) {
-                Logger.getGlobal().log(Level.SEVERE, "Cancelando transação com erro. Mensagem: {0}", ex.getMessage());
+                Logger.getGlobal().log(Level.SEVERE,
+                        "Cancelando transação com erro. Mensagem: {0}", ex.getMessage());
                 et.rollback();
                 Logger.getGlobal().info("Transação cancelada.");
             }
         } finally {
-            if (em != null)
-                em.close();       
-            if (emf != null)
+            if (em != null) {
+                em.close();
+            }
+            if (emf != null) {
                 emf.close();
+            }
         }
     }
 
@@ -64,10 +67,10 @@ public class TesteJPA {
         usuario.setEmail("fulano@gmail.com");
         usuario.setLogin("fulano");
         usuario.setSenha("teste");
-        usuario.setCpf("534.585.764-45");   
+        usuario.setCpf("534.585.764-45");
         usuario.setTipo(TipoUsuario.ADMIN);
         usuario.addTelefone("(81) 3456-2525");
-        usuario.addTelefone("(81) 9122-4528");     
+        usuario.addTelefone("(81) 9122-4528");
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, 1981);
         c.set(Calendar.MONTH, Calendar.FEBRUARY);
@@ -76,7 +79,7 @@ public class TesteJPA {
         criarEndereco(usuario);
         return usuario;
     }
-    
+
     public static void criarEndereco(Usuario usuario) {
         Endereco endereco = new Endereco();
         endereco.setLogradouro("Rua Iolanda Rodrigues Sobral");
@@ -87,7 +90,7 @@ public class TesteJPA {
         endereco.setNumero(550);
         usuario.setEndereco(endereco);
     }
-    
+
     public static CartaoCredito criarCartaoCredito() {
         CartaoCredito cartaoCredito = new CartaoCredito();
         cartaoCredito.setBandeira("VISA");
