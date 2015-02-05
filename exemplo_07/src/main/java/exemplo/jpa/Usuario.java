@@ -75,6 +75,7 @@ public class Usuario implements Serializable {
 
     public void setCartaoCredito(CartaoCredito cartaoCredito) {
         this.cartaoCredito = cartaoCredito;
+        this.cartaoCredito.setUsuario(this);
     }
 
     public Endereco getEndereco() {
