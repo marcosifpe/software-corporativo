@@ -17,21 +17,27 @@ public class TesteJPA {
     }
 
     public static void main(String[] args) {
-        inserirUsuario();
-        //consultarUsuario();
+        Long id = inserirUsuario();
+        consultarUsuario(id);
     }
 
-    private static void consultarUsuario() {
-        EntityManager em = emf.createEntityManager();
-        System.out.println("Consultando usuário na base...");
-        Usuario usuario = em.find(Usuario.class, new Long(1));
-        System.out.println("Imprimindo usuário (telefones serão recuperados agora)...");
-        System.out.println(usuario.toString());
-        em.close();
-        emf.close();
+    private static void consultarUsuario(Long id) {
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            System.out.println("Consultando usuário na base...");
+            Usuario usuario = em.find(Usuario.class, id);
+            System.out.println("Imprimindo usuário (telefones serão recuperados agora)...");
+            System.out.println(usuario.toString());
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+            emf.close();
+        }
     }
 
-    public static void inserirUsuario() {
+    public static Long inserirUsuario() {
         Usuario usuario = criarUsuario();
         CartaoCredito cartaoCredito = criarCartaoCredito();
         usuario.setCartaoCredito(cartaoCredito);
@@ -52,11 +58,12 @@ public class TesteJPA {
                 Logger.getGlobal().info("Transação cancelada.");
             }
         } finally {
-            if (em != null)
+            if (em != null) {
                 em.close();
-            if (emf != null)
-                emf.close();
+            }
         }
+
+        return usuario.getId();
     }
 
     private static Usuario criarUsuario() {
