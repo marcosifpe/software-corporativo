@@ -73,6 +73,7 @@ public class Usuario implements Serializable {
         return cartaoCredito;
     }
 
+    //Na classe Usuario...
     public void setCartaoCredito(CartaoCredito cartaoCredito) {
         this.cartaoCredito = cartaoCredito;
         this.cartaoCredito.setUsuario(this);
