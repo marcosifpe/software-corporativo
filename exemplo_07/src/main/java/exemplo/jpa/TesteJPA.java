@@ -17,8 +17,12 @@ public class TesteJPA {
     }
 
     public static void main(String[] args) {
-        Long id = inserirUsuario();
-        consultarUsuario(id);
+        try {
+            Long id = inserirUsuario();
+            consultarUsuario(id);
+        } finally {
+            emf.close();
+        }
     }
 
     private static void consultarUsuario(Long id) {
@@ -32,8 +36,7 @@ public class TesteJPA {
         } finally {
             if (em != null) {
                 em.close();
-            }
-            emf.close();
+            }            
         }
     }
 
