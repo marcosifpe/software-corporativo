@@ -52,12 +52,10 @@ public class TesteJPA {
                 Logger.getGlobal().info("Transação cancelada.");
             }
         } finally {
-            if (em != null) {
+            if (em != null)
                 em.close();
-            }
-            if (emf != null) {
+            if (emf != null)
                 emf.close();
-            }
         }
     }
 
