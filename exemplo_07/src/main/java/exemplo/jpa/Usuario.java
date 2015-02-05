@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashSet;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -21,18 +20,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TB_USUARIO")
-@SecondaryTable(name = "TB_FOTO_USUARIO",
-        pkJoinColumns = {
-            @PrimaryKeyJoinColumn(name = "ID_USUARIO")}
-)
 @Access(AccessType.FIELD)
 public class Usuario implements Serializable {
 
