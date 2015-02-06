@@ -85,6 +85,7 @@ public class TesteJPA {
             et.commit();
         } catch (Exception ex) {
             if (et != null && et.isActive()) {
+                ex.printStackTrace();
                 Logger.getGlobal().log(Level.SEVERE,
                         "Cancelando transação com erro. Mensagem: {0}", ex.getMessage());
                 et.rollback();

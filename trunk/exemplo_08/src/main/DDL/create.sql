@@ -27,7 +27,7 @@
         ID bigint not null auto_increment,
         DT_OFERTA datetime not null,
         NUM_VALOR double precision not null,
-        ID_ITEM bigint not null,
+        ID_ITEM bigint,
         primary key (ID)
     );
 
