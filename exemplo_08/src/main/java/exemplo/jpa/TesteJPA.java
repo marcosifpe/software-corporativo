@@ -66,7 +66,7 @@ public class TesteJPA {
         
         try {
             et.begin();                        
-            item.setDescricao("POD Studio");
+            item.setTitulo("POD Studio");
             item.setDescricao("Interface para gravação de instrumentos musicais");
             Query query = em.createQuery("SELECT c FROM Categoria c");
             List<Categoria> categorias = query.getResultList();
@@ -83,7 +83,6 @@ public class TesteJPA {
             et.commit();
         } catch (Exception ex) {
             if (et != null && et.isActive()) {
-                ex.printStackTrace();
                 Logger.getGlobal().log(Level.SEVERE,
                         "Cancelando transação com erro. Mensagem: {0}", ex.getMessage());
                 et.rollback();
