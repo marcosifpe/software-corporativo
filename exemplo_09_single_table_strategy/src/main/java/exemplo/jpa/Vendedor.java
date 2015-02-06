@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue(value = "V")
 public class Vendedor extends Usuario implements Serializable {
-    @Column(name = "NUM_VALOR_VENDAS", nullable = true)
+    @Column(name = "NUM_VALOR_VENDAS")
     private Double valorVendas;
-    @Column(name = "TXT_REPUTACAO", nullable = true)
+    @Column(name = "TXT_REPUTACAO")
     private String reputacao;
 
     public Double getValorVendas() {
