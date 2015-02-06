@@ -12,9 +12,9 @@ import javax.persistence.Table;
 @DiscriminatorValue(value = "V")
 @PrimaryKeyJoinColumn(name="ID_USUARIO", referencedColumnName = "ID")
 public class Vendedor extends Usuario implements Serializable {
-    @Column(name = "NUM_VALOR_VENDAS", nullable = false)
+    @Column(name = "NUM_VALOR_VENDAS")
     private Double valorVendas;
-    @Column(name = "TXT_REPUTACAO", nullable = false)
+    @Column(name = "TXT_REPUTACAO")
     private String reputacao;
 
     public Double getValorVendas() {

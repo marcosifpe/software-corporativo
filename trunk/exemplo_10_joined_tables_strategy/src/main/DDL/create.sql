@@ -6,9 +6,9 @@
 
     create table TB_CARTAO_CREDITO (
         ID bigint not null auto_increment,
-        TXT_BANDEIRA varchar(255),
-        DT_EXPIRACAO date,
-        TXT_NUMERO varchar(255),
+        TXT_BANDEIRA varchar(255) not null,
+        DT_EXPIRACAO date not null,
+        TXT_NUMERO varchar(255) not null,
         primary key (ID)
     );
 
