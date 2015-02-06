@@ -28,6 +28,10 @@ public class Oferta implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_OFERTA", nullable = false)
     private Date data;
+    
+    public Oferta() {
+        setData(new Date());
+    }
 
     public Long getId() {
         return id;
