@@ -80,6 +80,7 @@ public class TesteJPA {
             item.adicionar(oferta2);
             
             em.persist(item);
+            item.remover(oferta2); //Observe que a oferta "órfã" será deletada.
             et.commit();
         } catch (Exception ex) {
             if (et != null && et.isActive()) {

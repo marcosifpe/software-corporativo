@@ -56,6 +56,10 @@ public class Item implements Serializable {
         this.ofertas.add(oferta);
         oferta.setItem(this);
     }
+    
+    public boolean remover(Oferta oferta) {
+        return ofertas.remove(oferta);
+    }
 
     public void adicionar(Categoria categoria) {
         if (this.categorias == null) {
