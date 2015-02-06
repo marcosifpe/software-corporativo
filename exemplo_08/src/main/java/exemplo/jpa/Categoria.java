@@ -1,7 +1,6 @@
 package exemplo.jpa;
 
 import java.io.Serializable;
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +12,7 @@ import javax.persistence.Table;
 @Table(name = "TB_CATEGORIA")
 public class Categoria implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "TXT_NOME", length = 50, nullable = false)
     private String nome;
