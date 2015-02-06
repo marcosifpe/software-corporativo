@@ -23,9 +23,8 @@ public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "ID_ITEM", referencedColumnName = "ID")
     private List<Oferta> ofertas;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -57,6 +56,7 @@ public class Item implements Serializable {
         }
 
         this.ofertas.add(oferta);
+        oferta.setItem(this);
     }
 
     public boolean remover(Oferta oferta) {
