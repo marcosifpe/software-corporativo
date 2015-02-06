@@ -68,6 +68,7 @@ public class TesteJPA {
             et.begin();                        
             item.setTitulo("POD Studio");
             item.setDescricao("Interface para gravação de instrumentos musicais");
+            //Selecionando todas as categorias cadastradas
             Query query = em.createQuery("SELECT c FROM Categoria c");
             List<Categoria> categorias = query.getResultList();
             for (Categoria categoria : categorias) {
