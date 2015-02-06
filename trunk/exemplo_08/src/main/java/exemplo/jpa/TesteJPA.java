@@ -18,6 +18,7 @@ public class TesteJPA {
     public static void main(String[] args) {
         try {
             criarCategorias();
+            criarItens();
         } finally {
             emf.close();
         }
@@ -53,5 +54,9 @@ public class TesteJPA {
             em.close();
         }
 
+    }
+
+    private static void criarItens() {
+        
     }
 }

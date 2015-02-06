@@ -54,6 +54,7 @@ public class Item implements Serializable {
         }
 
         this.ofertas.add(oferta);
+        oferta.setItem(this);
     }
 
     public boolean adicionar(Categoria categoria) {
