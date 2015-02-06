@@ -10,12 +10,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "TB_ITEM")
 public class Item implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +29,12 @@ public class Item implements Serializable {
     private String titulo;
     @Column(name = "TXT_DESCRICAO", length = 500, nullable = false)
     private String descricao;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "TB_ITENS_CATEGORIAS", joinColumns = {
+        @JoinColumn(name = "ID_ITEM")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "ID_CATEGORIA")})
+    private List<Categoria> categorias;
 
     public Long getId() {
         return id;
@@ -38,12 +48,20 @@ public class Item implements Serializable {
         return ofertas;
     }
 
-    public void addOferta(Oferta oferta) {
+    public void adicionar(Oferta oferta) {
         if (this.ofertas == null) {
             this.ofertas = new ArrayList<>();
         }
-        
+
         this.ofertas.add(oferta);
+    }
+
+    public boolean adicionar(Categoria categoria) {
+        return categorias.add(categoria);
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
     }
 
     public String getTitulo() {
@@ -61,7 +79,7 @@ public class Item implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -85,5 +103,5 @@ public class Item implements Serializable {
     public String toString() {
         return "exemplo.jpa.Item[ id=" + id + " ]";
     }
-    
+
 }
