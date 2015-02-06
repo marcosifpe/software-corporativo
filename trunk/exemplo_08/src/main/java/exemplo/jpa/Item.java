@@ -23,7 +23,8 @@ public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Oferta> ofertas;
     @Column(name = "TXT_TITULO", length = 150, nullable = false)
     private String titulo;
@@ -56,7 +57,7 @@ public class Item implements Serializable {
         this.ofertas.add(oferta);
         oferta.setItem(this);
     }
-    
+
     public boolean remover(Oferta oferta) {
         return ofertas.remove(oferta);
     }
@@ -65,7 +66,7 @@ public class Item implements Serializable {
         if (this.categorias == null) {
             this.categorias = new ArrayList<>();
         }
-        
+
         categorias.add(categoria);
     }
 
