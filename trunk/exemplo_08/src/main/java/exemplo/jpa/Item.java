@@ -23,6 +23,7 @@ public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "TB_ITENS_CATEGORIAS", joinColumns = {
         @JoinColumn(name = "ID_ITEM")},
             inverseJoinColumns = {
@@ -35,7 +36,6 @@ public class Item implements Serializable {
     private String titulo;
     @Column(name = "TXT_DESCRICAO", length = 500, nullable = false)
     private String descricao;
-    @ManyToMany(fetch = FetchType.LAZY)
 
     public Long getId() {
         return id;
