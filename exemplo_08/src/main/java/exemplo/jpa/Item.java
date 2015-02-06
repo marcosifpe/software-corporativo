@@ -23,6 +23,11 @@ public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JoinTable(name = "TB_ITENS_CATEGORIAS", joinColumns = {
+        @JoinColumn(name = "ID_ITEM")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "ID_CATEGORIA")})
+    private List<Categoria> categorias;    
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Oferta> ofertas;
@@ -31,11 +36,6 @@ public class Item implements Serializable {
     @Column(name = "TXT_DESCRICAO", length = 500, nullable = false)
     private String descricao;
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "TB_ITENS_CATEGORIAS", joinColumns = {
-        @JoinColumn(name = "ID_ITEM")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "ID_CATEGORIA")})
-    private List<Categoria> categorias;
 
     public Long getId() {
         return id;
