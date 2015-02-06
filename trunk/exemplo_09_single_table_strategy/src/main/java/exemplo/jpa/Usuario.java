@@ -25,8 +25,8 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TB_USUARIO")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "DISC_USUARIO",
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) //Estratégia de herança.
+@DiscriminatorColumn(name = "DISC_USUARIO", //Nome da coluna que vai discriminar subclasses.
         discriminatorType = DiscriminatorType.STRING, length = 1)
 @Access(AccessType.FIELD)
 public abstract class Usuario implements Serializable {
