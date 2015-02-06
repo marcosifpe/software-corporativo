@@ -57,8 +57,12 @@ public class Item implements Serializable {
         oferta.setItem(this);
     }
 
-    public boolean adicionar(Categoria categoria) {
-        return categorias.add(categoria);
+    public void adicionar(Categoria categoria) {
+        if (this.categorias == null) {
+            this.categorias = new ArrayList<>();
+        }
+        
+        categorias.add(categoria);
     }
 
     public List<Categoria> getCategorias() {
