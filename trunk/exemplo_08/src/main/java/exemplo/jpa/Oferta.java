@@ -2,6 +2,8 @@ package exemplo.jpa;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -61,7 +63,7 @@ public class Oferta implements Serializable {
         return data;
     }
 
-    public void setData(Date data) {
+    private void setData(Date data) {
         this.data = data;
     }
     
