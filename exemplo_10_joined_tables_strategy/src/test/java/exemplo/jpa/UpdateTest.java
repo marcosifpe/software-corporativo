@@ -56,7 +56,7 @@ public class UpdateTest {
     public void UpdateTest() {
         Long id = new CompradorUtil().inserirComprador(em).getId();
         EntityTransaction et = em.getTransaction();
-        try {            
+        try {
             et.begin();
             Comprador comprador = em.find(Comprador.class, id);
             comprador.setEmail("novo_email@gmail.com");
@@ -73,14 +73,14 @@ public class UpdateTest {
             }
         }
     }
-    
+
     @Test
     public void MergeTest() {
         Comprador comprador = new CompradorUtil().inserirComprador(em);
-        //A instância de EntityManager não gerencia nenhuma entidade após a chamada desse método.
+        //Limpar o contexto de persistência, todas as entidades gerenciaas passam a ser desanexadas.
         em.clear();
         EntityTransaction et = em.getTransaction();
-        try {            
+        try {
             et.begin();
             comprador.setEmail("novo_email2@gmail.com");
             CartaoCredito cartaoCredito = comprador.getCartaoCredito();
