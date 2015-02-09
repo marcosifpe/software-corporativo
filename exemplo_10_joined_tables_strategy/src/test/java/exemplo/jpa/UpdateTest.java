@@ -52,8 +52,7 @@ public class UpdateTest {
         em.close();
     }
 
-    //@Test
-    /*
+    @Test
     public void UpdateTest() {
         Long id = new CompradorUtil().inserirComprador(em).getId();
         EntityTransaction et = em.getTransaction();
@@ -74,7 +73,6 @@ public class UpdateTest {
             }
         }
     }
-    */
     
     @Test
     public void MergeTest() {
