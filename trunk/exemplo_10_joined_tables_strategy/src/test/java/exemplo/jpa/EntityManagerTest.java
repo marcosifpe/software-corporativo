@@ -100,7 +100,7 @@ public class EntityManagerTest {
     @Test
     public void removeTest() {
         Comprador comprador = new CompradorUtil().inserirComprador(em);
-        //Limpar o contexto de persistência, todas as entidades gerenciaas passam a ser desanexadas.
+        //Limpar o contexto de persistência, todas as entidades gerenciadas passam a ser desanexadas.
         em.clear();
         EntityTransaction et = em.getTransaction();
         try {
@@ -117,7 +117,7 @@ public class EntityManagerTest {
              */
             em.remove(comprador);
             et.commit();
-            assertEquals(true, true); //Considere o teste bem sucedido se não houver exceções.
+            assertEquals(true, true);
         } catch (Exception ex) {
             assertEquals(false, true);
             if (et != null && et.isActive()) {
