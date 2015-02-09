@@ -22,13 +22,13 @@ import static org.junit.Assert.*;
  *
  * @author MASC
  */
-public class UpdateTest {
+public class EntityManagerTest {
 
     private static EntityManagerFactory emf;
     private static final Logger logger = Logger.getGlobal();
     private EntityManager em;
 
-    public UpdateTest() {
+    public EntityManagerTest() {
     }
 
     @BeforeClass
@@ -52,7 +52,7 @@ public class UpdateTest {
     }
 
     @Test
-    public void UpdateTest() {
+    public void updateTest() {
         Long id = new CompradorUtil().inserirComprador(em).getId();
         EntityTransaction et = em.getTransaction();
         try {
@@ -74,7 +74,7 @@ public class UpdateTest {
     }
 
     @Test
-    public void MergeTest() {
+    public void mergeTest() {
         Comprador comprador = new CompradorUtil().inserirComprador(em);
         //Limpar o contexto de persistência, todas as entidades gerenciaas passam a ser desanexadas.
         em.clear();
@@ -97,4 +97,37 @@ public class UpdateTest {
         }
     }
 
+    @Test
+    public void removeTest() {
+        Comprador comprador = new CompradorUtil().inserirComprador(em);
+        //Limpar o contexto de persistência, todas as entidades gerenciaas passam a ser desanexadas.
+        em.clear();
+        EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            //Antes de remover uma instância, é necessário que ela esteja gerenciada.
+            comprador = em.merge(comprador);
+            /*
+             * Remove a instância de comprador. Serão gerados comandos SQL delete para
+             * as tabelas TB_USUARIO, TB_COMPRADOR, TB_TELEFONE e TB_CARTAO_CREDITO.
+             * Observe que a instância de cartão de crédito também é removida devido
+             * ao cascade = CascadeType.ALL no relacionamento definido.
+             * Experimente alterar para CascadeType.PERSIST e verifique que a instância
+             * de cartão de crédito não será removida.
+             */
+            em.remove(comprador);
+            et.commit();
+            assertEquals(true, true); //Considere o teste bem sucedido se não houver exceções.
+        } catch (Exception ex) {
+            assertEquals(false, true);
+            if (et != null && et.isActive()) {
+                logger.log(Level.SEVERE, "Erro", ex);
+                logger.log(Level.SEVERE,
+                        "Cancelando transação com erro. Mensagem: {0}", ex.getMessage());
+                et.rollback();
+                logger.info("Transação cancelada.");
+            }
+        }        
+    }
 }
+
