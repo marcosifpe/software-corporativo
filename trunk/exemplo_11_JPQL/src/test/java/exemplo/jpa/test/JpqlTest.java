@@ -1,6 +1,7 @@
 package exemplo.jpa.test;
 
 import exemplo.jpa.Categoria;
+import exemplo.jpa.DatasLimite;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -53,7 +55,7 @@ public class JpqlTest {
 
     @Test
     public void categoriaPorNome() {
-        Query query = em.createQuery(
+        TypedQuery<Categoria> query = em.createQuery(
                 "SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id", 
                 Categoria.class);
         query.setParameter("nome", "Instrumentos%");
@@ -66,7 +68,7 @@ public class JpqlTest {
     
     @Test
     public void categoriaPorNome2() {
-        Query query = em.createNamedQuery("Categoria.PorNome", Categoria.class);
+        TypedQuery<Categoria> query = em.createNamedQuery("Categoria.PorNome", Categoria.class);
         query.setParameter("nome", "Instrumentos%");
         List<Categoria> categorias = query.getResultList();
         
@@ -77,9 +79,9 @@ public class JpqlTest {
     
     @Test
     public void categoriasQuantidadeFilhas() {
-        Query query = em.createQuery(
-                "SELECT COUNT(c) FROM Categoria c WHERE c.mae IS NOT NULL");
-        Long resultado = (Long) query.getSingleResult();        
+        TypedQuery<Long> query = em.createQuery(
+                "SELECT COUNT(c) FROM Categoria c WHERE c.mae IS NOT NULL", Long.class);
+        Long resultado = query.getSingleResult();        
         assertEquals(new Long(3), resultado);
     }    
 
@@ -93,6 +95,19 @@ public class JpqlTest {
         String menorData = dateFormat.format((Date)resultado[1]);
         assertEquals("21-12-1999", maiorData);
         assertEquals("11-08-1973", menorData);
+    }    
+
+    @Test
+    public void datasLimite() {
+        TypedQuery<DatasLimite> query = em.createQuery(
+                "SELECT NEW exemplo.jpa.DatasLimite(MAX(c.dataNascimento), MIN(c.dataNascimento)) FROM Comprador c", 
+                DatasLimite.class);
+        DatasLimite datasLimite = query.getSingleResult();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String dataMaxima = dateFormat.format((Date)datasLimite.getDataMaxima());
+        String dataMinima = dateFormat.format((Date)datasLimite.getDataMinima());
+        assertEquals("21-12-1999", dataMaxima);
+        assertEquals("11-08-1973", dataMinima);
     }    
 
 }

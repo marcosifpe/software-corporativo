@@ -18,6 +18,6 @@
                 end_txt_complemento = "Apto. 202" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
                 end_numero = "20" txt_login = "sicrano" txt_nome = "Sicrano Silva" txt_senha = "sicrano123"/>
     <!-- CartaoCredito id = 2 -->
-    <tb_cartao_credito txt_bandeira = "MASTERCARD" dt_expiracao = "2018-04-10" txt_numero = "5555666677778884"/>    
+    <tb_cartao_credito txt_bandeira = "MASTERCARD" dt_expiracao = "2017-04-10" txt_numero = "5555666677778884"/>    
     <tb_comprador id_usuario = "2" id_cartao_credito = "2"/>    
 </dataset>
