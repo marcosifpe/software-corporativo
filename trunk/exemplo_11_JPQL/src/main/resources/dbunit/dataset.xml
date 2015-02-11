@@ -3,4 +3,5 @@
     <tb_categoria id = "1" txt_nome="Instrumentos Musicais"/>
     <tb_categoria id = "2" txt_nome="Guitarras" id_categoria_mae = "1"/>
     <tb_categoria id = "3" txt_nome="Pedais" id_categoria_mae = "1" />
+    <tb_categoria id = "4" txt_nome="Instrumentos de Sopro" id_categoria_mae = "1"/>    
 </dataset>
