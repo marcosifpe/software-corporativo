@@ -20,4 +20,20 @@
     <!-- CartaoCredito id = 2 -->
     <tb_cartao_credito txt_bandeira = "MASTERCARD" dt_expiracao = "2017-04-10" txt_numero = "5555666677778884"/>    
     <tb_comprador id_usuario = "2" id_cartao_credito = "2"/>    
+    <!-- Usuario id = 3 -->
+    <tb_usuario disc_usuario = "C" txt_cpf = "026.605.218-59" dt_nascimento = "1979-09-01" txt_email = "beltrano@gmail.com" 
+                end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 302" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "beltrano" txt_nome = "Beltrano Silva" txt_senha = "beltrano_mesmo"/>
+    <!-- CartaoCredito id = 3 -->
+    <tb_cartao_credito txt_bandeira = "VISA" dt_expiracao = "2016-06-17" txt_numero = "4084770193100046"/>    
+    <tb_comprador id_usuario = "3" id_cartao_credito = "3"/>    
+    <!-- Usuario id = 4 -->
+    <tb_usuario disc_usuario = "C" txt_cpf = "787.829.223-06" dt_nascimento = "1989-10-23" txt_email = "ze@gmail.com" 
+                end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 401" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "zesilva" txt_nome = "José da Silva" txt_senha = "ze123"/>
+    <!-- CartaoCredito id = 4 -->
+    <tb_cartao_credito txt_bandeira = "MAESTRO" dt_expiracao = "2016-06-17" txt_numero = "6759744303415452"/>    
+    <tb_comprador id_usuario = "4" id_cartao_credito = "4"/>    
 </dataset>
