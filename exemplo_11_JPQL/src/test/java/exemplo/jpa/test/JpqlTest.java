@@ -1,7 +1,9 @@
 package exemplo.jpa.test;
 
 import exemplo.jpa.Categoria;
+import exemplo.jpa.Comprador;
 import exemplo.jpa.DatasLimite;
+import exemplo.jpa.CartaoCredito;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -109,5 +111,33 @@ public class JpqlTest {
         assertEquals("21-12-1999", dataMaxima);
         assertEquals("11-08-1973", dataMinima);
     }    
+    
+    @Test
+    public void categoriasMaes() {
+        TypedQuery<Categoria> query;
+        query = em.createQuery( 
+                "SELECT c FROM Categoria c WHERE c.filhas IS NOT EMPTY",
+                Categoria.class);
+        List<Categoria> categorias = query.getResultList();
+        
+        for (Categoria categoria : categorias) {
+            assertTrue(!categoria.getFilhas().isEmpty());
+        }                
+    }
 
+    @Test
+    public void usuariosVisa() {
+        TypedQuery<Comprador> query;
+        query = em.createQuery( 
+                "SELECT c FROM Comprador c WHERE c.cartaoCredito.bandeira like ?1 ORDER BY c.nome DESC",
+                Comprador.class);
+        query.setParameter(1, "VISA"); //Setando parâmetro posicional.
+        query.setMaxResults(20); //Determinando quantidade máxima de resultados.
+        List<Comprador> compradores = query.getResultList();
+        
+        for (Comprador comprador : compradores) {
+            assertEquals("VISA", comprador.getCartaoCredito().getBandeira());
+            
+        }                
+    }
 }
