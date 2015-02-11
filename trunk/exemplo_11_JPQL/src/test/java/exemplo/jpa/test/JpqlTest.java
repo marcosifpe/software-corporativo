@@ -3,7 +3,6 @@ package exemplo.jpa.test;
 import exemplo.jpa.Categoria;
 import exemplo.jpa.Comprador;
 import exemplo.jpa.DatasLimite;
-import exemplo.jpa.CartaoCredito;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -140,4 +139,26 @@ public class JpqlTest {
             
         }                
     }
+    
+    @Test
+    public void usuariosVisaOuMaster() {
+        TypedQuery<Comprador> query;
+        query = em.createQuery( 
+                "SELECT c FROM Comprador c WHERE c.cartaoCredito.bandeira LIKE ?1 OR c.cartaoCredito.bandeira LIKE ?2 ORDER BY c.nome DESC",
+                Comprador.class);
+        query.setParameter(1, "VISA"); //Setando parâmetro posicional.
+        query.setParameter(2, "MASTERCARD"); //Setando parâmetro posicional.        
+        List<Comprador> compradores = query.getResultList();
+        
+        for (Comprador comprador : compradores) {
+            if (comprador.getCartaoCredito().getBandeira().equals("VISA")) {
+                assertTrue(true);
+            } else if (comprador.getCartaoCredito().getBandeira().equals("MASTERCARD")) {
+                assertTrue(true);
+            } else {
+                assertTrue(false);
+            }
+        }                
+    }
+    
 }
