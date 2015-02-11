@@ -3,5 +3,21 @@
     <tb_categoria id = "1" txt_nome="Instrumentos Musicais"/>
     <tb_categoria id = "2" txt_nome="Guitarras" id_categoria_mae = "1"/>
     <tb_categoria id = "3" txt_nome="Pedais" id_categoria_mae = "1" />
-    <tb_categoria id = "4" txt_nome="Instrumentos de Sopro" id_categoria_mae = "1"/>    
+    <tb_categoria id = "4" txt_nome="Instrumentos de Sopro" id_categoria_mae = "1"/>
+    <!-- Usuario id = 1 -->
+    <tb_usuario disc_usuario = "C" txt_cpf = "808.257.284-10" dt_nascimento = "1999-12-21" txt_email = "fulano@gmail.com" 
+                end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 201" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "fulano" txt_nome = "Fulano Silva" txt_senha = "teste123"/>
+    <!-- CartaoCredito id = 1 -->
+    <tb_cartao_credito txt_bandeira = "VISA" dt_expiracao = "2018-04-10" txt_numero = "4073020000000002"/>    
+    <tb_comprador id_usuario = "1" id_cartao_credito = "1"/>
+    <!-- Usuario id = 2 -->
+    <tb_usuario disc_usuario = "C" txt_cpf = "740.707.044-00" dt_nascimento = "1973-08-11" txt_email = "sicrano@gmail.com" 
+                end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 202" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "sicrano" txt_nome = "Sicrano Silva" txt_senha = "sicrano123"/>
+    <!-- CartaoCredito id = 2 -->
+    <tb_cartao_credito txt_bandeira = "MASTERCARD" dt_expiracao = "2018-04-10" txt_numero = "5555666677778884"/>    
+    <tb_comprador id_usuario = "2" id_cartao_credito = "2"/>    
 </dataset>
