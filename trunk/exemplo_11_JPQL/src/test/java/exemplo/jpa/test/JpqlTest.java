@@ -1,10 +1,14 @@
 package exemplo.jpa.test;
 
+import exemplo.jpa.Categoria;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -47,7 +51,14 @@ public class JpqlTest {
     }
 
     @Test
-    public void hello() {
-        assertTrue(true);
+    public void jpqlCategoriaTeste() {
+        Query query = em.createQuery("SELECT c FROM Categoria c WHERE c.nome LIKE :nome", Categoria.class);
+        query.setParameter("nome", "Instrumentos%");
+        List<Categoria> categorias = query.getResultList();
+        
+        for (Categoria categoria : categorias) {
+            assertTrue(categoria.getNome().startsWith("Instrumentos"));
+        }
+        
     }
 }
