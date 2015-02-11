@@ -8,12 +8,23 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "TB_CATEGORIA")
+@NamedQueries(
+        {
+            @NamedQuery(
+                    name = "Categoria.PorNome",
+                    query = "SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id"
+            )
+        }
+)
 public class Categoria implements Serializable {
+
     @Id
     private Long id;
     @Column(name = "TXT_NOME")
@@ -21,9 +32,9 @@ public class Categoria implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "ID_CATEGORIA_MAE", referencedColumnName = "ID")
     private Categoria mae;
-    @OneToMany(mappedBy = "mae", orphanRemoval = false)
+    @OneToMany(mappedBy = "mae", orphanRemoval = true)
     private List<Categoria> filhas;
-    
+
     public Long getId() {
         return id;
     }
@@ -80,5 +91,5 @@ public class Categoria implements Serializable {
     public String toString() {
         return "exemplo.jpa.Tag[ id=" + id + " ]";
     }
-    
+
 }
