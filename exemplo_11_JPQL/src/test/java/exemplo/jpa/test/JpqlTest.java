@@ -52,13 +52,25 @@ public class JpqlTest {
 
     @Test
     public void jpqlCategoriaTeste() {
-        Query query = em.createQuery("SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id", Categoria.class);
+        Query query = em.createQuery(
+                "SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id", 
+                Categoria.class);
         query.setParameter("nome", "Instrumentos%");
         List<Categoria> categorias = query.getResultList();
         
         for (Categoria categoria : categorias) {
             assertTrue(categoria.getNome().startsWith("Instrumentos"));
-        }
-        
+        }        
     }
+    
+    @Test
+    public void jpqlCategoriaNamedQueryTeste() {
+        Query query = em.createNamedQuery("Categoria.PorNome", Categoria.class);
+        query.setParameter("nome", "Instrumentos%");
+        List<Categoria> categorias = query.getResultList();
+        
+        for (Categoria categoria : categorias) {
+            assertTrue(categoria.getNome().startsWith("Instrumentos"));
+        }        
+    }    
 }
