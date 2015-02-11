@@ -18,8 +18,8 @@ import javax.persistence.Table;
 @NamedQueries(
         {
             @NamedQuery(
-                    name = "Categoria.PorNome",
-                    query = "SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id"
+                name = "Categoria.PorNome",
+                query = "SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id"
             )
         }
 )
