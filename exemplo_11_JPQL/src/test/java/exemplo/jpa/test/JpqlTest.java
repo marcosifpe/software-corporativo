@@ -141,24 +141,54 @@ public class JpqlTest {
     }
     
     @Test
-    public void usuariosVisaOuMaster() {
+    public void compradoresVisaOuMaster() {
         TypedQuery<Comprador> query;
         query = em.createQuery( 
-                "SELECT c FROM Comprador c WHERE c.cartaoCredito.bandeira LIKE ?1 OR c.cartaoCredito.bandeira LIKE ?2 ORDER BY c.nome DESC",
+                "SELECT c FROM Comprador c " +
+                "WHERE c.cartaoCredito.bandeira LIKE ?1 " +
+                "OR c.cartaoCredito.bandeira LIKE ?2 ORDER BY c.nome DESC",
                 Comprador.class);
         query.setParameter(1, "VISA"); //Setando parâmetro posicional.
         query.setParameter(2, "MASTERCARD"); //Setando parâmetro posicional.        
         List<Comprador> compradores = query.getResultList();
         
         for (Comprador comprador : compradores) {
-            if (comprador.getCartaoCredito().getBandeira().equals("VISA")) {
-                assertTrue(true);
-            } else if (comprador.getCartaoCredito().getBandeira().equals("MASTERCARD")) {
-                assertTrue(true);
-            } else {
-                assertTrue(false);
+            switch (comprador.getCartaoCredito().getBandeira()) {
+                case "VISA":
+                    assertTrue(true);
+                    break;
+                case "MASTERCARD":
+                    assertTrue(true);
+                    break;
+                default:
+                    assertTrue(false);
+                    break;
             }
         }                
+    }
+    
+    @Test
+    public void compradoresInMastercardMaestro() {
+        TypedQuery<Comprador> query;
+        query = em.createQuery( 
+                "SELECT c FROM Comprador c " +
+                "WHERE c.cartaoCredito.bandeira IN ('MAESTRO', 'MASTERCARD') ORDER BY c.nome DESC",
+                Comprador.class);
+        List<Comprador> compradores = query.getResultList();
+        
+        for (Comprador comprador : compradores) {
+            switch (comprador.getCartaoCredito().getBandeira()) {
+                case "MAESTRO":
+                    assertTrue(true);
+                    break;
+                case "MASTERCARD":
+                    assertTrue(true);
+                    break;
+                default:
+                    assertTrue(false);
+                    break;
+            }
+        }        
     }
     
 }
