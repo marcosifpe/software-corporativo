@@ -52,7 +52,7 @@ public class JpqlTest {
 
     @Test
     public void jpqlCategoriaTeste() {
-        Query query = em.createQuery("SELECT c FROM Categoria c WHERE c.nome LIKE :nome", Categoria.class);
+        Query query = em.createQuery("SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id", Categoria.class);
         query.setParameter("nome", "Instrumentos%");
         List<Categoria> categorias = query.getResultList();
         

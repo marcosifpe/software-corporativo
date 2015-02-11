@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class Categoria implements Serializable {
     @Id
     private Long id;
-    @Column(name = "TXT_NOME", length = 50, nullable = false, unique = true)
+    @Column(name = "TXT_NOME")
     private String nome;
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "ID_CATEGORIA_MAE", referencedColumnName = "ID")
