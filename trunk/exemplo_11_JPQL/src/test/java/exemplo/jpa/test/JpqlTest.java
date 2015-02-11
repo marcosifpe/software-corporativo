@@ -51,7 +51,7 @@ public class JpqlTest {
     }
 
     @Test
-    public void jpqlCategoriaTeste() {
+    public void categoriaPorNome() {
         Query query = em.createQuery(
                 "SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id", 
                 Categoria.class);
@@ -64,7 +64,7 @@ public class JpqlTest {
     }
     
     @Test
-    public void jpqlCategoriaNamedQueryTeste() {
+    public void categoriaPorNome2() {
         Query query = em.createNamedQuery("Categoria.PorNome", Categoria.class);
         query.setParameter("nome", "Instrumentos%");
         List<Categoria> categorias = query.getResultList();
@@ -72,5 +72,13 @@ public class JpqlTest {
         for (Categoria categoria : categorias) {
             assertTrue(categoria.getNome().startsWith("Instrumentos"));
         }        
+    }
+    
+    @Test
+    public void categoriasQuantidadeFilhas() {
+        Query query = em.createQuery("SELECT COUNT(c) FROM Categoria c WHERE c.mae IS NOT NULL");
+        Long resultado = (Long) query.getSingleResult();        
+        assertEquals(new Long(3), resultado);
     }    
+
 }
