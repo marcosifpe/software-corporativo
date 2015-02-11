@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TB_CARTAO_CREDITO")
-class CartaoCredito implements Serializable {
+public class CartaoCredito implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;  
