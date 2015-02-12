@@ -5,6 +5,7 @@ import exemplo.jpa.Categoria;
 import exemplo.jpa.Comprador;
 import exemplo.jpa.DatasLimite;
 import exemplo.jpa.Item;
+import exemplo.jpa.Oferta;
 import exemplo.jpa.Reputacao;
 import exemplo.jpa.Usuario;
 import java.text.SimpleDateFormat;
@@ -334,9 +335,22 @@ public class JpqlTest {
                 Item.class);
         List<Item> itens = query.getResultList();
         assertEquals(3, itens.size());
+        
         for (Item item : itens) {
             logger.log(Level.INFO, "{0}: {1}", new Object[]{item.getTitulo(), item.getDescricao()});
         }        
     }
 
+    @Test
+    public void t19_ultimasOfertas() {
+        logger.info("Executando t19: SELECT o FROM Oferta o WHERE o.data >= ALL (SELECT o1.data FROM Oferta o1))");
+        TypedQuery<Oferta> query;
+        query = em.createQuery(
+                "SELECT o FROM Oferta o WHERE o.data >= ALL (SELECT o1.data FROM Oferta o1)",
+                Oferta.class);
+        List<Oferta> ofertas = query.getResultList();
+        assertEquals(1, ofertas.size());
+        Oferta oferta = ofertas.get(0);
+        logger.log(Level.INFO, "{0}: {1}", new Object[]{oferta.getData().toString(), oferta.getItem().getTitulo()});
+    }
 }
