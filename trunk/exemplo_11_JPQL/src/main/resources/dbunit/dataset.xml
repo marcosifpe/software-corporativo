@@ -54,6 +54,13 @@
                 end_txt_complemento = "Apto. 702" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
                 end_numero = "20" txt_login = "v3silva" txt_nome = "Vendedor Terceiro da Silva" txt_senha = "segredos123"/>
     <tb_vendedor id_usuario = "7" num_valor_vendas = "100.00" txt_reputacao = "NOVATO" />
+    <!-- Usuario id = 8 (comprador) -->    
+    <tb_usuario disc_usuario = "C" txt_cpf = "772.633.604-89" dt_nascimento = "1987-10-21" dt_criacao = "2015-02-12 16:16:50" 
+                txt_email = "comp@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 101" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "comp1" txt_nome = "Comprador da Silva" txt_senha = "comp"/>
+    <!-- CartaoCredito id = 4 -->
+    <tb_comprador id_usuario = "8" />        
     <!-- Item id = 1 -->
     <tb_item txt_titulo = "boss DD-7" txt_descricao = "Delay digital boss (top de linha)" id_vendedor = "5" />
     <tb_itens_categorias id_item = "1" id_categoria = "1" />
@@ -70,6 +77,10 @@
     <tb_item txt_titulo = "Flauta Doce" txt_descricao = "Flauta Doce Usada" id_vendedor = "7" />
     <tb_itens_categorias id_item = "4" id_categoria = "1" />
     <tb_itens_categorias id_item = "4" id_categoria = "4" /> 
+    <!-- Item id = 5 -->
+    <tb_item txt_titulo = "Flauta Doce" txt_descricao = "Flauta Doce Nova" id_vendedor = "7" />
+    <tb_itens_categorias id_item = "4" id_categoria = "1" />
+    <tb_itens_categorias id_item = "4" id_categoria = "4" />     
     <!-- Oferta id = 1 -->
     <tb_oferta id_item = "1" num_valor = "500.00" dt_oferta = "2015-01-12 12:00:30" id_comprador = "1" flag_vencedora = "0" />
     <!-- Oferta id = 2 -->
