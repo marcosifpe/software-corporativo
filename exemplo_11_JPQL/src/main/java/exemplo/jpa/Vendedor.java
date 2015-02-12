@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -18,8 +20,9 @@ import javax.persistence.Table;
 public class Vendedor extends Usuario implements Serializable {
     @Column(name = "NUM_VALOR_VENDAS")
     private Double valorVendas;
-    @Column(name = "TXT_REPUTACAO")
-    private String reputacao;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TXT_REPUTACAO", length = 20, nullable = false)
+    private Reputacao reputacao;
     @OneToMany(mappedBy = "vendedor", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> itens;
@@ -32,11 +35,11 @@ public class Vendedor extends Usuario implements Serializable {
         this.valorVendas = valorVendas;
     }
 
-    public String getReputacao() {
+    public Reputacao getReputacao() {
         return reputacao;
     }
 
-    public void setReputacao(String reputacao) {
+    public void setReputacao(Reputacao reputacao) {
         this.reputacao = reputacao;
     }
 
