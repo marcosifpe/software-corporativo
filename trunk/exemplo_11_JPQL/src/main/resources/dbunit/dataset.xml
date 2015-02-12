@@ -69,6 +69,5 @@
     <!-- Item id = 4 -->
     <tb_item txt_titulo = "Flauta Doce" txt_descricao = "Flauta Doce Usada" id_vendedor = "7" />
     <tb_itens_categorias id_item = "4" id_categoria = "1" />
-    <tb_itens_categorias id_item = "4" id_categoria = "4" />    
-    
+    <tb_itens_categorias id_item = "4" id_categoria = "4" /> 
 </dataset>
