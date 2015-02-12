@@ -34,6 +34,6 @@
                 end_txt_complemento = "Apto. 401" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
                 end_numero = "20" txt_login = "zesilva" txt_nome = "José da Silva" txt_senha = "ze123"/>
     <!-- CartaoCredito id = 4 -->
-    <tb_cartao_credito txt_bandeira = "MAESTRO" dt_expiracao = "2016-06-17" txt_numero = "6759744303415452"/>    
+    <tb_cartao_credito txt_bandeira = "MAESTRO" dt_expiracao = "2015-01-17" txt_numero = "6759744303415452"/>    
     <tb_comprador id_usuario = "4" id_cartao_credito = "4"/>    
 </dataset>
