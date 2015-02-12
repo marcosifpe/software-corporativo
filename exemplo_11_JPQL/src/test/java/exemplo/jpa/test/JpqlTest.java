@@ -4,6 +4,8 @@ import exemplo.jpa.CartaoCredito;
 import exemplo.jpa.Categoria;
 import exemplo.jpa.Comprador;
 import exemplo.jpa.DatasLimite;
+import exemplo.jpa.Item;
+import exemplo.jpa.Reputacao;
 import exemplo.jpa.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -294,7 +296,7 @@ public class JpqlTest {
 
     @Test
     public void t16_ordenacaoCartao() {
-        logger.info("Executando t15: SELECT c.bandeira, c.dono.nome FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC");
+        logger.info("Executando t16: SELECT c.bandeira, c.dono.nome FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC");
         TypedQuery<Object[]> query;
         query = em.createQuery(
                 "SELECT c.bandeira, c.dono.nome FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC",
@@ -305,5 +307,21 @@ public class JpqlTest {
         for (Object[] cartao : cartoes) {
             logger.log(Level.INFO, "{0}: {1}", new Object[]{cartao[0], cartao[1]});
         }        
+    }
+    
+    @Test
+    public void t17_itensPorReputacaoVendedor() {
+        logger.info("Executando t17: ");
+        TypedQuery<Item> query;
+        query = em.createQuery(
+                "SELECT i FROM Item i WHERE i.vendedor IN (SELECT v FROM Vendedor v WHERE v.reputacao = :reputacao)",
+                Item.class);
+        query.setParameter("reputacao", Reputacao.EXPERIENTE);
+        List<Item> itens = query.getResultList();    
+        assertEquals(3, itens.size());
+        
+        for (Item item : itens) {
+            logger.log(Level.INFO, "{0}: {1}", new Object[]{item.getTitulo(), item.getDescricao()});
+        }
     }
 }
