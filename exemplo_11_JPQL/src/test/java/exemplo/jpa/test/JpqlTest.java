@@ -244,10 +244,14 @@ public class JpqlTest {
         assertEquals("Instrumentos Musicais", categoria.getNome());
     }
 
+    /**
+     * Consulta por cartões de crédito expirados.
+     * JPQL: SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_TIMESTAMP
+     */
     @Test
     public void t12_cartoesExpirados() {
-        TypedQuery<CartaoCredito> query = 
-                em.createQuery("SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE", CartaoCredito.class);
+        logger.info("Executando t12: SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_TIMESTAMP");
+        TypedQuery<CartaoCredito> query = em.createQuery("SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_TIMESTAMP", CartaoCredito.class);
         List<CartaoCredito> cartoesExpirados = query.getResultList();        
         assertEquals(1, cartoesExpirados.size());
     }
