@@ -255,4 +255,16 @@ public class JpqlTest {
         List<CartaoCredito> cartoesExpirados = query.getResultList();        
         assertEquals(1, cartoesExpirados.size());
     }
+    
+    @Test
+    public void t13_categoriasPorQuantidadeFilhas() {
+        logger.info("Executando t12: SELECT c FROM Categoria c WHERE SIZE(c.filhas) >= ?1");
+        TypedQuery<Categoria> query;
+        query = em.createQuery(
+                "SELECT c FROM Categoria c WHERE SIZE(c.filhas) >= ?1",
+                Categoria.class);
+        query.setParameter(1, 3);
+        List<Categoria> categorias = query.getResultList();
+        assertTrue(categorias.size() == 1);
+    }
 }
