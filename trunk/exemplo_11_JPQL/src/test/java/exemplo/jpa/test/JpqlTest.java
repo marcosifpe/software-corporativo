@@ -311,7 +311,7 @@ public class JpqlTest {
     
     @Test
     public void t17_itensPorReputacaoVendedor() {
-        logger.info("Executando t17: ");
+        logger.info("Executando t17: SELECT i FROM Item i WHERE i.vendedor IN (SELECT v FROM Vendedor v WHERE v.reputacao = :reputacao");
         TypedQuery<Item> query;
         query = em.createQuery(
                 "SELECT i FROM Item i WHERE i.vendedor IN (SELECT v FROM Vendedor v WHERE v.reputacao = :reputacao)",
@@ -324,4 +324,19 @@ public class JpqlTest {
             logger.log(Level.INFO, "{0}: {1}", new Object[]{item.getTitulo(), item.getDescricao()});
         }
     }
+    
+    @Test
+    public void t18_itensVendidos() {
+        logger.info("Executando t18: SELECT i FROM Item i WHERE EXISTS (SELECT o FROM Oferta o WHERE o.item = i AND o.vencedora = true)");
+        TypedQuery<Item> query;
+        query = em.createQuery(
+                "SELECT i FROM Item i WHERE EXISTS (SELECT o FROM Oferta o WHERE o.item = i AND o.vencedora = true)",
+                Item.class);
+        List<Item> itens = query.getResultList();
+        assertEquals(3, itens.size());
+        for (Item item : itens) {
+            logger.log(Level.INFO, "{0}: {1}", new Object[]{item.getTitulo(), item.getDescricao()});
+        }        
+    }
+
 }

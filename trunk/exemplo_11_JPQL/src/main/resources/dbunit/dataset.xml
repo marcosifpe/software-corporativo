@@ -70,4 +70,20 @@
     <tb_item txt_titulo = "Flauta Doce" txt_descricao = "Flauta Doce Usada" id_vendedor = "7" />
     <tb_itens_categorias id_item = "4" id_categoria = "1" />
     <tb_itens_categorias id_item = "4" id_categoria = "4" /> 
+    <!-- Oferta id = 1 -->
+    <tb_oferta id_item = "1" num_valor = "500.00" dt_oferta = "2015-01-12 12:00:30" id_comprador = "1" flag_vencedora = "0" />
+    <!-- Oferta id = 2 -->
+    <tb_oferta id_item = "1" num_valor = "520.00" dt_oferta = "2015-01-12 12:30:52" id_comprador = "2" flag_vencedora = "1" />
+    <!-- Oferta id = 3 -->
+    <tb_oferta id_item = "2" num_valor = "720.00" dt_oferta = "2015-01-12 12:31:20" id_comprador = "2" flag_vencedora = "0" />
+    <!-- Oferta id = 4 -->
+    <tb_oferta id_item = "2" num_valor = "725.00" dt_oferta = "2015-01-12 12:35:00" id_comprador = "3" flag_vencedora = "0" />
+    <!-- Oferta id = 5 -->
+    <tb_oferta id_item = "2" num_valor = "726.00" dt_oferta = "2015-01-12 12:38:10" id_comprador = "1" flag_vencedora = "0" />
+    <!-- Oferta id = 6 -->
+    <tb_oferta id_item = "3" num_valor = "6000.00" dt_oferta = "2015-01-12 12:38:40" id_comprador = "4" flag_vencedora = "0" />
+    <!-- Oferta id = 7 -->
+    <tb_oferta id_item = "3" num_valor = "6300.00" dt_oferta = "2015-01-12 12:39:10" id_comprador = "2" flag_vencedora = "1" />        
+    <!-- Oferta id = 8 -->
+    <tb_oferta id_item = "4" num_valor = "100.00" dt_oferta = "2015-01-12 12:41:10" id_comprador = "1" flag_vencedora = "1" />    
 </dataset>
