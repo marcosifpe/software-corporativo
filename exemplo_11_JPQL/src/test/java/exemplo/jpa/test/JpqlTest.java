@@ -216,4 +216,17 @@ public class JpqlTest {
         c.set(Calendar.DAY_OF_MONTH, dia);
         return c.getTime();
     }
+    
+    @Test
+    public void memberOf() {
+        Categoria categoria = em.find(Categoria.class, new Long(2));
+        
+        TypedQuery<Categoria> query;
+        query = em.createQuery(
+                "SELECT c FROM Categoria c WHERE :categoria MEMBER OF c.filhas",
+                Categoria.class);
+        query.setParameter("categoria", categoria);   
+        categoria = query.getSingleResult();
+        assertEquals("Instrumentos Musicais", categoria.getNome());  
+    }
 }
