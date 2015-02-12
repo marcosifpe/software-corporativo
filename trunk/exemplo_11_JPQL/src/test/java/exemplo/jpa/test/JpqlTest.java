@@ -306,5 +306,4 @@ public class JpqlTest {
             logger.log(Level.INFO, "{0}: {1}", new Object[]{cartao[0], cartao[1]});
         }        
     }
-
 }

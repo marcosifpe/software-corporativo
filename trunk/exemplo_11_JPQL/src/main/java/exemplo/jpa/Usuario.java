@@ -53,6 +53,9 @@ public abstract class Usuario implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "DT_NASCIMENTO", nullable = true)
     protected Date dataNascimento;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DT_CRIACAO", nullable = true)
+    protected Date dataCriacao;
 
     public Endereco getEndereco() {
         return endereco;
@@ -127,6 +130,14 @@ public abstract class Usuario implements Serializable {
 
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     @Override
