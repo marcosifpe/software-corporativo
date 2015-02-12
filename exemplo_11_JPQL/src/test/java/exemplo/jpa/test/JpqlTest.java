@@ -258,7 +258,7 @@ public class JpqlTest {
     
     @Test
     public void t13_categoriasPorQuantidadeFilhas() {
-        logger.info("Executando t12: SELECT c FROM Categoria c WHERE SIZE(c.filhas) >= ?1");
+        logger.info("Executando t13: SELECT c FROM Categoria c WHERE SIZE(c.filhas) >= ?1");
         TypedQuery<Categoria> query;
         query = em.createQuery(
                 "SELECT c FROM Categoria c WHERE SIZE(c.filhas) >= ?1",
