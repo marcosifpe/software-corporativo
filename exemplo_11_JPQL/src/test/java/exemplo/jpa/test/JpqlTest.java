@@ -267,4 +267,29 @@ public class JpqlTest {
         List<Categoria> categorias = query.getResultList();
         assertTrue(categorias.size() == 1);
     }
+    
+    @Test
+    public void t14_bandeirasDistintas() {
+        logger.info("Executando t14: SELECT DISTINCT(c.bandeira) FROM CartaoCredito c ORDER BY c.bandeira");
+        TypedQuery<String> query = 
+                em.createQuery("SELECT DISTINCT(c.bandeira) FROM CartaoCredito c ORDER BY c.bandeira", String.class);
+        List<String> bandeiras = query.getResultList();
+        assertEquals(3, bandeiras.size());
+    }
+
+    @Test
+    public void t15_ordenacaoCartao() {
+        logger.info("Executando t15: SELECT c FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC");
+        TypedQuery<CartaoCredito> query;
+        query = em.createQuery(
+                "SELECT c FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC",
+                CartaoCredito.class);
+        List<CartaoCredito> cartoes = query.getResultList();        
+        assertEquals(4, cartoes.size());
+        
+        for (CartaoCredito cartao : cartoes) {
+            logger.log(Level.INFO, "{0}: {1}", new Object[]{cartao.getBandeira(), cartao.getDono().getNome()});
+        }
+    }
+
 }
