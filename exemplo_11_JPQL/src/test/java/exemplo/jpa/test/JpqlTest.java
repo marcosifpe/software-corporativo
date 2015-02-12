@@ -246,12 +246,12 @@ public class JpqlTest {
 
     /**
      * Consulta por cartões de crédito expirados.
-     * JPQL: SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_TIMESTAMP
+     * JPQL: SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE
      */
     @Test
     public void t12_cartoesExpirados() {
-        logger.info("Executando t12: SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_TIMESTAMP");
-        TypedQuery<CartaoCredito> query = em.createQuery("SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_TIMESTAMP", CartaoCredito.class);
+        logger.info("Executando t12: SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE");
+        TypedQuery<CartaoCredito> query = em.createQuery("SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE", CartaoCredito.class);
         List<CartaoCredito> cartoesExpirados = query.getResultList();        
         assertEquals(1, cartoesExpirados.size());
     }
