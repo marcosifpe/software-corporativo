@@ -369,4 +369,18 @@ public class JpqlTest {
         }
     }
 
+    @Test
+    public void t21_compradoresComCartao() {
+        TypedQuery<Comprador> query;
+        query = em.createQuery(
+                "SELECT c FROM Comprador c JOIN c.cartaoCredito cc ORDER BY c.dataCriacao DESC",
+                Comprador.class);
+        List<Comprador> compradores = query.getResultList();
+        assertEquals(4, compradores.size());
+        
+        for (Comprador comprador : compradores) {
+            logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador.getId(), comprador.getLogin()});
+        }
+    }
+
 }
