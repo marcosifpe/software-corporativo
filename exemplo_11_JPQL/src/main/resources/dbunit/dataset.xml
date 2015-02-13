@@ -43,7 +43,7 @@
                 end_numero = "20" txt_login = "v1silva" txt_nome = "Vendedor da Silva" txt_senha = "v1123"/>
     <tb_vendedor id_usuario = "5" num_valor_vendas = "10500.50" txt_reputacao = "EXPERIENTE" />
     <!-- Usuario id = 6 (vendedor) -->
-    <tb_usuario disc_usuario = "V" txt_cpf = "316.819.699-12" dt_nascimento = "1995-11-23" dt_criacao = "2015-02-12 14:30:00" 
+    <tb_usuario disc_usuario = "V" txt_cpf = "316.819.699-12" dt_nascimento = "1985-11-23" dt_criacao = "2015-02-12 14:30:00" 
                 txt_email = "vendedor2@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
                 end_txt_complemento = "Apto. 902" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
                 end_numero = "20" txt_login = "v2silva" txt_nome = "Vendedor Segundo da Silva" txt_senha = "segs123"/>
