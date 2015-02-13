@@ -12,6 +12,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.NamedNativeQueries;
+import org.hibernate.annotations.NamedNativeQuery;
 
 @Entity
 @Table(name = "TB_CATEGORIA")
@@ -20,6 +22,15 @@ import javax.persistence.Table;
             @NamedQuery(
                 name = "Categoria.PorNome",
                 query = "SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id"
+            )
+        }
+)
+@NamedNativeQueries(
+        {
+            @NamedNativeQuery (
+                name = "Categoria.PorNomeSQL",
+                query = "SELECT id, txt_nome, id_categoria_mae FROM tb_categoria WHERE txt_nome LIKE :nome ORDER BY id",
+                resultClass = Categoria.class
             )
         }
 )
