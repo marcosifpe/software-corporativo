@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @DiscriminatorValue(value = "C")
 @PrimaryKeyJoinColumn(name="ID_USUARIO", referencedColumnName = "ID")
 public class Comprador extends Usuario implements Serializable {
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "ID_CARTAO_CREDITO", referencedColumnName = "ID")
     private CartaoCredito cartaoCredito;
     @OneToMany(mappedBy = "comprador", fetch = FetchType.LAZY,

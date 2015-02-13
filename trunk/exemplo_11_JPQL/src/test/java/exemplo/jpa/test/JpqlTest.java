@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -38,6 +39,7 @@ public class JpqlTest {
     private static EntityManagerFactory emf;
     private static final Logger logger = Logger.getGlobal();
     private EntityManager em;
+    private EntityTransaction et;
 
     public JpqlTest() {
     }
@@ -57,11 +59,20 @@ public class JpqlTest {
     @Before
     public void setUp() {
         em = emf.createEntityManager();
+        et = em.getTransaction();
+        et.begin();
     }
 
     @After
     public void tearDown() {
-        em.close();
+        try {
+            et.commit();
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+            et.rollback();
+        } finally {
+            em.close();
+        }
     }
 
     @Test
