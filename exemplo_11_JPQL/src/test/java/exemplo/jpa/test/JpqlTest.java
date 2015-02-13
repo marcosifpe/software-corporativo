@@ -423,7 +423,7 @@ public class JpqlTest {
     }
     
     @Test
-    public void t24_consultaTimestampSQL() {
+    public void t24_timestampSQL() {
         logger.info("Executando t24: SELECT current_timestamp() FROM DUAL");
         Query query;
         query = em.createNativeQuery(
@@ -434,7 +434,7 @@ public class JpqlTest {
     }
     
     @Test
-    public void t25_consultaCategoriaSQL() {
+    public void t25_categoriaSQL() {
         logger.info("Executando t25: SELECT id, txt_nome, id_categoria_mae FROM tb_categoria WHERE id_categoria_mae is null");
         Query query;
         query = em.createNativeQuery(
@@ -449,7 +449,7 @@ public class JpqlTest {
     }
     
     @Test
-    public void t26_consultaCategoriaSQLNomeada() {
+    public void t26_categoriaSQLNomeada() {
         logger.info("Executando t26: Categoria.PorNomeSQL");
         Query query;
         query = em.createNamedQuery("Categoria.PorNomeSQL");
@@ -459,7 +459,21 @@ public class JpqlTest {
         
         for (Categoria categoria : categorias) {
             logger.log(Level.INFO, categoria.getNome());
-        }
-                
+        }                
+    }
+    
+    @Test
+    public void t27_categoriaQuantidadeItens() {
+        logger.info("Executando t27: Categoria.QuantidadeItensSQL");
+        Query query;
+        query = em.createNamedQuery("Categoria.QuantidadeItensSQL");
+        query.setParameter(1, "Instrumentos Musicais");
+        List<Object[]> resultados = query.getResultList();
+        assertEquals(1, resultados.size());
+        
+        for (Object[] resultado : resultados) {
+            logger.log(Level.INFO, "{0}: {1}", resultado);        
+        }                
+        
     }
 }
