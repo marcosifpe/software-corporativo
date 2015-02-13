@@ -371,6 +371,7 @@ public class JpqlTest {
 
     @Test
     public void t21_compradoresComCartao() {
+        logger.info("Executando t21: SELECT c FROM Comprador c JOIN c.cartaoCredito cc ORDER BY c.dataCriacao DESC");
         TypedQuery<Comprador> query;
         query = em.createQuery(
                 "SELECT c FROM Comprador c JOIN c.cartaoCredito cc ORDER BY c.dataCriacao DESC",
@@ -383,4 +384,30 @@ public class JpqlTest {
         }
     }
 
+    @Test
+    public void t22_compradoresCartoes() {
+        logger.info("Executando t22: SELECT c.cpf, cc.bandeira FROM Comprador c LEFT OUTER JOIN c.cartaoCredito cc ORDER BY c.cpf");
+        TypedQuery<Object[]> query;
+        query = em.createQuery(
+                "SELECT c.cpf, cc.bandeira FROM Comprador c LEFT JOIN c.cartaoCredito cc ORDER BY c.cpf",
+                Object[].class);
+        List<Object[]> compradores = query.getResultList();
+        assertEquals(5, compradores.size());
+        
+        for (Object[] comprador : compradores) {
+            logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador[0], comprador[1]});
+        }
+    }
+
+    @Test
+    public void t23_compradoresOfertas() {
+        logger.info("Executando t23: SELECT c FROM Comprador c JOIN FETCH c.cartaoCredito cc WHERE c.login = ?1");
+        TypedQuery<Comprador> query;
+        query = em.createQuery(
+                "SELECT c FROM Comprador c JOIN FETCH c.cartaoCredito cc WHERE c.login = ?1",
+                Comprador.class);
+        query.setParameter(1, "zesilva");
+        Comprador comprador = query.getSingleResult();
+        logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador.getCartaoCredito().getBandeira(), comprador.getLogin()});        
+    }
 }
