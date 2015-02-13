@@ -37,7 +37,7 @@ import org.hibernate.annotations.NamedNativeQuery;
             ),
             @NamedNativeQuery(
                     name = "Categoria.QuantidadeItensSQL",
-                    query = "SELECT c.ID, c.TXT_NOME, c.ID_CATEGORIA_MAE, count(ic.ID_ITEM) as total_itens from tb_categoria c, tb_itens_categorias ic where c.ID = ? and c.ID = ic.ID_CATEGORIA",
+                    query = "SELECT c.ID, c.TXT_NOME, c.ID_CATEGORIA_MAE, count(ic.ID_ITEM) as total_itens from tb_categoria c, tb_itens_categorias ic where c.TXT_NOME LIKE ? and c.ID = ic.ID_CATEGORIA",
                     resultSetMapping = "Categoria.QuantidadeItens"
             )
         }
@@ -47,7 +47,7 @@ import org.hibernate.annotations.NamedNativeQuery;
         entities = {
             @EntityResult(entityClass = Categoria.class)},
         columns = {
-            @ColumnResult(name = "totalItens", type = Long.class)}
+            @ColumnResult(name = "total_itens", type = Long.class)}
 )
 public class Categoria implements Serializable {
 
@@ -115,7 +115,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "exemplo.jpa.Tag[ id=" + id + " ]";
+        return "exemplo.jpa.Tag[ id=" + id + ":" + nome + " ]";
     }
 
 }
