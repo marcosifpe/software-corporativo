@@ -29,7 +29,7 @@ import org.hibernate.annotations.NamedNativeQuery;
         {
             @NamedNativeQuery (
                 name = "Categoria.PorNomeSQL",
-                query = "SELECT id, txt_nome, id_categoria_mae FROM tb_categoria WHERE txt_nome LIKE :nome ORDER BY id",
+                query = "SELECT id, txt_nome, id_categoria_mae FROM tb_categoria WHERE txt_nome LIKE ? ORDER BY id",
                 resultClass = Categoria.class
             )
         }
