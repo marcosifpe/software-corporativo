@@ -478,6 +478,26 @@ public class JpqlTest {
     
     @Test
     public void t28_categoriaQuantidadeItens() {
+        logger.info("Executando t28: SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c");
+        Query query = em.createQuery("SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c");
+        List<Object[]> resultados = query.getResultList();
+        assertEquals(4, resultados.size());
         
+        for (Object[] resultado : resultados) {
+            logger.log(Level.INFO, "{0}: {1}", resultado);        
+        }        
     }
+    
+    @Test
+    public void t29_categoriaQuantidadeItens() {
+        logger.info("Executando t28: SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c HAVING COUNT(i) >= ?1");
+        Query query = em.createQuery("SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c HAVING COUNT(i) >= ?1");
+        query.setParameter(1, (long) 3);
+        List<Object[]> resultados = query.getResultList();
+        assertEquals(1, resultados.size());
+        
+        for (Object[] resultado : resultados) {
+            logger.log(Level.INFO, "{0}: {1}", resultado);        
+        }        
+    }    
 }
