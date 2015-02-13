@@ -83,7 +83,7 @@ public class Oferta implements Serializable {
         return data;
     }
 
-    private void setData(Date data) {
+    public void setData(Date data) {
         this.data = data;
     }
     
