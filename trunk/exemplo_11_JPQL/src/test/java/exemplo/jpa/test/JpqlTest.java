@@ -452,8 +452,7 @@ public class JpqlTest {
     public void t26_consultaCategoriaSQLNomeada() {
         logger.info("Executando t26: Categoria.PorNomeSQL");
         Query query;
-        query = em.createNamedQuery("Categoria.PorNomeSQL",
-                Categoria.class);
+        query = em.createNamedQuery("Categoria.PorNomeSQL");
         query.setParameter("nome", "Guitarras");
         List<Categoria> categorias = query.getResultList();
         assertEquals(1, categorias.size());
