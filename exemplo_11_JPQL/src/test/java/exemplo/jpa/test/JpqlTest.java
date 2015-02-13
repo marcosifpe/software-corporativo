@@ -505,13 +505,13 @@ public class JpqlTest {
     @Test
     public void t30_update() {
         logger.info("Executando t30: UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
+        Long id = (long) 6;
         Query query = em.createQuery("UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
         query.setParameter(1, getData(10, 10, 1983));
-        query.setParameter(2, (long) 6);
+        query.setParameter(2, id);
         query.executeUpdate();        
-        Vendedor vendedor = em.find(Vendedor.class, (long) 6);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        
+        Vendedor vendedor = em.find(Vendedor.class, id);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");        
         assertEquals(simpleDateFormat.format(getData(10, 10, 1983)), simpleDateFormat.format(vendedor.getDataNascimento()));
         logger.info(vendedor.getDataNascimento().toString());
     }
