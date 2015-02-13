@@ -8,6 +8,7 @@ import exemplo.jpa.Item;
 import exemplo.jpa.Oferta;
 import exemplo.jpa.Reputacao;
 import exemplo.jpa.Usuario;
+import exemplo.jpa.Vendedor;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -499,5 +500,19 @@ public class JpqlTest {
         for (Object[] resultado : resultados) {
             logger.log(Level.INFO, "{0}: {1}", resultado);        
         }        
-    }    
+    }
+    
+    @Test
+    public void t30_update() {
+        logger.info("Executando t28: UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
+        Query query = em.createQuery("UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
+        query.setParameter(1, getData(10, 10, 1983));
+        query.setParameter(2, (long) 6);
+        query.executeUpdate();        
+        Vendedor vendedor = em.find(Vendedor.class, (long) 6);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        
+        assertEquals(simpleDateFormat.format(getData(10, 10, 1983)), simpleDateFormat.format(vendedor.getDataNascimento()));
+        logger.info(vendedor.getDataNascimento().toString());
+    }
 }
