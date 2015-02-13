@@ -18,7 +18,7 @@ public class CartaoCredito implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;  
-    @OneToOne(mappedBy = "cartaoCredito", optional = true)
+    @OneToOne(mappedBy = "cartaoCredito", optional = false)
     private Comprador dono;
     @Column(name = "TXT_BANDEIRA", nullable = false, length = 100)
     private String bandeira;
