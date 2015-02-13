@@ -37,7 +37,7 @@ import org.hibernate.annotations.NamedNativeQuery;
             ),
             @NamedNativeQuery(
                     name = "Categoria.QuantidadeItensSQL",
-                    query = "SELECT c.ID, c.TXT_NOME, c.ID_CATEGORIA_MAE, count(ic.ID_ITEM) as total_itens from tb_categoria c, tb_itens_categorias ic where c.TXT_NOME LIKE ? and c.ID = ic.ID_CATEGORIA",
+                    query = "SELECT c.ID, c.TXT_NOME, c.ID_CATEGORIA_MAE, count(ic.ID_ITEM) as total_itens from tb_categoria c, tb_itens_categorias ic where c.TXT_NOME LIKE ? and c.ID = ic.ID_CATEGORIA GROUP BY c.id",
                     resultSetMapping = "Categoria.QuantidadeItens"
             )
         }
@@ -53,7 +53,7 @@ public class Categoria implements Serializable {
 
     @Id
     private Long id;
-    @Column(name = "TXT_NOME")
+    @Column(name = "TXT_NOME", length = 100, nullable = false, unique = true)
     private String nome;
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "ID_CATEGORIA_MAE", referencedColumnName = "ID")

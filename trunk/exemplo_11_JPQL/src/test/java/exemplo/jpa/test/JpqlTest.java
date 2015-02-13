@@ -473,7 +473,11 @@ public class JpqlTest {
         
         for (Object[] resultado : resultados) {
             logger.log(Level.INFO, "{0}: {1}", resultado);        
-        }                
+        }                        
+    }
+    
+    @Test
+    public void t28_categoriaQuantidadeItens() {
         
     }
 }
