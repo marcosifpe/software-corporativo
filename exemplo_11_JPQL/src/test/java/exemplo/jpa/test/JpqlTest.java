@@ -415,7 +415,7 @@ public class JpqlTest {
         logger.info("Executando t23: SELECT c FROM Comprador c JOIN FETCH c.cartaoCredito cc WHERE c.login = ?1");
         TypedQuery<Comprador> query;
         query = em.createQuery(
-                "SELECT c FROM Comprador c JOIN FETCH c.cartaoCredito cc WHERE c.login = ?1",
+                "SELECT c FROM Comprador c JOIN c.cartaoCredito cc WHERE c.login = ?1",
                 Comprador.class);
         query.setParameter(1, "zesilva");
         Comprador comprador = query.getSingleResult();
