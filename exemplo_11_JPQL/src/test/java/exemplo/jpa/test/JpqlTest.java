@@ -491,7 +491,7 @@ public class JpqlTest {
     
     @Test
     public void t29_categoriaQuantidadeItens() {
-        logger.info("Executando t28: SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c HAVING COUNT(i) >= ?1");
+        logger.info("Executando t29: SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c HAVING COUNT(i) >= ?1");
         Query query = em.createQuery("SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c HAVING COUNT(i) >= ?1");
         query.setParameter(1, (long) 3);
         List<Object[]> resultados = query.getResultList();
@@ -504,7 +504,7 @@ public class JpqlTest {
     
     @Test
     public void t30_update() {
-        logger.info("Executando t28: UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
+        logger.info("Executando t30: UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
         Query query = em.createQuery("UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
         query.setParameter(1, getData(10, 10, 1983));
         query.setParameter(2, (long) 6);
@@ -514,5 +514,17 @@ public class JpqlTest {
         
         assertEquals(simpleDateFormat.format(getData(10, 10, 1983)), simpleDateFormat.format(vendedor.getDataNascimento()));
         logger.info(vendedor.getDataNascimento().toString());
+    }
+    
+    @Test
+    public void t31_delete() {
+        Long id = (long) 6;
+        logger.info("Executando t31: DELETE Oferta AS o WHERE o.id = ?1");
+        Query query = em.createQuery("DELETE Oferta AS o WHERE o.id = ?1");
+        query.setParameter(1, id);
+        query.executeUpdate();        
+        Oferta oferta = em.find(Oferta.class, id);  
+        assertNull(oferta);
+        logger.log(Level.INFO, "Oferta {0} removida com sucesso.", id);  
     }
 }
