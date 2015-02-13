@@ -79,8 +79,8 @@
     <tb_itens_categorias id_item = "4" id_categoria = "4" /> 
     <!-- Item id = 5 -->
     <tb_item txt_titulo = "Flauta Doce" txt_descricao = "Flauta Doce Nova" id_vendedor = "7" />
-    <tb_itens_categorias id_item = "4" id_categoria = "1" />
-    <tb_itens_categorias id_item = "4" id_categoria = "4" />     
+    <tb_itens_categorias id_item = "5" id_categoria = "1" />
+    <tb_itens_categorias id_item = "5" id_categoria = "4" />     
     <!-- Oferta id = 1 -->
     <tb_oferta id_item = "1" num_valor = "500.00" dt_oferta = "2015-01-12 12:00:30" id_comprador = "1" flag_vencedora = "0" />
     <!-- Oferta id = 2 -->

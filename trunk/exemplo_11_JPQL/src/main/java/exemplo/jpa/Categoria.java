@@ -3,7 +3,9 @@ package exemplo.jpa;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
 import javax.persistence.Entity;
+import javax.persistence.EntityResult;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -11,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import org.hibernate.annotations.NamedNativeQueries;
 import org.hibernate.annotations.NamedNativeQuery;
@@ -20,19 +23,31 @@ import org.hibernate.annotations.NamedNativeQuery;
 @NamedQueries(
         {
             @NamedQuery(
-                name = "Categoria.PorNome",
-                query = "SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id"
+                    name = "Categoria.PorNome",
+                    query = "SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id"
             )
         }
 )
 @NamedNativeQueries(
         {
-            @NamedNativeQuery (
-                name = "Categoria.PorNomeSQL",
-                query = "SELECT id, txt_nome, id_categoria_mae FROM tb_categoria WHERE txt_nome LIKE ? ORDER BY id",
-                resultClass = Categoria.class
+            @NamedNativeQuery(
+                    name = "Categoria.PorNomeSQL",
+                    query = "SELECT id, txt_nome, id_categoria_mae FROM tb_categoria WHERE txt_nome LIKE ? ORDER BY id",
+                    resultClass = Categoria.class
+            ),
+            @NamedNativeQuery(
+                    name = "Categoria.QuantidadeItensSQL",
+                    query = "SELECT c.ID, c.TXT_NOME, c.ID_CATEGORIA_MAE, count(ic.ID_ITEM) as total_itens from tb_categoria c, tb_itens_categorias ic where c.ID = ? and c.ID = ic.ID_CATEGORIA",
+                    resultSetMapping = "Categoria.QuantidadeItens"
             )
         }
+)
+@SqlResultSetMapping(
+        name = "Categoria.QuantidadeItens",
+        entities = {
+            @EntityResult(entityClass = Categoria.class)},
+        columns = {
+            @ColumnResult(name = "totalItens", type = Long.class)}
 )
 public class Categoria implements Serializable {
 
