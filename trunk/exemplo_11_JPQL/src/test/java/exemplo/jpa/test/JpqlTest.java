@@ -423,12 +423,28 @@ public class JpqlTest {
     }
     
     @Test
-    public void t24_consultaTimestamp() {
+    public void t24_consultaTimestampSQL() {
         logger.info("Executando t24: SELECT current_timestamp() FROM DUAL");
         Query query;
         query = em.createNativeQuery(
                 "SELECT current_timestamp() FROM DUAL");
         Date dataCorrente = (Date) query.getSingleResult();
-        System.out.println(dataCorrente);
+        assertNotNull(dataCorrente);
+        logger.log(Level.INFO, dataCorrente.toString());
     }
+    
+    @Test
+    public void t25_consultaCategoriaSQL() {
+        logger.info("Executando t25: SELECT current_timestamp() FROM DUAL");
+        Query query;
+        query = em.createNativeQuery(
+                "SELECT id, txt_nome, id_categoria_mae FROM tb_categoria WHERE id_categoria_mae is null",
+                Categoria.class);
+        List<Categoria> categorias = query.getResultList();
+        assertEquals(1, categorias.size());
+        
+        for (Categoria categoria : categorias) {
+            logger.log(Level.INFO, categoria.getNome());
+        }
+    }    
 }
