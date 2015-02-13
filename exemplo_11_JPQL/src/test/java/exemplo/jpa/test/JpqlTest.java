@@ -421,4 +421,14 @@ public class JpqlTest {
         Comprador comprador = query.getSingleResult();
         logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador.getCartaoCredito().getBandeira(), comprador.getLogin()});        
     }
+    
+    @Test
+    public void t24_consultaTimestamp() {
+        logger.info("Executando t24: SELECT current_timestamp() FROM DUAL");
+        Query query;
+        query = em.createNativeQuery(
+                "SELECT current_timestamp() FROM DUAL");
+        Date dataCorrente = (Date) query.getSingleResult();
+        System.out.println(dataCorrente);
+    }
 }
