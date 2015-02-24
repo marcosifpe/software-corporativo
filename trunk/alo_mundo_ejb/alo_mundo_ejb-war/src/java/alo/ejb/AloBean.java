@@ -1,10 +1,8 @@
 package alo.ejb;
 
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 
 @Stateless
-@LocalBean
 public class AloBean {
 
     public String getMensagem(String nome) {
