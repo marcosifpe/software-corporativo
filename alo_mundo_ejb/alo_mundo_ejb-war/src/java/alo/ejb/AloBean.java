@@ -2,7 +2,7 @@ package alo.ejb;
 
 import javax.ejb.Stateless;
 
-@Stateless
+@Stateless(name = "Alo")
 public class AloBean {
 
     public String getMensagem(String nome) {
