@@ -3,10 +3,6 @@ package alo;
 import alo.ejb.Alo;
 import javax.ejb.EJB;
 
-/**
- *
- * @author MASC
- */
 public class Main {
     @EJB(name = "AloMundoBean")
     private static Alo aloBean;
