@@ -1,6 +1,5 @@
 package alo;
 
-import alo.ejb.Alo;
 import javax.ejb.EJB;
 
 public class Main {
