@@ -770,12 +770,10 @@ exists or setup the property manually. For example like this:
         </fail>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-        <ant antfile="${project.alo_mundo_ejb_remoto}/build.xml" inheritall="false" target="dist"/>
+        <ant antfile="${project.alo_mundo_ejb_remoto_interface}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-        <ant antfile="${project.alo_mundo_ejb_remoto}/build.xml" inheritall="false" target="dist-ear">
-            <property location="${build.dir}" name="dist.ear.dir"/>
-        </ant>
+        <ant antfile="${project.alo_mundo_ejb_remoto_interface}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init, -check-main-class, -deps-module-jar, -deps-ear-jar" name="deps-jar"/>
     <target depends="init,deps-jar" name="-pre-pre-compile">
@@ -786,16 +784,16 @@ exists or setup the property manually. For example like this:
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target depends="compile" if="is.server.weblogic" name="library-inclusion-in-archive">
-        <basename file="${reference.alo_mundo_ejb_remoto.dist}" property="manifest.reference.alo_mundo_ejb_remoto.dist"/>
+        <basename file="${reference.alo_mundo_ejb_remoto_interface.jar}" property="manifest.reference.alo_mundo_ejb_remoto_interface.jar"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
             <attribute name="Extension-List" value="jar-1 "/>
-            <attribute name="jar-1-Extension-Name" value="${manifest.reference.alo_mundo_ejb_remoto.dist}"/>
+            <attribute name="jar-1-Extension-Name" value="${manifest.reference.alo_mundo_ejb_remoto_interface.jar}"/>
         </manifest>
     </target>
     <target depends="compile" if="dist.ear.dir" name="library-inclusion-in-manifest">
-        <copyfiles files="${reference.alo_mundo_ejb_remoto.dist}" manifestproperty="manifest.reference.alo_mundo_ejb_remoto.dist" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.alo_mundo_ejb_remoto_interface.jar}" manifestproperty="manifest.reference.alo_mundo_ejb_remoto_interface.jar" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.alo_mundo_ejb_remoto.dist} "/>
+            <attribute name="Class-Path" value="${manifest.reference.alo_mundo_ejb_remoto_interface.jar} lib/${manifest.reference.alo_mundo_ejb_remoto_interface.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -1299,7 +1297,7 @@ exists or setup the property manually. For example like this:
                 ===============
             -->
     <target depends="init" name="deps-clean" unless="no.deps">
-        <ant antfile="${project.alo_mundo_ejb_remoto}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.alo_mundo_ejb_remoto_interface}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target depends="init" name="-do-clean">
         <delete dir="${build.dir}"/>
