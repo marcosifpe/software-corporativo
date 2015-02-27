@@ -1,6 +1,6 @@
 package alo.servlet;
 
-import alo.ejb.AloBean;
+import alo.ejb.Alo;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "alo", urlPatterns = {"/alo"})
 public class AloServlet extends HttpServlet {
     @EJB(beanName = "Alo")
-    private AloBean aloBean;
+    private Alo aloBean;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
