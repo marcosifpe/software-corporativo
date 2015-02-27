@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "alo", urlPatterns = {"/alo"})
 public class AloServlet extends HttpServlet {
-    @EJB(beanName = "Alo")
+    @EJB
     private Alo aloBean;
 
     /**
