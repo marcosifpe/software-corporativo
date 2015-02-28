@@ -23,6 +23,10 @@ public class EstadoBean implements EstadoBeanLocal {
 
     @PostConstruct
     public void inicializar() {
+        lerEstados();
+    }
+
+    private void lerEstados() throws RuntimeException {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
