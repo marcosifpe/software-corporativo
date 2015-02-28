@@ -30,7 +30,7 @@ public class EstadoBean implements EstadoBeanLocal {
         lerEstados();
     }
 
-    public void lerEstados() {
+    private void lerEstados() {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
