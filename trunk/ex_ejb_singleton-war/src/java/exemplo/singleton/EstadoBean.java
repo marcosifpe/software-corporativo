@@ -28,7 +28,7 @@ public class EstadoBean implements EstadoBeanLocal {
         lerEstados();
     }
 
-    private void lerEstados() throws RuntimeException {
+    public void lerEstados() {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
