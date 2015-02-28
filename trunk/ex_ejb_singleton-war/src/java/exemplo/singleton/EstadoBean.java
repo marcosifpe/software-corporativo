@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.sql.DataSource;
 
 /**
@@ -16,6 +17,7 @@ import javax.sql.DataSource;
  * @author MASC
  */
 @Singleton
+@Startup
 public class EstadoBean implements EstadoBeanLocal {
     @Resource(name = "jdbc/__ejb_singleton")
     private DataSource dataSource;
