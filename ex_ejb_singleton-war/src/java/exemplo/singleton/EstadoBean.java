@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.ejb.DependsOn;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.sql.DataSource;
@@ -18,6 +19,7 @@ import javax.sql.DataSource;
  */
 @Singleton
 @Startup
+@DependsOn("ConfiguradorBean")
 public class EstadoBean implements EstadoBeanLocal {
     @Resource(name = "jdbc/__ejb_singleton")
     private DataSource dataSource;
