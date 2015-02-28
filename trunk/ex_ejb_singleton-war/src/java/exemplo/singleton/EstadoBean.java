@@ -32,7 +32,7 @@ public class EstadoBean implements EstadoBeanLocal {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-        String sql = "SELECT txt_sigla as sigla, txt_nome as nome FROM tb_estado ORDER BY 1";
+        String sql = "SELECT txt_sigla as sigla, txt_nome as nome FROM tb_estado ORDER BY txt_sigla";
         
         try {
             con = dataSource.getConnection();            
