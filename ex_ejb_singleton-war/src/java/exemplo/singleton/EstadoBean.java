@@ -14,8 +14,10 @@ import javax.ejb.Startup;
 import javax.sql.DataSource;
 
 /**
- *
- * @author MASC
+ * @Startup: O bean será instanciado quando a aplicação inicializar.
+ * @DependsOn("ConfiguradorBean"): EstadoBean depende de ConfiguradorBean.
+ * Em outras palavras, ConfiguradorBean deverá ser instanciado e inicializado 
+ * antes de EstadoBean.
  */
 @Singleton
 @Startup
