@@ -35,12 +35,11 @@ public class EstadoBean implements EstadoBeanLocal {
     private void lerEstados() {
         Connection con = null;
         Statement stmt = null;
-        ResultSet rs = null;
-        String sql = "SELECT txt_sigla as sigla, txt_nome as nome FROM tb_estado ORDER BY txt_sigla";        
+        ResultSet rs = null;    
         try {
             con = dataSource.getConnection();            
             stmt = con.createStatement();
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery("SELECT txt_sigla as sigla, txt_nome as nome FROM tb_estado ORDER BY txt_sigla");
             while (rs.next()) {
                 Estado estado = new Estado();
                 estado.setSigla(rs.getString(1));
