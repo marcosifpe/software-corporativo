@@ -36,13 +36,11 @@ public class EstadoBean implements EstadoBeanLocal {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-        String sql = "SELECT txt_sigla as sigla, txt_nome as nome FROM tb_estado ORDER BY txt_sigla";
-        
+        String sql = "SELECT txt_sigla as sigla, txt_nome as nome FROM tb_estado ORDER BY txt_sigla";        
         try {
             con = dataSource.getConnection();            
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 Estado estado = new Estado();
                 estado.setSigla(rs.getString(1));
@@ -56,6 +54,11 @@ public class EstadoBean implements EstadoBeanLocal {
         }
     }
 
+    @Override
+    public List<Estado> consultarEstados() {
+        return this.estados;
+    }
+    
     private void fecharRecursos(ResultSet rs, Statement stmt, Connection con) throws RuntimeException {
         try {
             if (rs != null) {
@@ -74,9 +77,6 @@ public class EstadoBean implements EstadoBeanLocal {
         }
     }
 
-    @Override
-    public List<Estado> consultarEstados() {
-        return this.estados;
-    }
+
 
 }
