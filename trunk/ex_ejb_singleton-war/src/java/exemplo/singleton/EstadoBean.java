@@ -8,7 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.ejb.ConcurrencyManagement;
+import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.DependsOn;
+import javax.ejb.Lock;
+import javax.ejb.LockType;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.sql.DataSource;
@@ -22,6 +26,7 @@ import javax.sql.DataSource;
 @Singleton
 @Startup
 @DependsOn("ConfiguradorBean")
+@ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 public class EstadoBean implements EstadoBeanLocal {
     @Resource(name = "jdbc/__ejb_singleton")
     private DataSource dataSource;
@@ -54,6 +59,7 @@ public class EstadoBean implements EstadoBeanLocal {
     }
 
     @Override
+    @Lock(LockType.READ)
     public List<Estado> consultarEstados() {
         return this.estados;
     }
