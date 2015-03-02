@@ -6,8 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.ejb.AccessTimeout;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.DependsOn;
@@ -26,6 +28,10 @@ import javax.sql.DataSource;
 @Singleton
 @Startup
 @DependsOn("ConfiguradorBean")
+/*
+ * @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
+ * é o valor default para gerenciamento de concorrência.
+ */
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 public class EstadoBean implements EstadoBeanLocal {
     @Resource(name = "jdbc/__ejb_singleton")
@@ -33,6 +39,17 @@ public class EstadoBean implements EstadoBeanLocal {
     private List<Estado> estados = new ArrayList<>();
 
     @PostConstruct
+    /*
+     * @AccessTimeout(unit = TimeUnit.SECONDS, value = 10) indica que uma
+     * thread só ficará bloqueada esperando a execução deste método por, no
+     * máximo, a quantidade de tempo especificada.
+     */
+    @AccessTimeout(unit = TimeUnit.SECONDS, value = 10)
+    @Lock(LockType.WRITE)
+    /*
+     * Se você não especificar, @Lock(LockType.WRITE) é o valor default.
+     * Assim, por padrão, todos os métodos de um bean singleton são synchronized.
+     */
     public void inicializar() {
         lerEstados();
     }
@@ -60,6 +77,10 @@ public class EstadoBean implements EstadoBeanLocal {
 
     @Override
     @Lock(LockType.READ)
+    /**
+     * Este método pode ser acessado concorrentemente enquanto nenhuma thread
+     * mantém um bloqueio de escrita no bean.
+     */
     public List<Estado> consultarEstados() {
         return this.estados;
     }
