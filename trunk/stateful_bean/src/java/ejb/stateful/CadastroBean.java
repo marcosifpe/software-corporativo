@@ -36,20 +36,6 @@ public class CadastroBean implements CadastroBeanRemote {
         }
     }
 
-    @Override
-    public void criarUsuario(String login, String senha) {
-        this.usuario = new Usuario(login, senha);
-    }
-
-    @Override
-    public void criarEnderecoUsuario(String cep, String logradouro, Integer numero) {
-        if (this.usuario == null) {
-            this.usuario = new Usuario();
-        }
-
-        this.usuario.criarEndereco(cep, logradouro, numero);
-    }
-    
     @Remove
     @Override
     public void cancelar() {
@@ -81,6 +67,20 @@ public class CadastroBean implements CadastroBeanRemote {
             fechar(pstmt);
         }
     }
+    
+    @Override
+    public void criarUsuario(String login, String senha) {
+        this.usuario = new Usuario(login, senha);
+    }
+
+    @Override
+    public void criarEnderecoUsuario(String cep, String logradouro, Integer numero) {
+        if (this.usuario == null) {
+            this.usuario = new Usuario();
+        }
+
+        this.usuario.criarEndereco(cep, logradouro, numero);
+    }    
 
     private void fechar(PreparedStatement pstmt) throws RuntimeException {
         try {
