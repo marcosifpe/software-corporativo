@@ -38,12 +38,6 @@ public class CadastroBean implements CadastroBeanRemote {
 
     @Remove
     @Override
-    public void cancelar() {
-        usuario = null;
-    }
-
-    @Remove
-    @Override
     public void cadastrarUsuario() {
         StringBuilder sql = new StringBuilder("INSERT INTO tb_usuario ");
         sql.append("(txt_login, txt_senha, txt_cep, txt_logradouro, nm_numero) ");
@@ -81,6 +75,12 @@ public class CadastroBean implements CadastroBeanRemote {
 
         this.usuario.criarEndereco(cep, logradouro, numero);
     }    
+    
+    @Remove
+    @Override
+    public void cancelar() {
+        usuario = null;
+    }
 
     private void fechar(PreparedStatement pstmt) throws RuntimeException {
         try {
