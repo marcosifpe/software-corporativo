@@ -18,10 +18,6 @@ public class Main {
     @EJB(lookup = "java:global/stateful_bean/CadastroBean!ejb.stateful.CadastroBeanRemote")
     private static CadastroBeanRemote cadastroBean;
     
-    static {
-        Logger.getGlobal().setLevel(Level.INFO);
-    }
-    
     /**
      * @param args the command line arguments
      */
