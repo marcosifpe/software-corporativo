@@ -1,10 +1,12 @@
 package ejb.stateful;
 
+import java.io.Serializable;
+
 /**
  *
  * @author MASC
  */
-public class Endereco {
+public class Endereco implements Serializable {
     private String cep;
     private String logradouro;
     private Integer numero;

@@ -1,10 +1,12 @@
 package ejb.stateful;
 
+import java.io.Serializable;
+
 /**
  *
  * @author MASC
  */
-public class Usuario {
+public class Usuario implements Serializable {
     private String login;
     private String senha;
     private Endereco endereco;
