@@ -37,17 +37,6 @@ public class CadastroBean implements CadastroBeanRemote {
     }
 
     @Override
-    public boolean conexaoAtiva() {
-        try {
-            return conexao.isValid(0);
-        } catch (SQLException ex) {
-            criarRuntimException(ex);
-        }
-
-        return false;
-    }
-
-    @Override
     public void criarUsuario(String login, String senha) {
         this.usuario = new Usuario(login, senha);
     }
