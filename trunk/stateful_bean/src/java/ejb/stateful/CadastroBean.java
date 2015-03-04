@@ -51,6 +51,7 @@ public class CadastroBean implements CadastroBeanRemote {
     }
     
     @Remove
+    @Override
     public void cancelar() {
         usuario = null;
     }
