@@ -10,6 +10,10 @@ public class Endereco implements Serializable {
     private String cep;
     private String logradouro;
     private Integer numero;
+    
+    public Endereco() {
+        
+    }
 
     public Endereco(String cep, String logradouro, Integer numero) {
         this.setCep(cep);
