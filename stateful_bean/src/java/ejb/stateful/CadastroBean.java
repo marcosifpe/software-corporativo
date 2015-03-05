@@ -2,18 +2,19 @@ package ejb.stateful;
 
 import ejb.stateless.ServicoEmailLocal;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.PostActivate;
 import javax.ejb.PrePassivate;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
+import javax.sql.DataSource;
 
 /**
  *
@@ -22,6 +23,8 @@ import javax.ejb.Stateful;
 @Stateful
 public class CadastroBean implements CadastroBeanRemote {
 
+    @Resource(name = "jdbc/__ejb_singleton")
+    private DataSource ds;
     @EJB
     private ServicoEmailLocal servicoEmail;
     
@@ -32,9 +35,8 @@ public class CadastroBean implements CadastroBeanRemote {
     @PostActivate
     public void inicializar() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/ejb", "root", "root");
-        } catch (SQLException | ClassNotFoundException ex) {
+            conexao = ds.getConnection();
+        } catch (SQLException ex) {
             criarRuntimException(ex);
         }
     }
@@ -109,12 +111,13 @@ public class CadastroBean implements CadastroBeanRemote {
         try {
             conexao.close();
             conexao = null;
+            ds = null;
         } catch (SQLException ex) {
             criarRuntimException(ex);
         }
     }
 
-    private void criarRuntimException(Exception ex) throws RuntimeException {
+    private void criarRuntimException(SQLException ex) throws RuntimeException {
         Logger.getGlobal().log(Level.SEVERE, ex.getMessage(), ex);
         throw new RuntimeException(ex);
     }
