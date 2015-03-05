@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+  <mail-resource debug="true" enabled="true" from="discsoftwarecorporativo@gmail.com" host="smtp.gmail.com" jndi-name="mail/servicoEmailSession" object-type="user" store-protocol="imap" store-protocol-class="com.sun.mail.imap.IMAPStore" transport-protocol="smtp" transport-protocol-class="com.sun.mail.smtp.SMTPTransport" user="discsoftwarecorporativo@gmail.com">
+    <description/>
+    <property name="mail.smtp.auth" value="true"/>
+    <property name="mail.smtp.password" value="discsoftwarecorporativo12345"/>
+    <property name="mail.smtp.socketFactory.class" value="javax.net.ssl.SSLSocketFactory"/>
+    <property name="mail.smtp.socketFactory.fallback" value="false"/>
+    <property name="mail.smtp.port" value="465"/>
+    <property name="mail.smtp.socketFactory.port" value="465"/>
+  </mail-resource>
+</resources>

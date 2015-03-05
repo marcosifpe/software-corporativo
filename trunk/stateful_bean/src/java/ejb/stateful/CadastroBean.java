@@ -1,18 +1,19 @@
 package ejb.stateful;
 
+import ejb.stateless.ServicoEmailLocal;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.PostActivate;
 import javax.ejb.PrePassivate;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
-import javax.sql.DataSource;
 
 /**
  *
@@ -21,8 +22,9 @@ import javax.sql.DataSource;
 @Stateful
 public class CadastroBean implements CadastroBeanRemote {
 
-    @Resource(name = "jdbc/__ejb_singleton")
-    private DataSource ds;
+    @EJB
+    private ServicoEmailLocal servicoEmail;
+    
     private Connection conexao;
     private Usuario usuario;
 
@@ -30,8 +32,9 @@ public class CadastroBean implements CadastroBeanRemote {
     @PostActivate
     public void inicializar() {
         try {
-            conexao = ds.getConnection();
-        } catch (SQLException ex) {
+            Class.forName("com.mysql.jdbc.Driver");
+            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/ejb", "root", "root");
+        } catch (SQLException | ClassNotFoundException ex) {
             criarRuntimException(ex);
         }
     }
@@ -52,8 +55,9 @@ public class CadastroBean implements CadastroBeanRemote {
             pstmt.setString(3, endereco.getCep());
             pstmt.setString(4, endereco.getLogradouro());
             pstmt.setInt(5, endereco.getNumero());
-            pstmt.executeUpdate();
+            pstmt.executeUpdate();            
             conexao.commit();
+            servicoEmail.enviarMensagem(usuario.getEmail());            
         } catch (SQLException ex) {
             rollback();
             criarRuntimException(ex);
@@ -63,8 +67,8 @@ public class CadastroBean implements CadastroBeanRemote {
     }
     
     @Override
-    public void criarUsuario(String login, String senha) {
-        this.usuario = new Usuario(login, senha);
+    public void criarUsuario(String login, String senha, String email) {
+        this.usuario = new Usuario(login, senha, email);
     }
 
     @Override
@@ -105,13 +109,12 @@ public class CadastroBean implements CadastroBeanRemote {
         try {
             conexao.close();
             conexao = null;
-            ds = null;
         } catch (SQLException ex) {
             criarRuntimException(ex);
         }
     }
 
-    private void criarRuntimException(SQLException ex) throws RuntimeException {
+    private void criarRuntimException(Exception ex) throws RuntimeException {
         Logger.getGlobal().log(Level.SEVERE, ex.getMessage(), ex);
         throw new RuntimeException(ex);
     }
