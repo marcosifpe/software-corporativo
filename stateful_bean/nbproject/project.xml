@@ -6,11 +6,12 @@
             <name>stateful_bean</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">reference.stateful_bib.jar</included-library>
+            <included-library dirs="200">file.reference.mysql-connector-java-5.1.34-bin.jar</included-library>
             <source-roots>
-                <root id="src.dir" name="Pacotes de Códigos-fonte"/>
+                <root id="src.dir"/>
             </source-roots>
             <test-roots>
-                <root id="test.src.dir" name="Pacotes de Teste"/>
+                <root id="test.src.dir"/>
             </test-roots>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
