@@ -4,6 +4,8 @@ import ejb.stateless.ServicoEmailLocal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -63,7 +65,17 @@ public class CadastroBean implements CadastroBeanRemote {
              * com sucesso. O método enviar mensagem é assíncrono no bean de
              * sessão ServicoEmail.
              */            
-            servicoEmail.enviarMensagem(usuario.getEmail());            
+            //servicoEmail.enviarMensagem(usuario.getEmail());            
+            
+            Future<Boolean> success = servicoEmail.enviarEmail(usuario.getEmail());
+            try {
+                if(!success.get()) {
+                    servicoEmail.enviarEmail(usuario.getEmail());
+                }
+            } catch (InterruptedException | ExecutionException ex) {
+                Logger.getLogger(CadastroBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         } catch (SQLException ex) {
             rollback();
             criarRuntimException(ex);
