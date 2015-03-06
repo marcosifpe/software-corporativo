@@ -65,11 +65,9 @@ public class CadastroBean implements CadastroBeanRemote {
              * com sucesso. O método enviar mensagem é assíncrono no bean de
              * sessão ServicoEmail.
              */            
-            //servicoEmail.enviarMensagem(usuario.getEmail());            
-            
             Future<Boolean> success = servicoEmail.enviarEmail(usuario.getEmail());
             try {
-                if(!success.get()) {
+                if(!success.get()) { //Se não houve sucesso, será tentando mais uma vez
                     servicoEmail.enviarEmail(usuario.getEmail());
                 }
             } catch (InterruptedException | ExecutionException ex) {
