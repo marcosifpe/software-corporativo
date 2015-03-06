@@ -22,13 +22,13 @@ import javax.mail.internet.MimeMessage;
 public class ServicoEmail implements ServicoEmailLocal {
     @Resource(name = "mail/servicoEmailSession")
     private Session sessao;
-
+    
     @Override
     @Asynchronous
     public void enviarMensagem(String para) {
         enviar(para);
     }
-
+    
     @Override
     @Asynchronous
     public Future<Boolean> enviarEmail(String para) {
