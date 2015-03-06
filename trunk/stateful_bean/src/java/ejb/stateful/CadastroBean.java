@@ -25,7 +25,7 @@ import javax.sql.DataSource;
 @Stateful
 public class CadastroBean implements CadastroBeanRemote {
 
-    @Resource(name = "jdbc/__default")
+    @Resource(lookup = "jdbc/ejbDatasource")
     private DataSource ds;
     @EJB
     private ServicoEmailLocal servicoEmail;
