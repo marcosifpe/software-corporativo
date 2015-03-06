@@ -49,7 +49,6 @@ public class CadastroBean implements CadastroBeanRemote {
         sql.append("VALUES (?, ?, ?, ?, ?)");
         PreparedStatement pstmt = null;
         Endereco endereco = usuario.getEndereco();
-
         try {
             pstmt = conexao.prepareStatement(sql.toString());
             pstmt.setString(1, usuario.getLogin());
@@ -59,6 +58,11 @@ public class CadastroBean implements CadastroBeanRemote {
             pstmt.setInt(5, endereco.getNumero());
             pstmt.executeUpdate();            
             conexao.commit();
+            /*
+             * O envio de e-mail será disparado caso o usuário tenha sido criado
+             * com sucesso. O método enviar mensagem é assíncrono no bean de
+             * sessão ServicoEmail.
+             */            
             servicoEmail.enviarMensagem(usuario.getEmail());            
         } catch (SQLException ex) {
             rollback();
