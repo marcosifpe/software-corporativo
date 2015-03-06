@@ -29,6 +29,11 @@ public class ServicoEmail implements ServicoEmailLocal {
         enviar(para);
     }
 
+    @Override
+    @Asynchronous
+    public Future<Boolean> enviarEmail(String para) {
+        return new AsyncResult<>(enviar(para));
+    }
     private boolean enviar(String para) {
         try {
             Message message = new MimeMessage(sessao);
@@ -43,10 +48,5 @@ public class ServicoEmail implements ServicoEmailLocal {
             Logger.getLogger(ServicoEmail.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             return false;
         }
-    }
-
-    @Override
-    public Future<Boolean> enviarEmail(String para) {
-        return new AsyncResult<>(enviar(para));
     }
 }
