@@ -33,7 +33,7 @@ public class ServicoEmail implements ServicoEmailLocal {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(para));
             message.setSubject(propriedades.getProperty("assunto"));
-            message.setText(propriedades.getProperty("texto"));
+            message.setText(propriedades.getProperty("mensagem"));
             Transport.send(message);
         } catch (MessagingException ex) {
             Logger.getLogger(ServicoEmail.class.getName()).log(Level.SEVERE, null, ex);

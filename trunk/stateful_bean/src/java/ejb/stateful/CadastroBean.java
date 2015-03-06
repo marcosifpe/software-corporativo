@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 @Stateful
 public class CadastroBean implements CadastroBeanRemote {
 
-    @Resource(name = "jdbc/__ejb_singleton")
+    @Resource(name = "jdbc/ejbDatasource")
     private DataSource ds;
     @EJB
     private ServicoEmailLocal servicoEmail;
@@ -44,7 +44,7 @@ public class CadastroBean implements CadastroBeanRemote {
     @Remove
     @Override
     public void cadastrarUsuario() {
-        StringBuilder sql = new StringBuilder("INSERT INTO tb_usuario ");
+        StringBuilder sql = new StringBuilder("INSERT INTO TB_USUARIO ");
         sql.append("(txt_login, txt_senha, txt_cep, txt_logradouro, nm_numero) ");
         sql.append("VALUES (?, ?, ?, ?, ?)");
         PreparedStatement pstmt = null;
