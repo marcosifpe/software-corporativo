@@ -1,8 +1,10 @@
 package ejb.stateless;
 
+import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.ejb.AsyncResult;
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.mail.Message;
@@ -25,16 +27,26 @@ public class ServicoEmail implements ServicoEmailLocal {
     @Asynchronous
     public void enviarMensagem(String para) {
         try {
-            Message message = new MimeMessage(sessao);
-            message.setFrom(new InternetAddress("discsoftwarecorporativo@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(para));
-            message.setSubject("Cadastro realizado com sucesso");
-            message.setText("Cadastro realizado com sucesso. E-mail automático.");
-            Transport.send(message);
+            enviar(para);
         } catch (MessagingException ex) {
             Logger.getLogger(ServicoEmail.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException(ex);
         }
+    }
+
+    private boolean enviar(String para) throws MessagingException {
+        Message message = new MimeMessage(sessao);
+        message.setFrom(new InternetAddress("discsoftwarecorporativo@gmail.com"));
+        message.setRecipients(Message.RecipientType.TO,
+                InternetAddress.parse(para));
+        message.setSubject("Cadastro realizado com sucesso");
+        message.setText("Cadastro realizado com sucesso. E-mail automático.");
+        Transport.send(message);
+        return true;
+    }
+    
+    public Future<Boolean> enviarEmail(String para) throws MessagingException {
+        boolean sucesso = enviar(para);        
+        return new AsyncResult<>(sucesso);
     }
 }
