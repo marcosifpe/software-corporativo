@@ -26,27 +26,27 @@ public class ServicoEmail implements ServicoEmailLocal {
     @Override
     @Asynchronous
     public void enviarMensagem(String para) {
+        enviar(para);
+    }
+
+    private boolean enviar(String para) {
         try {
-            enviar(para);
+            Message message = new MimeMessage(sessao);
+            message.setFrom(new InternetAddress("discsoftwarecorporativo@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(para));
+            message.setSubject("Cadastro realizado com sucesso");
+            message.setText("Cadastro realizado com sucesso. E-mail automático.");
+            Transport.send(message);
+            return true;
         } catch (MessagingException ex) {
-            Logger.getLogger(ServicoEmail.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException(ex);
+            Logger.getLogger(ServicoEmail.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            return false;
         }
     }
 
-    private boolean enviar(String para) throws MessagingException {
-        Message message = new MimeMessage(sessao);
-        message.setFrom(new InternetAddress("discsoftwarecorporativo@gmail.com"));
-        message.setRecipients(Message.RecipientType.TO,
-                InternetAddress.parse(para));
-        message.setSubject("Cadastro realizado com sucesso");
-        message.setText("Cadastro realizado com sucesso. E-mail automático.");
-        Transport.send(message);
-        return true;
-    }
-    
-    public Future<Boolean> enviarEmail(String para) throws MessagingException {
-        boolean sucesso = enviar(para);        
-        return new AsyncResult<>(sucesso);
+    @Override
+    public Future<Boolean> enviarEmail(String para) {
+        return new AsyncResult<>(enviar(para));
     }
 }
