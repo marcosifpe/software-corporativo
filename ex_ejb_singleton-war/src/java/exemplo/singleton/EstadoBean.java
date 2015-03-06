@@ -34,7 +34,7 @@ import javax.sql.DataSource;
  */
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 public class EstadoBean implements EstadoBeanLocal {
-    @Resource(name = "jdbc/__default")
+    @Resource(lookup = "jdbc/__default")
     private DataSource dataSource;
     private List<Estado> estados = new ArrayList<>();
 
