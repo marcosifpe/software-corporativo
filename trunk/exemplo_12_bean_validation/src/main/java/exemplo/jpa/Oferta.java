@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 @Entity
 @Table(name = "TB_OFERTA")
@@ -20,14 +22,18 @@ public class Oferta implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ID_ITEM", referencedColumnName = "ID")
     private Item item;
+    @NotNull
     @Column(name = "NUM_VALOR", nullable = false)
     private Double valor;
+    @Past
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_OFERTA", nullable = false)
     private Date data;
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ID_COMPRADOR", referencedColumnName = "ID_USUARIO", nullable = false)
     private Comprador comprador;

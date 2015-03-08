@@ -10,13 +10,15 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
-import org.hibernate.annotations.NamedNativeQueries;
-import org.hibernate.annotations.NamedNativeQuery;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "TB_CATEGORIA")
@@ -53,6 +55,8 @@ public class Categoria implements Serializable {
 
     @Id
     private Long id;
+    @NotBlank
+    @Size(max = 100)
     @Column(name = "TXT_NOME", length = 100, nullable = false, unique = true)
     private String nome;
     @ManyToOne(fetch = FetchType.LAZY, optional = true)

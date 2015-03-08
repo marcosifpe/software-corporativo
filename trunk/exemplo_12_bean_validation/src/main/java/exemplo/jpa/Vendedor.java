@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="TB_VENDEDOR") 
@@ -20,6 +21,7 @@ import javax.persistence.Table;
 public class Vendedor extends Usuario implements Serializable {
     @Column(name = "NUM_VALOR_VENDAS")
     private Double valorVendas;
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "TXT_REPUTACAO", length = 20, nullable = false)
     private Reputacao reputacao;

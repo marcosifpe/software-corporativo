@@ -16,6 +16,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "TB_ITEM")
@@ -34,10 +37,15 @@ public class Item implements Serializable {
             inverseJoinColumns = {
                 @JoinColumn(name = "ID_CATEGORIA")})
     private List<Categoria> categorias;
+    @NotBlank
+    @Size(max = 150)
     @Column(name = "TXT_TITULO", length = 150, nullable = false)
     private String titulo;
+    @NotBlank
+    @Size(max = 500)
     @Column(name = "TXT_DESCRICAO", length = 500, nullable = false)
     private String descricao;
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ID_VENDEDOR", referencedColumnName = "ID_USUARIO", nullable = false)
     private Vendedor vendedor;

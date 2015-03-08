@@ -11,19 +11,31 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.CreditCardNumber;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "TB_CARTAO_CREDITO")
 public class CartaoCredito implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
-    private Long id;  
+    private Long id;
+    @NotNull
     @OneToOne(mappedBy = "cartaoCredito", optional = false)
     private Comprador dono;
+    @NotBlank
+    @Size(max = 100)
     @Column(name = "TXT_BANDEIRA", nullable = false, length = 100)
     private String bandeira;
+    @NotNull
+    @CreditCardNumber
     @Column(name = "TXT_NUMERO", nullable = false, length = 30)
     private String numero;
+    @NotNull
+    @Future    
     @Temporal(TemporalType.DATE)
     @Column(name = "DT_EXPIRACAO", nullable = false)
     private Date dataExpiracao;
