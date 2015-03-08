@@ -27,7 +27,6 @@ import org.junit.runners.MethodSorters;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JpqlTest {
-
     private static EntityManagerFactory emf;
     private static final Logger logger = Logger.getGlobal();
     private EntityManager em;
@@ -82,7 +81,8 @@ public class JpqlTest {
         
         vendedor.setEmail("fulano@gmail.com");
         vendedor.setLogin("fulano_silva");
-        vendedor.setNome("Fulano da Silva");
+        vendedor.setPrimeiroNome("Fulano");
+        vendedor.setUltimoNome("Silva");
         vendedor.setReputacao(Reputacao.NOVATO);
         vendedor.setSenha("m1nhAs3nh4.");
         vendedor.setValorVendas(0.0);
