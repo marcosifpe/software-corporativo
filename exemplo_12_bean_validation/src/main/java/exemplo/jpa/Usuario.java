@@ -58,6 +58,7 @@ public abstract class Usuario implements Serializable {
     protected String login;
     @NotBlank
     @Size(max = 150)
+    @Pattern(regexp = "([A-Z][a-z\\p{Blank}])*")
     @Column(name = "TXT_NOME", length = 150, nullable = false)
     protected String nome;
     @NotNull
@@ -84,6 +85,11 @@ public abstract class Usuario implements Serializable {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+    
+    public Endereco criarEndereco() {
+        this.setEndereco(new Endereco());
+        return getEndereco();
     }
 
     public Collection<String> getTelefones() {

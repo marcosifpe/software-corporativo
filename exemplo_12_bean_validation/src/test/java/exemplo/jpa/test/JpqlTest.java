@@ -1,20 +1,23 @@
 package exemplo.jpa.test;
 
-import exemplo.jpa.Categoria;
-import java.util.List;
+import exemplo.jpa.Endereco;
+import exemplo.jpa.Reputacao;
+import exemplo.jpa.Vendedor;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 
@@ -65,17 +68,34 @@ public class JpqlTest {
     }
 
     @Test
-    public void t01_categoriaPorNome() {
-        logger.info("Executando t01: SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id");
-        TypedQuery<Categoria> query = em.createQuery(
-                "SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id",
-                Categoria.class);
-        query.setParameter("nome", "Instrumentos%");
-        List<Categoria> categorias = query.getResultList();
-
-        for (Categoria categoria : categorias) {
-            assertTrue(categoria.getNome().startsWith("Instrumentos"));
+    public void t01_criarVendedorValido() {
+        Vendedor vendedor = new Vendedor();
+        vendedor.addTelefone("(81)234-5678");
+        vendedor.setCpf("158.171.482-34");
+        vendedor.setDataCriacao(new Date());
+        
+        try {
+            vendedor.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("22/10/1980"));
+        } catch (ParseException ex) {
+            assertFalse(false);
         }
+        
+        vendedor.setEmail("fulano@gmail.com");
+        vendedor.setLogin("fulano_silva");
+        vendedor.setNome("Fulano da Silva");
+        vendedor.setReputacao(Reputacao.NOVATO);
+        vendedor.setSenha("m1nhAs3nh4.");
+        vendedor.setValorVendas(0.0);
+        Endereco endereco = vendedor.criarEndereco();
+        endereco.setBairro("CDU");
+        endereco.setCep("50.670-230");
+        endereco.setCidade("Recife");
+        endereco.setEstado("Pernambuco");
+        endereco.setNumero(20);
+        endereco.setComplemento("AP 301");
+        endereco.setLogradouro("Av. Professor Moraes Rego");
+        em.persist(vendedor);
+        assertTrue(true);
     }
 
 }

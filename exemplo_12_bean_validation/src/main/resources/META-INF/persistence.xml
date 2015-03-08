@@ -10,7 +10,7 @@
     <class>exemplo.jpa.Item</class>
     <class>exemplo.jpa.Oferta</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/exemplo_11"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/exemplo_12"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="root"/>
