@@ -22,6 +22,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "TB_USUARIO")
@@ -35,24 +42,38 @@ public abstract class Usuario implements Serializable {
     protected Long id;
     @Embedded
     protected Endereco endereco;
+    @Size(max = 3)
     @ElementCollection
     @CollectionTable(name = "TB_TELEFONE",
             joinColumns = @JoinColumn(name = "ID_USUARIO"))
     @Column(name = "TXT_NUM_TELEFONE")
     protected Collection<String> telefones;
+    @NotNull
+    @CPF
     @Column(name = "TXT_CPF", length = 14, nullable = false, unique = true)
     protected String cpf;
+    @NotBlank
+    @Size(max = 20)
     @Column(name = "TXT_LOGIN", length = 20, nullable = false, unique = true)
     protected String login;
+    @NotBlank
+    @Size(max = 150)
     @Column(name = "TXT_NOME", length = 150, nullable = false)
     protected String nome;
+    @NotNull
+    @Email
     @Column(name = "TXT_EMAIL", length = 30, nullable = false)
     protected String email;
+    @NotBlank
+    @Size(min = 6, max = 20)
+    @Pattern(regexp = "((?=.*\\p{Digit})(?=.*\\p{Lower})(?=.*\\p{Upper})(?=.*\\p{Punct}).{6,20})")
     @Column(name = "TXT_SENHA", length = 20, nullable = false)
     protected String senha;
+    @Past
     @Temporal(TemporalType.DATE)
     @Column(name = "DT_NASCIMENTO", nullable = true)
     protected Date dataNascimento;
+    @Past
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_CRIACAO", nullable = true)
     protected Date dataCriacao;
