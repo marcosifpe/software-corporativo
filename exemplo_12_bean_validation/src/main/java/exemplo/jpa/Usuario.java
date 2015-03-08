@@ -22,6 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -57,10 +58,14 @@ public abstract class Usuario implements Serializable {
     @Column(name = "TXT_LOGIN", length = 20, nullable = false, unique = true)
     protected String login;
     @NotBlank
-    @Size(max = 150)
-    @Pattern(regexp = "([A-Z][a-z\\p{Blank}])*")
-    @Column(name = "TXT_NOME", length = 150, nullable = false)
-    protected String nome;
+    @Size(max = 30)
+    @Pattern(regexp = "[\\p{Upper}]([\\p{Lower}]){1,29}?")
+    @Column(name = "TXT_NOME", length = 30, nullable = false)
+    protected String primeiroNome;
+    @Size(max = 30)
+    @Pattern(regexp = "[\\p{Upper}]([\\p{Lower}]){1,29}?")    
+    @Column(name = "TXT_ULTIMO_NOME", length = 30, nullable = true)
+    protected String ultimoNome;
     @NotNull
     @Email
     @Column(name = "TXT_EMAIL", length = 30, nullable = false)
@@ -78,7 +83,7 @@ public abstract class Usuario implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_CRIACAO", nullable = true)
     protected Date dataCriacao;
-
+    
     public Endereco getEndereco() {
         return endereco;
     }
@@ -117,14 +122,6 @@ public abstract class Usuario implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getLogin() {
@@ -167,6 +164,22 @@ public abstract class Usuario implements Serializable {
         this.dataCriacao = dataCriacao;
     }
 
+    public String getPrimeiroNome() {
+        return primeiroNome;
+    }
+
+    public void setPrimeiroNome(String primeiroNome) {
+        this.primeiroNome = primeiroNome;
+    }
+
+    public String getUltimoNome() {
+        return ultimoNome;
+    }
+
+    public void setUltimoNome(String ultimoNome) {
+        this.ultimoNome = ultimoNome;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -193,7 +206,7 @@ public abstract class Usuario implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append(this.id);
         sb.append(", ");
-        sb.append(this.nome);
+        sb.append(this.primeiroNome);
         sb.append(", ");
         sb.append(this.login);
         sb.append(", ");
