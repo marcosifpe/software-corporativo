@@ -6,6 +6,7 @@
 package exemplo.jpa.test;
 
 import java.io.File;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ import org.dbunit.operation.DatabaseOperation;
  * @author MASC
  */
 public class DbUnitUtil {
-    private static final String XML_FILE = "C:\\Users\\MASC\\Documents\\NetBeansProjects\\exemplo_11_JPQL\\src\\main\\resources\\dbunit\\dataset.xml";
+    private static final String XML_FILE = "dataset.xml";
     
     @SuppressWarnings("UseSpecificCatch")
     public static void inserirDados() {
@@ -32,7 +33,7 @@ public class DbUnitUtil {
             db_conn = new DatabaseConnection(conn);
             FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
             builder.setColumnSensing(true);
-            IDataSet dataSet = builder.build(new File(XML_FILE));               
+            IDataSet dataSet = builder.build(new File(XML_FILE));
             DatabaseOperation.CLEAN_INSERT.execute(db_conn, dataSet);
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage(), ex);

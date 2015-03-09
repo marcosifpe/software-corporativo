@@ -22,7 +22,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -60,11 +59,11 @@ public abstract class Usuario implements Serializable {
     @NotBlank
     @Size(max = 30)
     @Pattern(regexp = "[\\p{Upper}]([\\p{Lower}]){1,29}?")
-    @Column(name = "TXT_NOME", length = 30, nullable = false)
+    @Column(name = "TXT_PRIMEIRO_NOME", length = 30, nullable = false)
     protected String primeiroNome;
     @Size(max = 30)
     @Pattern(regexp = "[\\p{Upper}]([\\p{Lower}]){1,29}?")    
-    @Column(name = "TXT_ULTIMO_NOME", length = 30, nullable = true)
+    @Column(name = "TXT_ULTIMO_NOME", length = 30, nullable = false)
     protected String ultimoNome;
     @NotNull
     @Email
