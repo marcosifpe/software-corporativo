@@ -27,8 +27,8 @@ public class CartaoCredito implements Serializable {
     @OneToOne(mappedBy = "cartaoCredito", optional = false)
     private Comprador dono;
     @NotBlank
-    @Size(max = 100)
-    @Column(name = "TXT_BANDEIRA", nullable = false, length = 100)
+    @Size(max = 15)
+    @Column(name = "TXT_BANDEIRA", nullable = false, length = 15)
     private String bandeira;
     @NotNull
     @CreditCardNumber
