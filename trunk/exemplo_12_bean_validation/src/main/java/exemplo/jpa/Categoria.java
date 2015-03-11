@@ -57,7 +57,7 @@ public class Categoria implements Serializable {
     private Long id;
     @NotBlank
     @Size(max = 100)
-    @Column(name = "TXT_NOME", length = 100, nullable = false, unique = true)
+    @Column(name = "TXT_NOME")
     private String nome;
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "ID_CATEGORIA_MAE", referencedColumnName = "ID")

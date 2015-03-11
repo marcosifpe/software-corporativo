@@ -28,11 +28,11 @@ public class CartaoCredito implements Serializable {
     private Comprador dono;
     @NotBlank
     @Size(max = 15)
-    @Column(name = "TXT_BANDEIRA", nullable = false, length = 15)
+    @Column(name = "TXT_BANDEIRA")
     private String bandeira;
     @NotNull
     @CreditCardNumber
-    @Column(name = "TXT_NUMERO", nullable = false, length = 30)
+    @Column(name = "TXT_NUMERO")
     private String numero;
     @NotNull
     @Future    
