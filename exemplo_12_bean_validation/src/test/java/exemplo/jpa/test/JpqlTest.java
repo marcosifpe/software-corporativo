@@ -111,6 +111,7 @@ public class JpqlTest {
             vendedor.addTelefone("(81)234-5678");
             vendedor.setCpf("258.171.482-34"); //CPF inválido
             vendedor.setDataCriacao(new Date());
+            //Data de nascimento inválida
             vendedor.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("22/10/2020"));
             vendedor.setEmail("email_invalido@"); //E-mail inválido
             vendedor.setLogin("fulano_silva");
