@@ -6,57 +6,57 @@
     <tb_categoria id = "4" txt_nome="Instrumentos de Sopro" id_categoria_mae = "1"/>
     <!-- Usuario id = 1 (comprador) -->
     <tb_usuario disc_usuario = "C" txt_cpf = "808.257.284-10" dt_nascimento = "1999-12-21" dt_criacao = "2014-11-02 22:16:23"
-                txt_email = "fulano@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
-                end_txt_complemento = "Apto. 201" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                txt_email = "fulano@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 201" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão"
                 end_numero = "20" txt_login = "fulano" txt_primeiro_nome = "Fulano" txt_ultimo_nome = "Silva" txt_senha = "teste123"/>
     <!-- CartaoCredito id = 1 -->
-    <tb_cartao_credito txt_bandeira = "VISA" dt_expiracao = "2018-04-10" txt_numero = "4073020000000002"/>    
+    <tb_cartao_credito txt_bandeira = "VISA" dt_expiracao = "2018-04-10" txt_numero = "4073020000000002"/>
     <tb_comprador id_usuario = "1" id_cartao_credito = "1"/>
     <!-- Usuario id = 2 (comprador) -->
     <tb_usuario disc_usuario = "C" txt_cpf = "740.707.044-00" dt_nascimento = "1973-08-11" dt_criacao = "2014-11-12 01:36:53"
-                txt_email = "sicrano@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
-                end_txt_complemento = "Apto. 202" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                txt_email = "sicrano@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 202" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão"
                 end_numero = "20" txt_login = "sicrano" txt_primeiro_nome = "Sicrano" txt_ultimo_nome = "Costa" txt_senha = "sicrano123"/>
     <!-- CartaoCredito id = 2  -->
-    <tb_cartao_credito txt_bandeira = "MASTERCARD" dt_expiracao = "2017-04-10" txt_numero = "5555666677778884"/>    
-    <tb_comprador id_usuario = "2" id_cartao_credito = "2"/>    
+    <tb_cartao_credito txt_bandeira = "MASTERCARD" dt_expiracao = "2017-04-10" txt_numero = "5555666677778884"/>
+    <tb_comprador id_usuario = "2" id_cartao_credito = "2"/>
     <!-- Usuario id = 3 (comprador) -->
     <tb_usuario disc_usuario = "C" txt_cpf = "026.605.218-59" dt_nascimento = "1979-09-01" dt_criacao = "2015-01-10 12:06:12"
-                txt_email = "beltrano@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
-                end_txt_complemento = "Apto. 302" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                txt_email = "beltrano@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 302" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão"
                 end_numero = "20" txt_login = "beltrano" txt_primeiro_nome = "Beltrano" txt_ultimo_nome = "Ferreira" txt_senha = "beltrano_mesmo"/>
     <!-- CartaoCredito id = 3 -->
-    <tb_cartao_credito txt_bandeira = "VISA" dt_expiracao = "2016-06-17" txt_numero = "4084770193100046"/>    
-    <tb_comprador id_usuario = "3" id_cartao_credito = "3"/>    
+    <tb_cartao_credito txt_bandeira = "VISA" dt_expiracao = "2016-06-17" txt_numero = "4084770193100046"/>
+    <tb_comprador id_usuario = "3" id_cartao_credito = "3"/>
     <!-- Usuario id = 4 (comprador) -->
-    <tb_usuario disc_usuario = "C" txt_cpf = "787.829.223-06" dt_nascimento = "1989-10-23" dt_criacao = "2015-01-12 13:36:53" 
-                txt_email = "ze@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
-                end_txt_complemento = "Apto. 401" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+    <tb_usuario disc_usuario = "C" txt_cpf = "787.829.223-06" dt_nascimento = "1989-10-23" dt_criacao = "2015-01-12 13:36:53"
+                txt_email = "ze@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 401" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão"
                 end_numero = "20" txt_login = "zesilva" txt_primeiro_nome = "José" txt_ultimo_nome = "Araújo" txt_senha = "ze123"/>
     <!-- CartaoCredito id = 4 -->
-    <tb_cartao_credito txt_bandeira = "MAESTRO" dt_expiracao = "2015-01-17" txt_numero = "6759744303415452"/>    
-    <tb_comprador id_usuario = "4" id_cartao_credito = "4"/>    
+    <tb_cartao_credito txt_bandeira = "MAESTRO" dt_expiracao = "2015-01-17" txt_numero = "6759744303415452"/>
+    <tb_comprador id_usuario = "4" id_cartao_credito = "4"/>
     <!-- Usuario id = 5 (vendedor) -->
-    <tb_usuario disc_usuario = "V" txt_cpf = "484.854.847-03" dt_nascimento = "1995-11-23" dt_criacao = "2015-01-12 14:30:00" 
-                txt_email = "vendedor1@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
-                end_txt_complemento = "Apto. 704" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+    <tb_usuario disc_usuario = "V" txt_cpf = "484.854.847-03" dt_nascimento = "1995-11-23" dt_criacao = "2015-01-12 14:30:00"
+                txt_email = "vendedor1@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 704" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão"
                 end_numero = "20" txt_login = "v1silva" txt_primeiro_nome = "Vendedor" txt_ultimo_nome = "Silva" txt_senha = "v1123"/>
     <tb_vendedor id_usuario = "5" num_valor_vendas = "10500.50" txt_reputacao = "EXPERIENTE" />
     <!-- Usuario id = 6 (vendedor) -->
-    <tb_usuario disc_usuario = "V" txt_cpf = "316.819.699-12" dt_nascimento = "1985-11-23" dt_criacao = "2015-02-12 14:30:00" 
-                txt_email = "vendedor2@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+    <tb_usuario disc_usuario = "V" txt_cpf = "316.819.699-12" dt_nascimento = "1985-11-23" dt_criacao = "2015-02-12 14:30:00"
+                txt_email = "vendedor2@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670210" end_txt_cidade = "Recife"
                 end_txt_complemento = "Apto. 902" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
                 end_numero = "20" txt_login = "v2silva" txt_primeiro_nome = "Vendedor" txt_ultimo_nome = "Costa" txt_senha = "segs123"/>
     <tb_vendedor id_usuario = "6" num_valor_vendas = "5500.99" txt_reputacao = "EXPERIENTE" />    
     <!-- Usuario id = 7 (vendedor) -->
     <tb_usuario disc_usuario = "V" txt_cpf = "548.578.464-03" dt_nascimento = "1995-11-23" dt_criacao = "2015-02-12 14:30:00" 
-                txt_email = "vendedor3@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                txt_email = "vendedor3@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670210" end_txt_cidade = "Recife"
                 end_txt_complemento = "Apto. 702" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
                 end_numero = "20" txt_login = "v3silva" txt_primeiro_nome = "Vendedor" txt_ultimo_nome = "Bezerra" txt_senha = "segredos123"/>
     <tb_vendedor id_usuario = "7" num_valor_vendas = "100.00" txt_reputacao = "NOVATO" />
     <!-- Usuario id = 8 (comprador) -->    
     <tb_usuario disc_usuario = "C" txt_cpf = "772.633.604-89" dt_nascimento = "1987-10-21" dt_criacao = "2015-02-12 16:16:50" 
-                txt_email = "comp@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                txt_email = "comp@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670210" end_txt_cidade = "Recife"
                 end_txt_complemento = "Apto. 101" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
                 end_numero = "20" txt_login = "comp1" txt_primeiro_nome = "Comprador" txt_ultimo_nome = "Costa" txt_senha = "comp"/>
     <!-- CartaoCredito id = 4 -->
