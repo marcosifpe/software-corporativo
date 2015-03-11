@@ -2,7 +2,6 @@ package exemplo.jpa.test;
 
 import exemplo.jpa.Endereco;
 import exemplo.jpa.Reputacao;
-import exemplo.jpa.Usuario;
 import exemplo.jpa.Vendedor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
