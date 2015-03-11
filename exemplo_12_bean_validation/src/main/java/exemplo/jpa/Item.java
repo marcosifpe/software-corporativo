@@ -39,15 +39,15 @@ public class Item implements Serializable {
     private List<Categoria> categorias;
     @NotBlank
     @Size(max = 150)
-    @Column(name = "TXT_TITULO", length = 150, nullable = false)
+    @Column(name = "TXT_TITULO")
     private String titulo;
     @NotBlank
     @Size(max = 500)
-    @Column(name = "TXT_DESCRICAO", length = 500, nullable = false)
+    @Column(name = "TXT_DESCRICAO")
     private String descricao;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ID_VENDEDOR", referencedColumnName = "ID_USUARIO", nullable = false)
+    @JoinColumn(name = "ID_VENDEDOR", referencedColumnName = "ID_USUARIO")
     private Vendedor vendedor;
 
     public Long getId() {

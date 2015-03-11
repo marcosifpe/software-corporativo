@@ -50,20 +50,20 @@ public abstract class Usuario implements Serializable {
     protected Collection<String> telefones;
     @NotNull
     @CPF
-    @Column(name = "TXT_CPF", length = 14, nullable = false, unique = true)
+    @Column(name = "TXT_CPF")
     protected String cpf;
     @NotBlank
     @Size(max = 20)
-    @Column(name = "TXT_LOGIN", length = 20, nullable = false, unique = true)
+    @Column(name = "TXT_LOGIN")
     protected String login;
     @NotBlank
     @Size(max = 30)
     @Pattern(regexp = "[\\p{Upper}]([\\p{Lower}]){1,29}?")
-    @Column(name = "TXT_PRIMEIRO_NOME", length = 30, nullable = false)
+    @Column(name = "TXT_PRIMEIRO_NOME")
     protected String primeiroNome;
     @Size(max = 30)
     @Pattern(regexp = "[\\p{Upper}]([\\p{Lower}]){1,29}?")    
-    @Column(name = "TXT_ULTIMO_NOME", length = 30, nullable = false)
+    @Column(name = "TXT_ULTIMO_NOME")
     protected String ultimoNome;
     @NotNull
     @Email
@@ -72,15 +72,15 @@ public abstract class Usuario implements Serializable {
     @NotBlank
     @Size(min = 6, max = 20)
     @Pattern(regexp = "((?=.*\\p{Digit})(?=.*\\p{Lower})(?=.*\\p{Upper})(?=.*\\p{Punct}).{6,20})")
-    @Column(name = "TXT_SENHA", length = 20, nullable = false)
+    @Column(name = "TXT_SENHA")
     protected String senha;
     @Past
     @Temporal(TemporalType.DATE)
-    @Column(name = "DT_NASCIMENTO", nullable = true)
+    @Column(name = "DT_NASCIMENTO")
     protected Date dataNascimento;
     @Past
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DT_CRIACAO", nullable = true)
+    @Column(name = "DT_CRIACAO")
     protected Date dataCriacao;
     
     public Endereco getEndereco() {

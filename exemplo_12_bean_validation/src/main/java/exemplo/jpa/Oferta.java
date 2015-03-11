@@ -27,17 +27,17 @@ public class Oferta implements Serializable {
     @JoinColumn(name = "ID_ITEM", referencedColumnName = "ID")
     private Item item;
     @NotNull
-    @Column(name = "NUM_VALOR", nullable = false)
+    @Column(name = "NUM_VALOR")
     private Double valor;
     @Past
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DT_OFERTA", nullable = false)
+    @Column(name = "DT_OFERTA")
     private Date data;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ID_COMPRADOR", referencedColumnName = "ID_USUARIO", nullable = false)
+    @JoinColumn(name = "ID_COMPRADOR", referencedColumnName = "ID_USUARIO")
     private Comprador comprador;
-    @Column(name = "FLAG_VENCEDORA", nullable = false)
+    @Column(name = "FLAG_VENCEDORA")
     private boolean vencedora;    
     
     public Oferta() {

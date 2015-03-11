@@ -23,7 +23,7 @@ public class Vendedor extends Usuario implements Serializable {
     private Double valorVendas;
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "TXT_REPUTACAO", length = 20, nullable = false)
+    @Column(name = "TXT_REPUTACAO")
     private Reputacao reputacao;
     @OneToMany(mappedBy = "vendedor", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)

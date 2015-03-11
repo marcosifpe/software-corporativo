@@ -3,6 +3,7 @@ package exemplo.jpa;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -17,30 +18,31 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Endereco implements Serializable {
     @NotBlank
     @Size(max = 150)
-    @Column(name = "END_TXT_LOGRADOURO", length = 150, nullable = false)
+    @Column(name = "END_TXT_LOGRADOURO")
     private String logradouro;
     @NotBlank
     @Size(max = 150)
-    @Column(name = "END_TXT_BAIRRO", length = 150, nullable = false)
+    @Column(name = "END_TXT_BAIRRO")
     private String bairro;
     @NotNull
     @Min(1)
-    @Column(name = "END_NUMERO", length = 5, nullable = false)
+    @Max(99999)
+    @Column(name = "END_NUMERO")
     private Integer numero;
     @Size(max = 30)
-    @Column(name = "END_TXT_COMPLEMENTO", length = 30, nullable = true)
+    @Column(name = "END_TXT_COMPLEMENTO")
     private String complemento;
     @NotNull
     @Pattern(regexp = "[0-9]{2}[.]{1}[0-9]{3}-[0-9]{3}") //http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
-    @Column(name = "END_TXT_CEP", length = 10, nullable = false)
+    @Column(name = "END_TXT_CEP")
     private String cep;
     @NotBlank
     @Size(max = 50)
-    @Column(name = "END_TXT_CIDADE", length = 50, nullable = false)
+    @Column(name = "END_TXT_CIDADE")
     private String cidade;
     @NotBlank
     @Size(max = 50)
-    @Column(name = "END_TXT_ESTADO", length = 50, nullable = false)
+    @Column(name = "END_TXT_ESTADO")
     private String estado;
 
     public String getBairro() {
