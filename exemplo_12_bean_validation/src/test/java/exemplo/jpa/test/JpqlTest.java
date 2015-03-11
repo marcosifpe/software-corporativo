@@ -6,12 +6,15 @@ import exemplo.jpa.Vendedor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -27,6 +30,7 @@ import org.junit.runners.MethodSorters;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JpqlTest {
+
     private static EntityManagerFactory emf;
     private static final Logger logger = Logger.getGlobal();
     private EntityManager em;
@@ -60,7 +64,9 @@ public class JpqlTest {
             et.commit();
         } catch (Exception ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
-            et.rollback();
+            if (et.isActive()) {
+                et.rollback();
+            }
         } finally {
             em.close();
         }
@@ -72,13 +78,13 @@ public class JpqlTest {
         vendedor.addTelefone("(81)234-5678");
         vendedor.setCpf("158.171.482-34");
         vendedor.setDataCriacao(new Date());
-        
+
         try {
             vendedor.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("22/10/1980"));
         } catch (ParseException ex) {
             assertFalse(false);
         }
-        
+
         vendedor.setEmail("fulano@gmail.com");
         vendedor.setLogin("fulano_silva");
         vendedor.setPrimeiroNome("Fulano");
@@ -88,7 +94,7 @@ public class JpqlTest {
         vendedor.setValorVendas(0.0);
         Endereco endereco = vendedor.criarEndereco();
         endereco.setBairro("CDU");
-        endereco.setCep("50.670-230");
+        endereco.setCep("50670-230");
         endereco.setCidade("Recife");
         endereco.setEstado("Pernambuco");
         endereco.setNumero(20);
@@ -98,4 +104,43 @@ public class JpqlTest {
         assertTrue(true);
     }
 
+    @Test
+    public void t2_criarVendedorInvalido() {
+        try {
+            Vendedor vendedor = new Vendedor();
+            vendedor.addTelefone("(81)234-5678");
+            vendedor.setCpf("258.171.482-34"); //CPF inválido
+            vendedor.setDataCriacao(new Date());
+            vendedor.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("22/10/1980"));
+            vendedor.setEmail("email_invalido@"); //E-mail inválido
+            vendedor.setLogin("fulano_silva");
+            vendedor.setPrimeiroNome("Fulano");
+            vendedor.setUltimoNome("Silva");
+            vendedor.setReputacao(Reputacao.NOVATO);
+            vendedor.setSenha("testando1234."); //Senha inválida
+            vendedor.setValorVendas(0.0);
+            Endereco endereco = vendedor.criarEndereco();
+            endereco.setBairro("CDU");
+            endereco.setCep("50670-230");
+            endereco.setCidade("Recife");
+            endereco.setEstado("Pernambuco");
+            endereco.setNumero(20);
+            endereco.setComplemento("AP 301");
+            endereco.setLogradouro("Av. Professor Moraes Rego");
+            em.persist(vendedor);
+            assertTrue(false);
+        } catch (ConstraintViolationException ex) {
+            Logger.getGlobal().info(ex.getMessage());
+
+            final Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
+
+            for (ConstraintViolation violation : constraintViolations) {
+                Logger.getGlobal().info(violation.getMessage());
+            }
+
+            assertEquals(3, constraintViolations.size());
+        } catch (ParseException ex) {
+            assertTrue(false);
+        }
+    }
 }
