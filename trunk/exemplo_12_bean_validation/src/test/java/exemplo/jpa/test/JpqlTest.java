@@ -2,6 +2,7 @@ package exemplo.jpa.test;
 
 import exemplo.jpa.Endereco;
 import exemplo.jpa.Reputacao;
+import exemplo.jpa.Usuario;
 import exemplo.jpa.Vendedor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,6 +38,7 @@ public class JpqlTest {
     private EntityTransaction et;
 
     public JpqlTest() {
+        Logger.getGlobal().setLevel(Level.INFO);
     }
 
     @BeforeClass
@@ -63,7 +65,6 @@ public class JpqlTest {
         try {
             et.commit();
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
             if (et.isActive()) {
                 et.rollback();
             }
@@ -94,7 +95,7 @@ public class JpqlTest {
         vendedor.setValorVendas(0.0);
         Endereco endereco = vendedor.criarEndereco();
         endereco.setBairro("CDU");
-        endereco.setCep("50670-230");
+        endereco.setCep("50670230");
         endereco.setCidade("Recife");
         endereco.setEstado("Pernambuco");
         endereco.setNumero(20);
@@ -105,7 +106,7 @@ public class JpqlTest {
     }
 
     @Test
-    public void t2_criarVendedorInvalido() {
+    public void t02_criarVendedorInvalido() {
         try {
             Vendedor vendedor = new Vendedor();
             vendedor.addTelefone("(81)234-5678");
@@ -121,7 +122,7 @@ public class JpqlTest {
             vendedor.setValorVendas(0.0);
             Endereco endereco = vendedor.criarEndereco();
             endereco.setBairro("CDU");
-            endereco.setCep("50670-230");
+            endereco.setCep("50670-230"); //CEP inválido
             endereco.setCidade("Recife");
             endereco.setEstado("Pernambuco");
             endereco.setNumero(20);
@@ -138,7 +139,8 @@ public class JpqlTest {
                 Logger.getGlobal().info(violation.getMessage());
             }
 
-            assertEquals(3, constraintViolations.size());
+            assertEquals(4, constraintViolations.size());
+            assertTrue(true);
         } catch (ParseException ex) {
             assertTrue(false);
         }
