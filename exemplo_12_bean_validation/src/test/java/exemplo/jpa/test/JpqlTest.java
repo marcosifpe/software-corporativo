@@ -112,7 +112,7 @@ public class JpqlTest {
             vendedor.addTelefone("(81)234-5678");
             vendedor.setCpf("258.171.482-34"); //CPF inválido
             vendedor.setDataCriacao(new Date());
-            vendedor.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("22/10/1980"));
+            vendedor.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("22/10/2020"));
             vendedor.setEmail("email_invalido@"); //E-mail inválido
             vendedor.setLogin("fulano_silva");
             vendedor.setPrimeiroNome("Fulano");
@@ -120,6 +120,10 @@ public class JpqlTest {
             vendedor.setReputacao(Reputacao.NOVATO);
             vendedor.setSenha("testando1234."); //Senha inválida
             vendedor.setValorVendas(0.0);
+            vendedor.addTelefone("(81)92345675"); //Quantidade inválida de telefones
+            vendedor.addTelefone("(81)92345676");
+            vendedor.addTelefone("(81)92345677");
+            vendedor.addTelefone("(81)92345678");
             Endereco endereco = vendedor.criarEndereco();
             endereco.setBairro("CDU");
             endereco.setCep("50670-230"); //CEP inválido
@@ -139,7 +143,7 @@ public class JpqlTest {
                 Logger.getGlobal().info(violation.getMessage());
             }
 
-            assertEquals(4, constraintViolations.size());
+            assertEquals(6, constraintViolations.size());
             assertTrue(true);
         } catch (ParseException ex) {
             assertTrue(false);
