@@ -1,5 +1,6 @@
 package exemplo.jpa.test;
 
+import exemplo.jpa.Comprador;
 import exemplo.jpa.Endereco;
 import exemplo.jpa.Reputacao;
 import exemplo.jpa.Vendedor;
@@ -152,6 +153,6 @@ public class JpqlTest {
     
     @Test
     public void t03_criarCompradorInvalido() {
-        
+        Comprador comprador = new Comprador();
     }
 }
