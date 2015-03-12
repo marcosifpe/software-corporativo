@@ -155,7 +155,7 @@ public class JpqlTest {
     }
     
     @Test
-    public void t03_criarCompradorInvalido() {
+    public void t03_criarCompradorValido() {
         Comprador comprador = new Comprador();
         CartaoCredito cartaoCredito = new CartaoCredito();
         cartaoCredito.setNumero("4929293458709012");
