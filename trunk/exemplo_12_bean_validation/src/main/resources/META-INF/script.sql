@@ -95,7 +95,7 @@
 
     create table TB_TELEFONE (
         ID_USUARIO bigint not null,
-        TXT_NUM_TELEFONE varchar(255)
+        TXT_NUM_TELEFONE varchar(15)
     );
 
     create table TB_USUARIO (

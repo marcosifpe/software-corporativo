@@ -106,9 +106,9 @@ public class JpqlTest {
 
     @Test
     public void t02_criarVendedorInvalido() {
+        Vendedor vendedor = null;
         try {
-            Vendedor vendedor = new Vendedor();
-            vendedor.addTelefone("(81)234-5678");
+            vendedor = new Vendedor();
             vendedor.setCpf("258.171.482-34"); //CPF inválido
             vendedor.setDataCriacao(new Date());
             //Data de nascimento inválida
@@ -120,10 +120,10 @@ public class JpqlTest {
             vendedor.setReputacao(Reputacao.NOVATO);
             vendedor.setSenha("testando1234."); //Senha inválida
             vendedor.setValorVendas(0.0);
-            vendedor.addTelefone("(81)92345675"); //Quantidade inválida de telefones
-            vendedor.addTelefone("(81)92345676");
-            vendedor.addTelefone("(81)92345677");
-            vendedor.addTelefone("(81)92345678");
+            vendedor.addTelefone("(81)9234-5675"); //Quantidade inválida de telefones
+            vendedor.addTelefone("(81)9234-5676");
+            vendedor.addTelefone("(81)9234-5677");
+            vendedor.addTelefone("(81)9234-5678");
             Endereco endereco = vendedor.criarEndereco();
             endereco.setBairro("CDU");
             endereco.setCep("50670-230"); //CEP inválido
@@ -144,7 +144,7 @@ public class JpqlTest {
             }
 
             assertEquals(6, constraintViolations.size());
-            assertTrue(true);
+            assertNull(vendedor.getId());
         } catch (ParseException ex) {
             assertTrue(false);
         }
