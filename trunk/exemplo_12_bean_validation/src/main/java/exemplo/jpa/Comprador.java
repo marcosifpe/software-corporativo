@@ -11,15 +11,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.Valid;
 
 @Entity
 @Table(name="TB_COMPRADOR") 
 @DiscriminatorValue(value = "C")
 @PrimaryKeyJoinColumn(name="ID_USUARIO", referencedColumnName = "ID")
 public class Comprador extends Usuario implements Serializable {
+    @Valid
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
     @JoinColumn(name = "ID_CARTAO_CREDITO", referencedColumnName = "ID")
     private CartaoCredito cartaoCredito;
+    @Valid
     @OneToMany(mappedBy = "comprador", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Oferta> ofertas;

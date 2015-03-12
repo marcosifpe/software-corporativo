@@ -94,7 +94,7 @@ public class JpqlTest {
         vendedor.setValorVendas(0.0);
         Endereco endereco = vendedor.criarEndereco();
         endereco.setBairro("CDU");
-        endereco.setCep("50670230");
+        endereco.setCep("50.670-230");
         endereco.setCidade("Recife");
         endereco.setEstado("Pernambuco");
         endereco.setNumero(20);
@@ -148,5 +148,10 @@ public class JpqlTest {
         } catch (ParseException ex) {
             assertTrue(false);
         }
+    }
+    
+    @Test
+    public void t03_criarCompradorInvalido() {
+        
     }
 }
