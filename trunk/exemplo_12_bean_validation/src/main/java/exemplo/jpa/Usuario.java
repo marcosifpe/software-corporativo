@@ -63,6 +63,7 @@ public abstract class Usuario implements Serializable {
     @Pattern(regexp = "[\\p{Upper}]([\\p{Lower}]){1,29}?")
     @Column(name = "TXT_PRIMEIRO_NOME")
     protected String primeiroNome;
+    @NotBlank
     @Size(max = 30)
     @Pattern(regexp = "[\\p{Upper}]([\\p{Lower}]){1,29}?")    
     @Column(name = "TXT_ULTIMO_NOME")

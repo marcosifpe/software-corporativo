@@ -1,12 +1,15 @@
 package exemplo.jpa.test;
 
+import exemplo.jpa.CartaoCredito;
 import exemplo.jpa.Comprador;
 import exemplo.jpa.Endereco;
 import exemplo.jpa.Reputacao;
 import exemplo.jpa.Vendedor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -102,10 +105,10 @@ public class JpqlTest {
         endereco.setComplemento("AP 301");
         endereco.setLogradouro("Av. Professor Moraes Rego");
         em.persist(vendedor);
-        assertTrue(true);
+        assertNotNull(vendedor.getId());
     }
 
-    @Test
+    @Test //Usuario, Vendedor, Endereco
     public void t02_criarVendedorInvalido() {
         Vendedor vendedor = null;
         try {
@@ -154,5 +157,32 @@ public class JpqlTest {
     @Test
     public void t03_criarCompradorInvalido() {
         Comprador comprador = new Comprador();
+        CartaoCredito cartaoCredito = new CartaoCredito();
+        cartaoCredito.setNumero("4929293458709012");
+        cartaoCredito.setBandeira("VISA");
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.set(2018, Calendar.DECEMBER, 1);
+        cartaoCredito.setDataExpiracao(calendar.getTime());
+        comprador.setCartaoCredito(cartaoCredito);
+        comprador.setCpf("453.523.472-81");
+        comprador.setDataCriacao(new Date());
+        calendar.set(1985, Calendar.JANUARY, 1);
+        comprador.setDataNascimento(calendar.getTime());
+        comprador.setEmail("comprador@gmail.com");
+        comprador.setPrimeiroNome("Maria");
+        comprador.setUltimoNome("Silva");
+        comprador.setLogin("comprador_bom");
+        comprador.setSenha("m1nhAs3nh4.");
+        Endereco endereco = comprador.criarEndereco();
+        endereco.setBairro("CDU");
+        endereco.setCep("50.670-230");
+        endereco.setCidade("Recife");
+        endereco.setEstado("Pernambuco");
+        endereco.setNumero(20);
+        endereco.setComplemento("AP 301");
+        endereco.setLogradouro("Av. Professor Moraes Rego");
+        em.persist(comprador);
+        assertNotNull(comprador.getId());
+        assertNotNull(cartaoCredito.getId());
     }
 }
