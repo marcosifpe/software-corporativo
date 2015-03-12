@@ -106,7 +106,7 @@
         DT_NASCIMENTO date,
         TXT_EMAIL varchar(30) not null,
         END_TXT_BAIRRO varchar(150) not null,
-        END_TXT_CEP varchar(8) not null,
+        END_TXT_CEP varchar(10) not null,
         END_TXT_CIDADE varchar(50) not null,
         END_TXT_COMPLEMENTO varchar(30),
         END_TXT_ESTADO varchar(50) not null,
