@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,7 +30,6 @@ public class Oferta implements Serializable {
     @NotNull
     @Column(name = "NUM_VALOR")
     private Double valor;
-    @Past
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_OFERTA")
     private Date data;
@@ -41,10 +41,14 @@ public class Oferta implements Serializable {
     private boolean vencedora;    
     
     public Oferta() {
-        this.data = new Date();
         this.vencedora = false;
     }
 
+    @PrePersist
+    public void set() {
+        this.setData(new Date());
+    }
+    
     public Comprador getComprador() {
         return comprador;
     }
