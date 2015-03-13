@@ -84,8 +84,7 @@ public abstract class Usuario implements Serializable {
     protected Date dataNascimento;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_CRIACAO")
-    protected Date dataCriacao;
-    
+    protected Date dataCriacao;    
     
     @PrePersist
     public void setDataCriacao() {
