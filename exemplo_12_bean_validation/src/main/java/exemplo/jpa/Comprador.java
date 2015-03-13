@@ -1,6 +1,7 @@
 package exemplo.jpa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -27,6 +28,11 @@ public class Comprador extends Usuario implements Serializable {
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Oferta> ofertas;
     
+    public Comprador() {
+        super();
+        this.ofertas = new ArrayList<>();
+    }
+            
     public CartaoCredito getCartaoCredito() {
         return cartaoCredito;
     }
@@ -41,6 +47,7 @@ public class Comprador extends Usuario implements Serializable {
     }
 
     public boolean adicionar(Oferta oferta) {
+        oferta.setComprador(this);
         return ofertas.add(oferta);
     }
 

@@ -49,7 +49,7 @@
                 end_numero = "20" txt_login = "v2silva" txt_primeiro_nome = "Vendedor" txt_ultimo_nome = "Costa" txt_senha = "segs123"/>
     <tb_vendedor id_usuario = "6" num_valor_vendas = "5500.99" txt_reputacao = "EXPERIENTE" />    
     <!-- Usuario id = 7 (vendedor) -->
-    <tb_usuario disc_usuario = "V" txt_cpf = "548.578.464-03" dt_nascimento = "1995-11-23" dt_criacao = "2015-02-12 14:30:00" 
+    <tb_usuario disc_usuario = "V" txt_cpf = "548.578.464-03" dt_nascimento = "1995-11-23" dt_criacao = "2015-02-12 14:30:00"
                 txt_email = "vendedor3@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50.670-210" end_txt_cidade = "Recife"
                 end_txt_complemento = "Apto. 702" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
                 end_numero = "20" txt_login = "v3silva" txt_primeiro_nome = "Vendedor" txt_ultimo_nome = "Bezerra" txt_senha = "segredos123"/>
@@ -84,7 +84,7 @@
     <!-- Oferta id = 1 -->
     <tb_oferta id_item = "1" num_valor = "500.00" dt_oferta = "2015-01-12 12:00:30" id_comprador = "1" flag_vencedora = "0" />
     <!-- Oferta id = 2 -->
-    <tb_oferta id_item = "1" num_valor = "520.00" dt_oferta = "2015-01-12 12:30:52" id_comprador = "2" flag_vencedora = "1" />
+    <tb_oferta id_item = "1" num_valor = "520.00" dt_oferta = "2015-01-12 12:30:52" id_comprador = "2" flag_vencedora = "0" />
     <!-- Oferta id = 3 -->
     <tb_oferta id_item = "2" num_valor = "720.00" dt_oferta = "2015-01-12 12:31:20" id_comprador = "2" flag_vencedora = "0" />
     <!-- Oferta id = 4 -->
