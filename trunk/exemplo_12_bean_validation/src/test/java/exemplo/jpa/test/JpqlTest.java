@@ -3,6 +3,8 @@ package exemplo.jpa.test;
 import exemplo.jpa.CartaoCredito;
 import exemplo.jpa.Comprador;
 import exemplo.jpa.Endereco;
+import exemplo.jpa.Item;
+import exemplo.jpa.Oferta;
 import exemplo.jpa.Reputacao;
 import exemplo.jpa.Vendedor;
 import java.text.ParseException;
@@ -17,6 +19,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import org.junit.After;
@@ -154,7 +157,7 @@ public class JpqlTest {
         }
     }
     
-    @Test
+    @Test //Comprador, CartaoCredito
     public void t03_criarCompradorValido() {
         Comprador comprador = new Comprador();
         CartaoCredito cartaoCredito = new CartaoCredito();
@@ -165,7 +168,8 @@ public class JpqlTest {
         cartaoCredito.setDataExpiracao(calendar.getTime());
         comprador.setCartaoCredito(cartaoCredito);
         comprador.setCpf("453.523.472-81");
-        comprador.setDataCriacao(new Date());
+        calendar.set(2015, Calendar.MARCH, 12);
+        comprador.setDataCriacao(calendar.getTime());
         calendar.set(1985, Calendar.JANUARY, 1);
         comprador.setDataNascimento(calendar.getTime());
         comprador.setEmail("comprador@gmail.com");
@@ -181,8 +185,19 @@ public class JpqlTest {
         endereco.setNumero(20);
         endereco.setComplemento("AP 301");
         endereco.setLogradouro("Av. Professor Moraes Rego");
+        
+        TypedQuery query = 
+                em.createQuery("SELECT i FROM Item i WHERE i.titulo LIKE ?1", Item.class);
+        query.setParameter(1, "boss DD-7");
+        Item item = (Item) query.getSingleResult();
+        Oferta oferta = new Oferta();
+        oferta.setItem(item);
+        oferta.setData(new Date());
+        oferta.setValor(575.50);        
+        comprador.adicionar(oferta);
         em.persist(comprador);
         assertNotNull(comprador.getId());
         assertNotNull(cartaoCredito.getId());
+        assertNotNull(oferta.getId());
     }
 }
