@@ -84,7 +84,6 @@ public class JpqlTest {
         Vendedor vendedor = new Vendedor();
         vendedor.addTelefone("(81)234-5678");
         vendedor.setCpf("158.171.482-34");
-        vendedor.setDataCriacao(new Date());
 
         try {
             vendedor.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("22/10/1980"));
@@ -117,7 +116,6 @@ public class JpqlTest {
         try {
             vendedor = new Vendedor();
             vendedor.setCpf("258.171.482-34"); //CPF inválido
-            vendedor.setDataCriacao(new Date());
             //Data de nascimento inválida
             vendedor.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("22/10/2020"));
             vendedor.setEmail("email_invalido@"); //E-mail inválido
@@ -168,8 +166,6 @@ public class JpqlTest {
         cartaoCredito.setDataExpiracao(calendar.getTime());
         comprador.setCartaoCredito(cartaoCredito);
         comprador.setCpf("453.523.472-81");
-        calendar.set(2015, Calendar.MARCH, 12);
-        comprador.setDataCriacao(calendar.getTime());
         calendar.set(1985, Calendar.JANUARY, 1);
         comprador.setDataNascimento(calendar.getTime());
         comprador.setEmail("comprador@gmail.com");
@@ -192,7 +188,6 @@ public class JpqlTest {
         Item item = (Item) query.getSingleResult();
         Oferta oferta = new Oferta();
         oferta.setItem(item);
-        oferta.setData(new Date());
         oferta.setValor(575.50);        
         comprador.adicionar(oferta);
         em.persist(comprador);

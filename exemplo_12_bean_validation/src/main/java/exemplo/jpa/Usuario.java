@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -81,10 +82,15 @@ public abstract class Usuario implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "DT_NASCIMENTO")
     protected Date dataNascimento;
-    @Past
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_CRIACAO")
     protected Date dataCriacao;
+    
+    
+    @PrePersist
+    public void setDataCriacao() {
+        this.setDataCriacao(new Date());
+    }
     
     public Endereco getEndereco() {
         return endereco;
