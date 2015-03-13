@@ -84,13 +84,9 @@ public class JpqlTest {
         Vendedor vendedor = new Vendedor();
         vendedor.addTelefone("(81)234-5678");
         vendedor.setCpf("158.171.482-34");
-
-        try {
-            vendedor.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("22/10/1980"));
-        } catch (ParseException ex) {
-            assertFalse(false);
-        }
-
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(1980, Calendar.OCTOBER, 23);
+        vendedor.setDataNascimento(calendar.getTime());
         vendedor.setEmail("fulano@gmail.com");
         vendedor.setLogin("fulano_silva");
         vendedor.setPrimeiroNome("Fulano");
@@ -113,11 +109,13 @@ public class JpqlTest {
     @Test //Usuario, Vendedor, Endereco
     public void t02_criarVendedorInvalido() {
         Vendedor vendedor = null;
+        Calendar calendar = new GregorianCalendar();
         try {
             vendedor = new Vendedor();
             vendedor.setCpf("258.171.482-34"); //CPF inválido
-            //Data de nascimento inválida
-            vendedor.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse("22/10/2020"));
+            calendar.set(2020, Calendar.JANUARY, 1);
+            //Data de nascimento inválida            
+            vendedor.setDataNascimento(calendar.getTime());
             vendedor.setEmail("email_invalido@"); //E-mail inválido
             vendedor.setLogin("fulano_silva");
             vendedor.setPrimeiroNome("Fulano");
@@ -142,7 +140,7 @@ public class JpqlTest {
         } catch (ConstraintViolationException ex) {
             Logger.getGlobal().info(ex.getMessage());
 
-            final Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
+            Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
 
             for (ConstraintViolation violation : constraintViolations) {
                 Logger.getGlobal().info(violation.getMessage());
@@ -150,11 +148,9 @@ public class JpqlTest {
 
             assertEquals(6, constraintViolations.size());
             assertNull(vendedor.getId());
-        } catch (ParseException ex) {
-            assertTrue(false);
         }
     }
-    
+
     @Test //Comprador, CartaoCredito
     public void t03_criarCompradorValido() {
         Comprador comprador = new Comprador();
@@ -181,18 +177,72 @@ public class JpqlTest {
         endereco.setNumero(20);
         endereco.setComplemento("AP 301");
         endereco.setLogradouro("Av. Professor Moraes Rego");
-        
-        TypedQuery query = 
-                em.createQuery("SELECT i FROM Item i WHERE i.titulo LIKE ?1", Item.class);
+
+        TypedQuery query
+                = em.createQuery("SELECT i FROM Item i WHERE i.titulo LIKE ?1", Item.class);
         query.setParameter(1, "boss DD-7");
         Item item = (Item) query.getSingleResult();
         Oferta oferta = new Oferta();
         oferta.setItem(item);
-        oferta.setValor(575.50);        
+        oferta.setValor(575.50);
         comprador.adicionar(oferta);
         em.persist(comprador);
         assertNotNull(comprador.getId());
         assertNotNull(cartaoCredito.getId());
         assertNotNull(oferta.getId());
+    }
+
+    @Test //Comprador, CartaoCredito
+    public void t04_criarCompradorInvalido() {
+        Comprador comprador = new Comprador();
+        CartaoCredito cartaoCredito = new CartaoCredito();
+        //Nº inválido do cartão de crédito
+        try {
+            cartaoCredito.setNumero("1929293458709012");
+            cartaoCredito.setBandeira("VISA");
+            Calendar calendar = GregorianCalendar.getInstance();
+            calendar.set(2018, Calendar.DECEMBER, 1);
+            cartaoCredito.setDataExpiracao(calendar.getTime());
+            comprador.setCartaoCredito(cartaoCredito);
+            comprador.setCpf("453.523.472-81");
+            calendar.set(1985, Calendar.JANUARY, 1);
+            comprador.setDataNascimento(calendar.getTime());
+            comprador.setEmail("comprador@gmail.com");
+            comprador.setPrimeiroNome("Maria");
+            comprador.setUltimoNome("Silva");
+            comprador.setLogin("comprador_bom");
+            comprador.setSenha("m1nhAs3nh4.");
+            Endereco endereco = comprador.criarEndereco();
+            endereco.setBairro("CDU");
+            endereco.setCep("50.670-230");
+            endereco.setCidade("Recife");
+            endereco.setEstado("Pernambuco");
+            endereco.setNumero(20);
+            endereco.setComplemento("AP 301");
+            endereco.setLogradouro("Av. Professor Moraes Rego");
+
+            TypedQuery query
+                    = em.createQuery("SELECT i FROM Item i WHERE i.titulo LIKE ?1", Item.class);
+            query.setParameter(1, "boss DD-7");
+            Item item = (Item) query.getSingleResult();
+            Oferta oferta = new Oferta();
+            oferta.setItem(item);
+            oferta.setValor(575.50);
+            comprador.adicionar(oferta);
+            em.persist(comprador);
+            assertNotNull(comprador.getId());
+            assertNotNull(cartaoCredito.getId());
+            assertNotNull(oferta.getId());
+        } catch (ConstraintViolationException ex) {
+            Logger.getGlobal().info(ex.getMessage());
+            Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
+
+            for (ConstraintViolation violation : constraintViolations) {
+                Logger.getGlobal().info(violation.getMessage());
+            }
+
+            assertEquals(1, constraintViolations.size());
+            assertNull(comprador.getId());
+        }
     }
 }
