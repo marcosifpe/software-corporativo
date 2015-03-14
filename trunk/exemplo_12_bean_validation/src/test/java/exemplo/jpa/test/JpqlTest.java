@@ -7,10 +7,7 @@ import exemplo.jpa.Item;
 import exemplo.jpa.Oferta;
 import exemplo.jpa.Reputacao;
 import exemplo.jpa.Vendedor;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.logging.Level;
@@ -118,7 +115,7 @@ public class JpqlTest {
             vendedor.setDataNascimento(calendar.getTime());
             vendedor.setEmail("email_invalido@"); //E-mail inválido
             vendedor.setLogin("fulano_silva");
-            vendedor.setPrimeiroNome("Fulano");
+            vendedor.setPrimeiroNome("FULANO"); //Nome inválido
             vendedor.setUltimoNome("Silva");
             vendedor.setReputacao(Reputacao.NOVATO);
             vendedor.setSenha("testando1234."); //Senha inválida
@@ -146,7 +143,7 @@ public class JpqlTest {
                 Logger.getGlobal().info(violation.getMessage());
             }
 
-            assertEquals(6, constraintViolations.size());
+            assertEquals(7, constraintViolations.size());
             assertNull(vendedor.getId());
         }
     }
@@ -195,20 +192,24 @@ public class JpqlTest {
     @Test //Comprador, CartaoCredito
     public void t04_criarCompradorInvalido() {
         Comprador comprador = new Comprador();
-        CartaoCredito cartaoCredito = new CartaoCredito();
-        //Nº inválido do cartão de crédito
+        CartaoCredito cartaoCredito = new CartaoCredito();        
         try {
+            //Nº inválido do cartão de crédito
             cartaoCredito.setNumero("1929293458709012");
-            cartaoCredito.setBandeira("VISA");
+            //Bandeira inválida
+            cartaoCredito.setBandeira(null);
             Calendar calendar = GregorianCalendar.getInstance();
-            calendar.set(2018, Calendar.DECEMBER, 1);
+            //Data de expiração inválida (deveria ser data passada).
+            calendar.set(2014, Calendar.DECEMBER, 1);
             cartaoCredito.setDataExpiracao(calendar.getTime());
             comprador.setCartaoCredito(cartaoCredito);
-            comprador.setCpf("453.523.472-81");
+            //CPF inválido
+            comprador.setCpf("453.123.472-11");
             calendar.set(1985, Calendar.JANUARY, 1);
             comprador.setDataNascimento(calendar.getTime());
             comprador.setEmail("comprador@gmail.com");
-            comprador.setPrimeiroNome("Maria");
+            //Primeiro nome inválido
+            comprador.setPrimeiroNome("maria");
             comprador.setUltimoNome("Silva");
             comprador.setLogin("comprador_bom");
             comprador.setSenha("m1nhAs3nh4.");
@@ -241,7 +242,7 @@ public class JpqlTest {
                 Logger.getGlobal().info(violation.getMessage());
             }
 
-            assertEquals(1, constraintViolations.size());
+            assertEquals(4, constraintViolations.size());
             assertNull(comprador.getId());
         }
     }
