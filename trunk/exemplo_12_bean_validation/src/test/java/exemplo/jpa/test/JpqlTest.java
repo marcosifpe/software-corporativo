@@ -197,7 +197,7 @@ public class JpqlTest {
         CartaoCredito cartaoCredito = new CartaoCredito();
         Calendar calendar = GregorianCalendar.getInstance();
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-
+        
         //CPF inválido
         comprador.setCpf("453.123.472-11");
         calendar.set(1985, Calendar.JANUARY, 1);

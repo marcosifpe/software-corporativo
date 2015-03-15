@@ -61,12 +61,12 @@ public abstract class Usuario implements Serializable {
     protected String login;
     @NotBlank
     @Size(max = 30)
-    @Pattern(regexp = "\\p{Upper}{1}+\\p{Lower}+?")
+    @Pattern(regexp = "\\p{Upper}{1}+\\p{Lower}+?", message = "{exemplo.jpa.Usuario.nome}")
     @Column(name = "TXT_PRIMEIRO_NOME")
     protected String primeiroNome;
     @NotBlank
     @Size(max = 30)
-    @Pattern(regexp = "\\p{Upper}{1}+\\p{Lower}+?") 
+    @Pattern(regexp = "\\p{Upper}{1}+\\p{Lower}+?", message = "{exemplo.jpa.Usuario.nome}") 
     @Column(name = "TXT_ULTIMO_NOME")
     protected String ultimoNome;
     @NotNull
@@ -75,7 +75,7 @@ public abstract class Usuario implements Serializable {
     protected String email;
     @NotBlank
     @Size(min = 6, max = 20)
-    @Pattern(regexp = "((?=.*\\p{Digit})(?=.*\\p{Lower})(?=.*\\p{Upper})(?=.*\\p{Punct}).{6,20})")
+    @Pattern(regexp = "((?=.*\\p{Digit})(?=.*\\p{Lower})(?=.*\\p{Upper})(?=.*\\p{Punct}).{6,20})", message = "{exemplo.jpa.Usuario.senha}")
     @Column(name = "TXT_SENHA")
     protected String senha;
     @Past
