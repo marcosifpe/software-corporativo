@@ -33,7 +33,8 @@ public class Endereco implements Serializable {
     @Column(name = "END_TXT_COMPLEMENTO")
     private String complemento;
     @NotNull
-    @Pattern(regexp = "[0-90]{2}.[0-9]{3}-[0-9]{3}") //http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
+    //http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
+    @Pattern(regexp = "[0-90]{2}.[0-9]{3}-[0-9]{3}", message = "{exemplo.jpa.Endereco.cep}")
     @Column(name = "END_TXT_CEP")
     private String cep;
     @NotBlank
