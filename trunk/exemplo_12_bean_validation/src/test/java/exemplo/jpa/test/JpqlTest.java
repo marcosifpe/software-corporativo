@@ -97,7 +97,7 @@ public class JpqlTest {
         endereco.setBairro("CDU");
         endereco.setCep("50.670-230");
         endereco.setCidade("Recife");
-        endereco.setEstado("Pernambuco");
+        endereco.setEstado("PE");
         endereco.setNumero(20);
         endereco.setComplemento("AP 301");
         endereco.setLogradouro("Av. Professor Moraes Rego");
@@ -130,7 +130,7 @@ public class JpqlTest {
             endereco.setBairro("CDU");
             endereco.setCep("50670-230"); //CEP inválido
             endereco.setCidade("Recife");
-            endereco.setEstado("Pernambuco");
+            endereco.setEstado("Pernambuco"); //Estado inválido
             endereco.setNumero(20);
             endereco.setComplemento("AP 301");
             endereco.setLogradouro("Av. Professor Moraes Rego");
@@ -145,7 +145,7 @@ public class JpqlTest {
                 Logger.getGlobal().log(Level.INFO, "{0}.{1}: {2}", new Object[]{violation.getRootBeanClass(), violation.getPropertyPath(), violation.getMessage()});
             }
 
-            assertEquals(8, constraintViolations.size());
+            assertEquals(10, constraintViolations.size());
             assertNull(vendedor.getId());
         }
     }
@@ -172,7 +172,7 @@ public class JpqlTest {
         endereco.setBairro("CDU");
         endereco.setCep("50.670-230");
         endereco.setCidade("Recife");
-        endereco.setEstado("Pernambuco");
+        endereco.setEstado("PE");
         endereco.setNumero(20);
         endereco.setComplemento("AP 301");
         endereco.setLogradouro("Av. Professor Moraes Rego");
@@ -212,7 +212,7 @@ public class JpqlTest {
         endereco.setBairro("CDU");
         endereco.setCep("50.670-230");
         endereco.setCidade("Recife");
-        endereco.setEstado("Pernambuco");
+        endereco.setEstado("PE");
         endereco.setNumero(20);
         endereco.setComplemento("AP 301");
         endereco.setLogradouro("Av. Professor Moraes Rego");

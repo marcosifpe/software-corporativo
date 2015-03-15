@@ -109,7 +109,7 @@
         END_TXT_CEP varchar(10) not null,
         END_TXT_CIDADE varchar(50) not null,
         END_TXT_COMPLEMENTO varchar(30),
-        END_TXT_ESTADO varchar(50) not null,
+        END_TXT_ESTADO varchar(2) not null,
         END_TXT_LOGRADOURO varchar(150) not null,
         END_NUMERO integer not null,
         TXT_LOGIN varchar(20) not null,

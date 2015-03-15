@@ -3,6 +3,7 @@ package exemplo.jpa;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.Constraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -42,7 +43,8 @@ public class Endereco implements Serializable {
     @Column(name = "END_TXT_CIDADE")
     private String cidade;
     @NotBlank
-    @Size(max = 50)
+    @ValidaEstado
+    @Size(min = 2, max = 2)
     @Column(name = "END_TXT_ESTADO")
     private String estado;
 
