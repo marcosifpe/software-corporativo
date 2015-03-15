@@ -61,12 +61,12 @@ public abstract class Usuario implements Serializable {
     protected String login;
     @NotBlank
     @Size(max = 30)
-    @Pattern(regexp = "\\p{Upper}{1}+\\p{Lower}{1,29}")
+    @Pattern(regexp = "\\p{Upper}{1}+\\p{Lower}+?")
     @Column(name = "TXT_PRIMEIRO_NOME")
     protected String primeiroNome;
     @NotBlank
     @Size(max = 30)
-    @Pattern(regexp = "\\p{Upper}{1}+\\p{Lower}{1,29}") 
+    @Pattern(regexp = "\\p{Upper}{1}+\\p{Lower}+?") 
     @Column(name = "TXT_ULTIMO_NOME")
     protected String ultimoNome;
     @NotNull
