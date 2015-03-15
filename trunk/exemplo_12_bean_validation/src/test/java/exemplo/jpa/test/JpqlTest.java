@@ -19,6 +19,8 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -116,7 +118,7 @@ public class JpqlTest {
             vendedor.setEmail("email_invalido@"); //E-mail inválido
             vendedor.setLogin("fulano_silva");
             vendedor.setPrimeiroNome("FULANO"); //Nome inválido
-            vendedor.setUltimoNome("Silva");
+            vendedor.setUltimoNome("silva"); //Nome inválido
             vendedor.setReputacao(Reputacao.NOVATO);
             vendedor.setSenha("testando1234."); //Senha inválida
             vendedor.setValorVendas(0.0);
@@ -140,10 +142,10 @@ public class JpqlTest {
             Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
 
             for (ConstraintViolation violation : constraintViolations) {
-                Logger.getGlobal().info(violation.getMessage());
+                Logger.getGlobal().log(Level.INFO, "{0}.{1}: {2}", new Object[]{violation.getRootBeanClass(), violation.getPropertyPath(), violation.getMessage()});
             }
 
-            assertEquals(7, constraintViolations.size());
+            assertEquals(8, constraintViolations.size());
             assertNull(vendedor.getId());
         }
     }
@@ -192,58 +194,42 @@ public class JpqlTest {
     @Test //Comprador, CartaoCredito
     public void t04_criarCompradorInvalido() {
         Comprador comprador = new Comprador();
-        CartaoCredito cartaoCredito = new CartaoCredito();        
-        try {
-            //Nº inválido do cartão de crédito
-            cartaoCredito.setNumero("1929293458709012");
-            //Bandeira inválida
-            cartaoCredito.setBandeira(null);
-            Calendar calendar = GregorianCalendar.getInstance();
-            //Data de expiração inválida (deveria ser data passada).
-            calendar.set(2014, Calendar.DECEMBER, 1);
-            cartaoCredito.setDataExpiracao(calendar.getTime());
-            comprador.setCartaoCredito(cartaoCredito);
-            //CPF inválido
-            comprador.setCpf("453.123.472-11");
-            calendar.set(1985, Calendar.JANUARY, 1);
-            comprador.setDataNascimento(calendar.getTime());
-            comprador.setEmail("comprador@gmail.com");
-            //Primeiro nome inválido
-            comprador.setPrimeiroNome("maria");
-            comprador.setUltimoNome("Silva");
-            comprador.setLogin("comprador_bom");
-            comprador.setSenha("m1nhAs3nh4.");
-            Endereco endereco = comprador.criarEndereco();
-            endereco.setBairro("CDU");
-            endereco.setCep("50.670-230");
-            endereco.setCidade("Recife");
-            endereco.setEstado("Pernambuco");
-            endereco.setNumero(20);
-            endereco.setComplemento("AP 301");
-            endereco.setLogradouro("Av. Professor Moraes Rego");
+        CartaoCredito cartaoCredito = new CartaoCredito();
+        Calendar calendar = GregorianCalendar.getInstance();
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-            TypedQuery query
-                    = em.createQuery("SELECT i FROM Item i WHERE i.titulo LIKE ?1", Item.class);
-            query.setParameter(1, "boss DD-7");
-            Item item = (Item) query.getSingleResult();
-            Oferta oferta = new Oferta();
-            oferta.setItem(item);
-            oferta.setValor(575.50);
-            comprador.adicionar(oferta);
-            em.persist(comprador);
-            assertNotNull(comprador.getId());
-            assertNotNull(cartaoCredito.getId());
-            assertNotNull(oferta.getId());
-        } catch (ConstraintViolationException ex) {
-            Logger.getGlobal().info(ex.getMessage());
-            Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
+        //CPF inválido
+        comprador.setCpf("453.123.472-11");
+        calendar.set(1985, Calendar.JANUARY, 1);
+        comprador.setDataNascimento(calendar.getTime());
+        comprador.setEmail("comprador@gmail.com");
+        //Primeiro nome inválido
+        comprador.setPrimeiroNome("maria");
+        comprador.setUltimoNome("Silva");
+        comprador.setLogin("comprador_bom");
+        comprador.setSenha("m1nhAs3nh4.");
+        Endereco endereco = comprador.criarEndereco();
+        endereco.setBairro("CDU");
+        endereco.setCep("50.670-230");
+        endereco.setCidade("Recife");
+        endereco.setEstado("Pernambuco");
+        endereco.setNumero(20);
+        endereco.setComplemento("AP 301");
+        endereco.setLogradouro("Av. Professor Moraes Rego");
+        //Nº inválido do cartão de crédito
+        cartaoCredito.setNumero("1929293458709012");
+        //Bandeira inválida
+        cartaoCredito.setBandeira(null);
+        //Data de expiração inválida (deveria ser data passada).
+        calendar.set(2014, Calendar.DECEMBER, 1);
+        cartaoCredito.setDataExpiracao(calendar.getTime());
+        comprador.setCartaoCredito(cartaoCredito);
+        Set<ConstraintViolation<Comprador>> constraintViolations = validator.validate(comprador);
 
-            for (ConstraintViolation violation : constraintViolations) {
-                Logger.getGlobal().info(violation.getMessage());
-            }
-
-            assertEquals(4, constraintViolations.size());
-            assertNull(comprador.getId());
+        for (ConstraintViolation violation : constraintViolations) {
+            Logger.getGlobal().log(Level.INFO, "{0}.{1}: {2}", new Object[]{violation.getRootBeanClass(), violation.getPropertyPath(), violation.getMessage()});
         }
+
+        assertEquals(5, constraintViolations.size());
     }
 }
