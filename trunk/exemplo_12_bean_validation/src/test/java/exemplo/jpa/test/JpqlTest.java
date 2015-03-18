@@ -6,6 +6,7 @@ import exemplo.jpa.Endereco;
 import exemplo.jpa.Item;
 import exemplo.jpa.Oferta;
 import exemplo.jpa.Reputacao;
+import exemplo.jpa.Usuario;
 import exemplo.jpa.Vendedor;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.FlushModeType;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolation;
@@ -73,8 +75,21 @@ public class JpqlTest {
             if (et.isActive()) {
                 et.rollback();
             }
+
+            if (ex.getCause() instanceof ConstraintViolationException) {
+                ConstraintViolationException e = (ConstraintViolationException) ex.getCause();
+                Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
+
+                for (ConstraintViolation violation : constraintViolations) {
+                    Logger.getGlobal().log(Level.INFO, "{0}.{1}: {2}", new Object[]{violation.getRootBeanClass(), violation.getPropertyPath(), violation.getMessage()});
+                }
+
+                assertEquals(1, constraintViolations.size());
+            }
         } finally {
             em.close();
+            em = null;
+            et = null;
         }
     }
 
@@ -197,7 +212,7 @@ public class JpqlTest {
         CartaoCredito cartaoCredito = new CartaoCredito();
         Calendar calendar = GregorianCalendar.getInstance();
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        
+
         //CPF inválido
         comprador.setCpf("453.123.472-11");
         calendar.set(1985, Calendar.JANUARY, 1);
@@ -212,7 +227,7 @@ public class JpqlTest {
         endereco.setBairro("CDU");
         endereco.setCep("50.670-230");
         endereco.setCidade("Recife");
-        endereco.setEstado("PE");
+        endereco.setEstado("AA");
         endereco.setNumero(20);
         endereco.setComplemento("AP 301");
         endereco.setLogradouro("Av. Professor Moraes Rego");
@@ -230,6 +245,15 @@ public class JpqlTest {
             Logger.getGlobal().log(Level.INFO, "{0}.{1}: {2}", new Object[]{violation.getRootBeanClass(), violation.getPropertyPath(), violation.getMessage()});
         }
 
-        assertEquals(5, constraintViolations.size());
+        assertEquals(6, constraintViolations.size());
+    }
+
+    @Test
+    public void t05_criarCompradorInvalido() {
+        Logger.getGlobal().log(Level.INFO, "t05_criarCompradorInvalido");
+        TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.cpf like :cpf", Usuario.class);
+        query.setParameter("cpf", "787.829.223-06");
+        Usuario usuario = query.getSingleResult();
+        usuario.setSenha("testando1234");
     }
 }
