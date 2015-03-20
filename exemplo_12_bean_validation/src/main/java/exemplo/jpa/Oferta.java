@@ -28,7 +28,7 @@ public class Oferta implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ID_ITEM", referencedColumnName = "ID")
     private Item item;
-    @DecimalMin("0")
+    @DecimalMin("0.1")
     @NotNull
     @Column(name = "NUM_VALOR")
     private BigDecimal valor;
