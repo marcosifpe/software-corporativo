@@ -8,6 +8,7 @@ import exemplo.jpa.Oferta;
 import exemplo.jpa.Reputacao;
 import exemplo.jpa.Usuario;
 import exemplo.jpa.Vendedor;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
@@ -198,7 +199,7 @@ public class JpqlTest {
         Item item = (Item) query.getSingleResult();
         Oferta oferta = new Oferta();
         oferta.setItem(item);
-        oferta.setValor(575.50);
+        oferta.setValor(new BigDecimal("575.50"));
         comprador.adicionar(oferta);
         em.persist(comprador);
         assertNotNull(comprador.getId());

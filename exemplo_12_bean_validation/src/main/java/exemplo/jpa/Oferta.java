@@ -1,6 +1,7 @@
 package exemplo.jpa;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -26,9 +28,10 @@ public class Oferta implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ID_ITEM", referencedColumnName = "ID")
     private Item item;
+    @DecimalMin("0")
     @NotNull
     @Column(name = "NUM_VALOR")
-    private Double valor;
+    private BigDecimal valor;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DT_OFERTA")
     private Date data;
@@ -80,11 +83,11 @@ public class Oferta implements Serializable {
         this.id = id;
     }
 
-    public Double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(Double valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 
