@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "TB_OFERTA")
-public class Oferta implements Serializable {
+public class Oferta implements Serializable, Comparable<Oferta> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -122,6 +122,11 @@ public class Oferta implements Serializable {
     @Override
     public String toString() {
         return "exemplo.jpa.Oferta[ id=" + id + " ]";
+    }
+
+    @Override
+    public int compareTo(Oferta oferta) {
+        return this.valor.compareTo(oferta.valor);
     }
     
 }

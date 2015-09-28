@@ -73,12 +73,19 @@ public class Item implements Serializable {
     public boolean temOfertas() {
         return !this.ofertas.isEmpty();
     }
-    
+
     public void adicionar(Oferta oferta) {
         if (this.ofertas == null) {
             this.ofertas = new ArrayList<>();
         }
 
+        for (Oferta ofertaAnterior : ofertas) {
+            //A oferta atual tem que superior a todas as outras
+            if (ofertaAnterior.compareTo(oferta) != -1) {
+                return;
+            }
+        }
+        
         this.ofertas.add(oferta);
         oferta.setItem(this);
     }

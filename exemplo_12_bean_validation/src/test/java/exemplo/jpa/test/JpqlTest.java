@@ -198,8 +198,8 @@ public class JpqlTest {
         query.setParameter(1, "boss DD-7");
         Item item = (Item) query.getSingleResult();
         Oferta oferta = new Oferta();
-        oferta.setItem(item);
         oferta.setValor(new BigDecimal("575.50"));
+        item.adicionar(oferta);
         comprador.adicionar(oferta);
         em.persist(comprador);
         assertNotNull(comprador.getId());
