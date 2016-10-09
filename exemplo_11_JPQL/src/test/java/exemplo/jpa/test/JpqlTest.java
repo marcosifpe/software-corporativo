@@ -61,19 +61,27 @@ public class JpqlTest {
     @Before
     public void setUp() {
         em = emf.createEntityManager();
-        et = em.getTransaction();
-        et.begin();
+        beginTransaction();
     }
 
     @After
     public void tearDown() {
+        commitTransaction();
+        em.close();
+    }
+
+    private void beginTransaction() {
+        et = em.getTransaction();
+        et.begin();
+    }
+
+    private void commitTransaction() {
         try {
             et.commit();
         } catch (Exception ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
             et.rollback();
-        } finally {
-            em.close();
+            fail(ex.getMessage());
         }
     }
 
@@ -519,13 +527,26 @@ public class JpqlTest {
 
     @Test
     public void t31_delete() {
-        Long id = (long) 6;
         logger.info("Executando t31: DELETE Oferta AS o WHERE o.id = ?1");
+        Long id = (long) 6;
         Query query = em.createQuery("DELETE Oferta AS o WHERE o.id = ?1");
         query.setParameter(1, id);
         query.executeUpdate();
         Oferta oferta = em.find(Oferta.class, id);
         assertNull(oferta);
         logger.log(Level.INFO, "Oferta {0} removida com sucesso.", id);
+    }
+
+    @Test
+    public void t32_persistirCategoria() {
+        logger.info("Executando t32: persistir Categoria");
+        Categoria instrumentosMusicais = em.find(Categoria.class, new Long(1));
+        Categoria categoria = new Categoria();
+        categoria.setNome("Bateria");
+        categoria.setMae(instrumentosMusicais);
+        em.persist(categoria);
+        em.flush();
+        assertNotNull(categoria.getId());
+        logger.log(Level.INFO, "Categoria {0} incluída com sucesso.", categoria);
     }
 }
