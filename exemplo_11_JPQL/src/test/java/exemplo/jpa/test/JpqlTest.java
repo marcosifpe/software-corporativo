@@ -549,4 +549,16 @@ public class JpqlTest {
         assertNotNull(categoria.getId());
         logger.log(Level.INFO, "Categoria {0} incluída com sucesso.", categoria);
     }
+    
+    @Test
+    public void t33_atualizarCategoria() {
+        logger.info("Executando t33: atualizar Categoria");
+        TypedQuery<Categoria> query = em.createNamedQuery("Categoria.PorNome", Categoria.class);
+        query.setParameter("nome", "Guitarras");
+        Categoria categoria = query.getSingleResult();
+        assertNotNull(categoria);
+        categoria.setNome("Guitarras Elétricas");
+        em.flush();
+        assertEquals(0, query.getResultList().size());
+    }
 }
