@@ -451,7 +451,7 @@ public class JpqlTest {
                 "SELECT ID_CATEGORIA, TXT_NOME, ID_CATEGORIA_MAE FROM TB_CATEGORIA WHERE ID_CATEGORIA_MAE is null",
                 Categoria.class);
         List<Categoria> categorias = query.getResultList();
-        assertEquals(1, categorias.size());
+        assertEquals(2, categorias.size());
 
         for (Categoria categoria : categorias) {
             logger.log(Level.INFO, categoria.getNome());
@@ -561,4 +561,16 @@ public class JpqlTest {
         em.flush();
         assertEquals(0, query.getResultList().size());
     }
+    
+    @Test
+    public void t33_removerCategoria() {
+        logger.info("Executando t33: atualizar Categoria");
+        TypedQuery<Categoria> query = em.createNamedQuery("Categoria.PorNome", Categoria.class);
+        query.setParameter("nome", "Carros");
+        Categoria categoria = query.getSingleResult();
+        assertNotNull(categoria);
+        em.remove(categoria);
+        em.flush();
+        assertEquals(0, query.getResultList().size());
+    }  
 }

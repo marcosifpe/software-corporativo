@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <TB_CATEGORIA TXT_NOME="Instrumentos Musicais"/>
-    <TB_CATEGORIA TXT_NOME="Guitarras" id_categoria_mae = "1"/>
-    <TB_CATEGORIA TXT_NOME="Pedais" id_categoria_mae = "1" />
-    <TB_CATEGORIA TXT_NOME="Instrumentos de Sopro" id_categoria_mae = "1"/>
+    <TB_CATEGORIA txt_nome="Instrumentos Musicais"/>
+    <TB_CATEGORIA txt_nome="Guitarras" id_categoria_mae = "1"/>
+    <TB_CATEGORIA txt_nome="Pedais" id_categoria_mae = "1" />
+    <TB_CATEGORIA txt_nome="Instrumentos de Sopro" id_categoria_mae = "1"/>
+    <TB_CATEGORIA txt_nome="Carros"/>
     <!-- Usuario id = 1 (comprador) -->
     <TB_USUARIO disc_usuario = "C" txt_cpf = "808.257.284-10" dt_nascimento = "1999-12-21" dt_criacao = "2014-11-02 22:16:23"
                 txt_email = "fulano@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
