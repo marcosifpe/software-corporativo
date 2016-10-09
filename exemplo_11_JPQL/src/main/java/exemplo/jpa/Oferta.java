@@ -17,11 +17,13 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "TB_OFERTA")
 public class Oferta implements Serializable {
+
     @Id
+    @Column(name = "ID_OFERTA")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ID_ITEM", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_ITEM", referencedColumnName = "ID_ITEM")
     private Item item;
     @Column(name = "NUM_VALOR", nullable = false)
     private Double valor;
@@ -32,8 +34,8 @@ public class Oferta implements Serializable {
     @JoinColumn(name = "ID_COMPRADOR", referencedColumnName = "ID_USUARIO", nullable = false)
     private Comprador comprador;
     @Column(name = "FLAG_VENCEDORA", nullable = false)
-    private boolean vencedora;    
-    
+    private boolean vencedora;
+
     public Oferta() {
         this.data = new Date();
         this.vencedora = false;
@@ -45,7 +47,7 @@ public class Oferta implements Serializable {
 
     public void setComprador(Comprador comprador) {
         this.comprador = comprador;
-    }    
+    }
 
     public boolean isVencedora() {
         return vencedora;
@@ -54,7 +56,7 @@ public class Oferta implements Serializable {
     public void setVencedora(boolean vencedora) {
         this.vencedora = vencedora;
     }
-    
+
     public Item getItem() {
         return item;
     }
@@ -86,7 +88,7 @@ public class Oferta implements Serializable {
     public void setData(Date data) {
         this.data = data;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -111,5 +113,5 @@ public class Oferta implements Serializable {
     public String toString() {
         return "exemplo.jpa.Oferta[ id=" + id + " ]";
     }
-    
+
 }

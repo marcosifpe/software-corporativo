@@ -35,6 +35,7 @@ import org.junit.runners.MethodSorters;
  * @author MASC
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@SuppressWarnings("JPQLValidation")
 public class JpqlTest {
 
     private static EntityManagerFactory emf;
@@ -260,17 +261,17 @@ public class JpqlTest {
     }
 
     /**
-     * Consulta por cartões de crédito expirados.
-     * JPQL: SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE
+     * Consulta por cartões de crédito expirados. JPQL: SELECT c FROM
+     * CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE
      */
     @Test
     public void t12_cartoesExpirados() {
         logger.info("Executando t12: SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE");
         TypedQuery<CartaoCredito> query = em.createQuery("SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE", CartaoCredito.class);
-        List<CartaoCredito> cartoesExpirados = query.getResultList();        
-        assertEquals(1, cartoesExpirados.size());
+        List<CartaoCredito> cartoesExpirados = query.getResultList();
+        assertEquals(2, cartoesExpirados.size());
     }
-    
+
     @Test
     public void t13_categoriasPorQuantidadeFilhas() {
         logger.info("Executando t13: SELECT c FROM Categoria c WHERE SIZE(c.filhas) >= ?1");
@@ -282,12 +283,12 @@ public class JpqlTest {
         List<Categoria> categorias = query.getResultList();
         assertTrue(categorias.size() == 1);
     }
-    
+
     @Test
     public void t14_bandeirasDistintas() {
         logger.info("Executando t14: SELECT DISTINCT(c.bandeira) FROM CartaoCredito c ORDER BY c.bandeira");
-        TypedQuery<String> query = 
-                em.createQuery("SELECT DISTINCT(c.bandeira) FROM CartaoCredito c ORDER BY c.bandeira", String.class);
+        TypedQuery<String> query
+                = em.createQuery("SELECT DISTINCT(c.bandeira) FROM CartaoCredito c ORDER BY c.bandeira", String.class);
         List<String> bandeiras = query.getResultList();
         assertEquals(3, bandeiras.size());
     }
@@ -299,9 +300,9 @@ public class JpqlTest {
         query = em.createQuery(
                 "SELECT c FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC",
                 CartaoCredito.class);
-        List<CartaoCredito> cartoes = query.getResultList();        
+        List<CartaoCredito> cartoes = query.getResultList();
         assertEquals(4, cartoes.size());
-        
+
         for (CartaoCredito cartao : cartoes) {
             logger.log(Level.INFO, "{0}: {1}", new Object[]{cartao.getBandeira(), cartao.getDono().getNome()});
         }
@@ -314,14 +315,14 @@ public class JpqlTest {
         query = em.createQuery(
                 "SELECT c.bandeira, c.dono.nome FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC",
                 Object[].class);
-        List<Object[]> cartoes = query.getResultList();        
+        List<Object[]> cartoes = query.getResultList();
         assertEquals(4, cartoes.size());
-        
+
         for (Object[] cartao : cartoes) {
             logger.log(Level.INFO, "{0}: {1}", new Object[]{cartao[0], cartao[1]});
-        }        
+        }
     }
-    
+
     @Test
     public void t17_itensPorReputacaoVendedor() {
         logger.info("Executando t17: SELECT i FROM Item i WHERE i.vendedor IN (SELECT v FROM Vendedor v WHERE v.reputacao = :reputacao");
@@ -330,14 +331,14 @@ public class JpqlTest {
                 "SELECT i FROM Item i WHERE i.vendedor IN (SELECT v FROM Vendedor v WHERE v.reputacao = :reputacao)",
                 Item.class);
         query.setParameter("reputacao", Reputacao.EXPERIENTE);
-        List<Item> itens = query.getResultList();    
+        List<Item> itens = query.getResultList();
         assertEquals(3, itens.size());
-        
+
         for (Item item : itens) {
             logger.log(Level.INFO, "{0}: {1}", new Object[]{item.getTitulo(), item.getDescricao()});
         }
     }
-    
+
     @Test
     public void t18_itensVendidos() {
         logger.info("Executando t18: SELECT i FROM Item i WHERE EXISTS (SELECT o FROM Oferta o WHERE o.item = i AND o.vencedora = true)");
@@ -347,10 +348,10 @@ public class JpqlTest {
                 Item.class);
         List<Item> itens = query.getResultList();
         assertEquals(3, itens.size());
-        
+
         for (Item item : itens) {
             logger.log(Level.INFO, "{0}: {1}", new Object[]{item.getTitulo(), item.getDescricao()});
-        }        
+        }
     }
 
     @Test
@@ -365,7 +366,7 @@ public class JpqlTest {
         Oferta oferta = ofertas.get(0);
         logger.log(Level.INFO, "{0}: {1}", new Object[]{oferta.getData().toString(), oferta.getItem().getTitulo()});
     }
-    
+
     @Test
     public void t20_todasOfertasExcetoAMaisAntiga() {
         logger.info("Executando t20: SELECT o FROM Oferta o WHERE o.data > ANY (SELECT o1.data FROM Oferta o1)");
@@ -390,7 +391,7 @@ public class JpqlTest {
                 Comprador.class);
         List<Comprador> compradores = query.getResultList();
         assertEquals(4, compradores.size());
-        
+
         for (Comprador comprador : compradores) {
             logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador.getId(), comprador.getLogin()});
         }
@@ -405,7 +406,7 @@ public class JpqlTest {
                 Object[].class);
         List<Object[]> compradores = query.getResultList();
         assertEquals(5, compradores.size());
-        
+
         for (Object[] comprador : compradores) {
             logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador[0], comprador[1]});
         }
@@ -420,9 +421,9 @@ public class JpqlTest {
                 Comprador.class);
         query.setParameter(1, "zesilva");
         Comprador comprador = query.getSingleResult();
-        logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador.getCartaoCredito().getBandeira(), comprador.getLogin()});        
+        logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador.getCartaoCredito().getBandeira(), comprador.getLogin()});
     }
-    
+
     @Test
     public void t24_timestampSQL() {
         logger.info("Executando t24: SELECT current_timestamp() FROM DUAL");
@@ -433,22 +434,22 @@ public class JpqlTest {
         assertNotNull(dataCorrente);
         logger.log(Level.INFO, dataCorrente.toString());
     }
-    
+
     @Test
     public void t25_categoriaSQL() {
         logger.info("Executando t25: SELECT id, txt_nome, id_categoria_mae FROM tb_categoria WHERE id_categoria_mae is null");
         Query query;
         query = em.createNativeQuery(
-                "SELECT id, txt_nome, id_categoria_mae FROM tb_categoria WHERE id_categoria_mae is null",
+                "SELECT ID_CATEGORIA, TXT_NOME, ID_CATEGORIA_MAE FROM TB_CATEGORIA WHERE ID_CATEGORIA_MAE is null",
                 Categoria.class);
         List<Categoria> categorias = query.getResultList();
         assertEquals(1, categorias.size());
-        
+
         for (Categoria categoria : categorias) {
             logger.log(Level.INFO, categoria.getNome());
         }
     }
-    
+
     @Test
     public void t26_categoriaSQLNomeada() {
         logger.info("Executando t26: Categoria.PorNomeSQL");
@@ -457,12 +458,12 @@ public class JpqlTest {
         query.setParameter(1, "Guitarras");
         List<Categoria> categorias = query.getResultList();
         assertEquals(1, categorias.size());
-        
+
         for (Categoria categoria : categorias) {
             logger.log(Level.INFO, categoria.getNome());
-        }                
+        }
     }
-    
+
     @Test
     public void t27_categoriaQuantidadeItens() {
         logger.info("Executando t27: Categoria.QuantidadeItensSQL");
@@ -471,24 +472,24 @@ public class JpqlTest {
         query.setParameter(1, "Instrumentos Musicais");
         List<Object[]> resultados = query.getResultList();
         assertEquals(1, resultados.size());
-        
+
         for (Object[] resultado : resultados) {
-            logger.log(Level.INFO, "{0}: {1}", resultado);        
-        }                        
+            logger.log(Level.INFO, "{0}: {1}", resultado);
+        }
     }
-    
+
     @Test
     public void t28_categoriaQuantidadeItens() {
         logger.info("Executando t28: SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c");
         Query query = em.createQuery("SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c");
         List<Object[]> resultados = query.getResultList();
         assertEquals(4, resultados.size());
-        
+
         for (Object[] resultado : resultados) {
-            logger.log(Level.INFO, "{0}: {1}", resultado);        
-        }        
+            logger.log(Level.INFO, "{0}: {1}", resultado);
+        }
     }
-    
+
     @Test
     public void t29_categoriaQuantidadeItens() {
         logger.info("Executando t29: SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c HAVING COUNT(i) >= ?1");
@@ -496,12 +497,12 @@ public class JpqlTest {
         query.setParameter(1, (long) 3);
         List<Object[]> resultados = query.getResultList();
         assertEquals(1, resultados.size());
-        
+
         for (Object[] resultado : resultados) {
-            logger.log(Level.INFO, "{0}: {1}", resultado);        
-        }        
+            logger.log(Level.INFO, "{0}: {1}", resultado);
+        }
     }
-    
+
     @Test
     public void t30_update() {
         logger.info("Executando t30: UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
@@ -509,22 +510,22 @@ public class JpqlTest {
         Query query = em.createQuery("UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
         query.setParameter(1, getData(10, 10, 1983));
         query.setParameter(2, id);
-        query.executeUpdate();        
+        query.executeUpdate();
         Vendedor vendedor = em.find(Vendedor.class, id);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");        
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals(simpleDateFormat.format(getData(10, 10, 1983)), simpleDateFormat.format(vendedor.getDataNascimento()));
         logger.info(vendedor.getDataNascimento().toString());
     }
-    
+
     @Test
     public void t31_delete() {
         Long id = (long) 6;
         logger.info("Executando t31: DELETE Oferta AS o WHERE o.id = ?1");
         Query query = em.createQuery("DELETE Oferta AS o WHERE o.id = ?1");
         query.setParameter(1, id);
-        query.executeUpdate();        
-        Oferta oferta = em.find(Oferta.class, id);  
+        query.executeUpdate();
+        Oferta oferta = em.find(Oferta.class, id);
         assertNull(oferta);
-        logger.log(Level.INFO, "Oferta {0} removida com sucesso.", id);  
+        logger.log(Level.INFO, "Oferta {0} removida com sucesso.", id);
     }
 }

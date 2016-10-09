@@ -7,6 +7,8 @@ import javax.persistence.ColumnResult;
 import javax.persistence.Entity;
 import javax.persistence.EntityResult;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,12 +34,12 @@ import org.hibernate.annotations.NamedNativeQuery;
         {
             @NamedNativeQuery(
                     name = "Categoria.PorNomeSQL",
-                    query = "SELECT id, txt_nome, id_categoria_mae FROM tb_categoria WHERE txt_nome LIKE ? ORDER BY id",
+                    query = "SELECT ID_CATEGORIA, TXT_NOME, ID_CATEGORIA_MAE FROM TB_CATEGORIA WHERE TXT_NOME LIKE ? ORDER BY ID_CATEGORIA",
                     resultClass = Categoria.class
             ),
             @NamedNativeQuery(
                     name = "Categoria.QuantidadeItensSQL",
-                    query = "SELECT c.ID, c.TXT_NOME, c.ID_CATEGORIA_MAE, count(ic.ID_ITEM) as total_itens from tb_categoria c, tb_itens_categorias ic where c.TXT_NOME LIKE ? and c.ID = ic.ID_CATEGORIA GROUP BY c.id",
+                    query = "SELECT c.ID_CATEGORIA, c.TXT_NOME, c.ID_CATEGORIA_MAE, count(ic.ID_ITEM) as TOTAL_ITENS from TB_CATEGORIA c, TB_ITENS_CATEGORIAS ic where c.TXT_NOME LIKE ? and c.ID_CATEGORIA = ic.ID_CATEGORIA GROUP BY c.ID_CATEGORIA",
                     resultSetMapping = "Categoria.QuantidadeItens"
             )
         }
@@ -47,16 +49,18 @@ import org.hibernate.annotations.NamedNativeQuery;
         entities = {
             @EntityResult(entityClass = Categoria.class)},
         columns = {
-            @ColumnResult(name = "total_itens", type = Long.class)}
+            @ColumnResult(name = "TOTAL_ITENS", type = Long.class)}
 )
 public class Categoria implements Serializable {
 
     @Id
+    @Column(name = "ID_CATEGORIA")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "TXT_NOME", length = 100, nullable = false, unique = true)
     private String nome;
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "ID_CATEGORIA_MAE", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_CATEGORIA_MAE", referencedColumnName = "ID_CATEGORIA")
     private Categoria mae;
     @OneToMany(mappedBy = "mae", orphanRemoval = true)
     private List<Categoria> filhas;

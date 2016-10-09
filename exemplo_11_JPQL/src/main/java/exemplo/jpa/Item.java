@@ -22,6 +22,7 @@ import javax.persistence.Table;
 public class Item implements Serializable {
 
     @Id
+    @Column(name = "ID_ITEM")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY,
@@ -65,7 +66,7 @@ public class Item implements Serializable {
     public boolean temOfertas() {
         return !this.ofertas.isEmpty();
     }
-    
+
     public void adicionar(Oferta oferta) {
         if (this.ofertas == null) {
             this.ofertas = new ArrayList<>();

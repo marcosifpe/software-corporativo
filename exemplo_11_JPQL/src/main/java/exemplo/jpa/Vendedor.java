@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="TB_VENDEDOR") 
 @DiscriminatorValue(value = "V")
-@PrimaryKeyJoinColumn(name="ID_USUARIO", referencedColumnName = "ID")
+@PrimaryKeyJoinColumn(name="ID_USUARIO", referencedColumnName = "ID_USUARIO")
 public class Vendedor extends Usuario implements Serializable {
     @Column(name = "NUM_VALOR_VENDAS")
     private Double valorVendas;

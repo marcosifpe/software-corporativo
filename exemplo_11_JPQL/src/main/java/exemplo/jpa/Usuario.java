@@ -30,7 +30,9 @@ import javax.persistence.TemporalType;
         discriminatorType = DiscriminatorType.STRING, length = 1)
 @Access(AccessType.FIELD)
 public abstract class Usuario implements Serializable {
+
     @Id
+    @Column(name = "ID_USUARIO")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     @Embedded
