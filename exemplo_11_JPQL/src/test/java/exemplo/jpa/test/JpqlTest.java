@@ -548,8 +548,10 @@ public class JpqlTest {
         List<Object[]> resultados = query.getResultList();
         assertEquals(1, resultados.size());
 
-        for (Object[] resultado : resultados) {
-            logger.log(Level.INFO, "{0}: {1}", resultado);
+        if (logger.isLoggable(Level.INFO)) {
+            for (Object[] resultado : resultados) {
+                logger.log(Level.INFO, "{0}: {1}", resultado);
+            }
         }
     }
 
