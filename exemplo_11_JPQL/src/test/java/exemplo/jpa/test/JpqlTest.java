@@ -259,7 +259,7 @@ public class JpqlTest {
                 logger.info(usuario.toString());
             }
         }
-        
+
         assertEquals(3, usuarios.size());
     }
 
@@ -284,10 +284,6 @@ public class JpqlTest {
         assertEquals("Instrumentos Musicais", categoria.getNome());
     }
 
-    /**
-     * Consulta por cartões de crédito expirados. JPQL: SELECT c FROM
-     * CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE
-     */
     @Test
     public void t12_cartoesExpirados() {
         logger.info("Executando t12: SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE");
@@ -305,7 +301,7 @@ public class JpqlTest {
                 Categoria.class);
         query.setParameter(1, 3);
         List<Categoria> categorias = query.getResultList();
-        assertTrue(categorias.size() == 1);
+        assertEquals(1, categorias.size());
     }
 
     @Test
@@ -325,11 +321,14 @@ public class JpqlTest {
                 "SELECT c FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC",
                 CartaoCredito.class);
         List<CartaoCredito> cartoes = query.getResultList();
-        assertEquals(4, cartoes.size());
 
-        for (CartaoCredito cartao : cartoes) {
-            logger.log(Level.INFO, "{0}: {1}", new Object[]{cartao.getBandeira(), cartao.getDono().getNome()});
+        if (logger.isLoggable(Level.INFO)) {
+            for (CartaoCredito cartao : cartoes) {
+                logger.log(Level.INFO, "{0}: {1}", new Object[]{cartao.getBandeira(), cartao.getDono().getNome()});
+            }
         }
+
+        assertEquals(4, cartoes.size());
     }
 
     @Test
@@ -340,11 +339,14 @@ public class JpqlTest {
                 "SELECT c.bandeira, c.dono.nome FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC",
                 Object[].class);
         List<Object[]> cartoes = query.getResultList();
-        assertEquals(4, cartoes.size());
 
-        for (Object[] cartao : cartoes) {
-            logger.log(Level.INFO, "{0}: {1}", new Object[]{cartao[0], cartao[1]});
+        if (logger.isLoggable(Level.INFO)) {
+            for (Object[] cartao : cartoes) {
+                logger.log(Level.INFO, "{0}: {1}", new Object[]{cartao[0], cartao[1]});
+            }
         }
+
+        assertEquals(4, cartoes.size());
     }
 
     @Test
@@ -358,8 +360,10 @@ public class JpqlTest {
         List<Item> itens = query.getResultList();
         assertEquals(3, itens.size());
 
-        for (Item item : itens) {
-            logger.log(Level.INFO, "{0}: {1}", new Object[]{item.getTitulo(), item.getDescricao()});
+        if (logger.isLoggable(Level.INFO)) {
+            for (Item item : itens) {
+                logger.log(Level.INFO, "{0}: {1}", new Object[]{item.getTitulo(), item.getDescricao()});
+            }
         }
     }
 
@@ -373,8 +377,10 @@ public class JpqlTest {
         List<Item> itens = query.getResultList();
         assertEquals(3, itens.size());
 
-        for (Item item : itens) {
-            logger.log(Level.INFO, "{0}: {1}", new Object[]{item.getTitulo(), item.getDescricao()});
+        if (logger.isLoggable(Level.INFO)) {
+            for (Item item : itens) {
+                logger.log(Level.INFO, "{0}: {1}", new Object[]{item.getTitulo(), item.getDescricao()});
+            }
         }
     }
 
@@ -387,8 +393,10 @@ public class JpqlTest {
                 Oferta.class);
         List<Oferta> ofertas = query.getResultList();
         assertEquals(1, ofertas.size());
-        Oferta oferta = ofertas.get(0);
-        logger.log(Level.INFO, "{0}: {1}", new Object[]{oferta.getData().toString(), oferta.getItem().getTitulo()});
+        if (logger.isLoggable(Level.INFO)) {
+            Oferta oferta = ofertas.get(0);
+            logger.log(Level.INFO, "{0}: {1}", new Object[]{oferta.getData().toString(), oferta.getItem().getTitulo()});
+        }
     }
 
     @Test
