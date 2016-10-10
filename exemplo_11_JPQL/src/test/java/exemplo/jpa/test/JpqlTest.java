@@ -164,7 +164,7 @@ public class JpqlTest {
         for (Categoria categoria : categorias) {
             assertTrue(!categoria.getFilhas().isEmpty());
         }
-        
+
         assertEquals(1, categorias.size());
     }
 
@@ -182,7 +182,7 @@ public class JpqlTest {
         for (Comprador comprador : compradores) {
             assertEquals("VISA", comprador.getCartaoCredito().getBandeira());
         }
-        
+
         assertEquals(2, compradores.size());
     }
 
@@ -212,6 +212,8 @@ public class JpqlTest {
                     break;
             }
         }
+
+        assertEquals(3, compradores.size());
     }
 
     @Test
@@ -237,6 +239,8 @@ public class JpqlTest {
                     break;
             }
         }
+
+        assertEquals(2, compradores.size());
     }
 
     @Test
@@ -250,9 +254,13 @@ public class JpqlTest {
         query.setParameter(2, getData(1, Calendar.DECEMBER, 1990));
         List<Usuario> usuarios = query.getResultList();
 
-        for (Usuario usuario : usuarios) {
-            System.out.println(usuario);
+        if (logger.isLoggable(Level.INFO)) {
+            for (Usuario usuario : usuarios) {
+                logger.info(usuario.toString());
+            }
         }
+        
+        assertEquals(3, usuarios.size());
     }
 
     private Date getData(Integer dia, Integer mes, Integer ano) {
