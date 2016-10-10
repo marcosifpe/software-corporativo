@@ -409,8 +409,10 @@ public class JpqlTest {
         List<Oferta> ofertas = query.getResultList();
         assertEquals(7, ofertas.size());
 
-        for (Oferta oferta : ofertas) {
-            logger.log(Level.INFO, "{0}: {1}", new Object[]{oferta.getData().toString(), oferta.getId()});
+        if (logger.isLoggable(Level.INFO)) {
+            for (Oferta oferta : ofertas) {
+                logger.log(Level.INFO, "{0}: {1}", new Object[]{oferta.getData().toString(), oferta.getId()});
+            }
         }
     }
 
@@ -424,8 +426,10 @@ public class JpqlTest {
         List<Comprador> compradores = query.getResultList();
         assertEquals(4, compradores.size());
 
-        for (Comprador comprador : compradores) {
-            logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador.getId(), comprador.getLogin()});
+        if (logger.isLoggable(Level.INFO)) {
+            for (Comprador comprador : compradores) {
+                logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador.getId(), comprador.getLogin()});
+            }
         }
     }
 
@@ -439,8 +443,10 @@ public class JpqlTest {
         List<Object[]> compradores = query.getResultList();
         assertEquals(5, compradores.size());
 
-        for (Object[] comprador : compradores) {
-            logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador[0], comprador[1]});
+        if (logger.isLoggable(Level.INFO)) {
+            for (Object[] comprador : compradores) {
+                logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador[0], comprador[1]});
+            }
         }
     }
 
@@ -453,7 +459,11 @@ public class JpqlTest {
                 Comprador.class);
         query.setParameter(1, "zesilva");
         Comprador comprador = query.getSingleResult();
-        logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador.getCartaoCredito().getBandeira(), comprador.getLogin()});
+        assertNotNull(comprador);
+
+        if (logger.isLoggable(Level.INFO)) {
+            logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador.getCartaoCredito().getBandeira(), comprador.getLogin()});
+        }
     }
 
     @Test
