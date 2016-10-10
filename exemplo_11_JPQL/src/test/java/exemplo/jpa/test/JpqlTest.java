@@ -607,7 +607,7 @@ public class JpqlTest {
     }
 
     @Test
-    public void t33_removerCategoria() {
+    public void t34_removerCategoria() {
         logger.info("Executando t33: atualizar Categoria");
         TypedQuery<Categoria> query = em.createNamedQuery("Categoria.PorNome", Categoria.class);
         query.setParameter("nome", "Carros");
