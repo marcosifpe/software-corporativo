@@ -164,6 +164,8 @@ public class JpqlTest {
         for (Categoria categoria : categorias) {
             assertTrue(!categoria.getFilhas().isEmpty());
         }
+        
+        assertEquals(1, categorias.size());
     }
 
     @Test
@@ -179,8 +181,9 @@ public class JpqlTest {
 
         for (Comprador comprador : compradores) {
             assertEquals("VISA", comprador.getCartaoCredito().getBandeira());
-
         }
+        
+        assertEquals(2, compradores.size());
     }
 
     @Test
