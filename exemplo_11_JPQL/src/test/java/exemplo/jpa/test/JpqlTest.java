@@ -487,8 +487,10 @@ public class JpqlTest {
         List<Categoria> categorias = query.getResultList();
         assertEquals(2, categorias.size());
 
-        for (Categoria categoria : categorias) {
-            logger.log(Level.INFO, categoria.getNome());
+        if (logger.isLoggable(Level.INFO)) {
+            for (Categoria categoria : categorias) {
+                logger.log(Level.INFO, categoria.getNome());
+            }
         }
     }
 
@@ -501,8 +503,10 @@ public class JpqlTest {
         List<Categoria> categorias = query.getResultList();
         assertEquals(1, categorias.size());
 
-        for (Categoria categoria : categorias) {
-            logger.log(Level.INFO, categoria.getNome());
+        if (logger.isLoggable(Level.INFO)) {
+            for (Categoria categoria : categorias) {
+                logger.log(Level.INFO, categoria.getNome());
+            }
         }
     }
 
@@ -515,8 +519,10 @@ public class JpqlTest {
         List<Object[]> resultados = query.getResultList();
         assertEquals(1, resultados.size());
 
-        for (Object[] resultado : resultados) {
-            logger.log(Level.INFO, "{0}: {1}", resultado);
+        if (logger.isLoggable(Level.INFO)) {
+            for (Object[] resultado : resultados) {
+                logger.log(Level.INFO, "{0}: {1}", resultado);
+            }
         }
     }
 
@@ -527,8 +533,10 @@ public class JpqlTest {
         List<Object[]> resultados = query.getResultList();
         assertEquals(4, resultados.size());
 
-        for (Object[] resultado : resultados) {
-            logger.log(Level.INFO, "{0}: {1}", resultado);
+        if (logger.isLoggable(Level.INFO)) {
+            for (Object[] resultado : resultados) {
+                logger.log(Level.INFO, "{0}: {1}", resultado);
+            }
         }
     }
 
