@@ -39,7 +39,7 @@ import org.junit.runners.MethodSorters;
 public class JpqlTest {
 
     private static EntityManagerFactory emf;
-    private static final Logger logger = Logger.getGlobal();
+    private static Logger logger = Logger.getGlobal();
     private EntityManager em;
     private EntityTransaction et;
 
@@ -48,7 +48,8 @@ public class JpqlTest {
 
     @BeforeClass
     public static void setUpClass() {
-        logger.setLevel(Level.INFO);
+        //logger.setLevel(Level.INFO);
+        logger.setLevel(Level.SEVERE);
         emf = Persistence.createEntityManagerFactory("exemplo_11");
         DbUnitUtil.inserirDados();
     }
@@ -97,6 +98,8 @@ public class JpqlTest {
         for (Categoria categoria : categorias) {
             assertTrue(categoria.getNome().startsWith("Instrumentos"));
         }
+
+        assertEquals(2, categorias.size());
     }
 
     @Test
@@ -109,6 +112,8 @@ public class JpqlTest {
         for (Categoria categoria : categorias) {
             assertTrue(categoria.getNome().startsWith("Instrumentos"));
         }
+
+        assertEquals(2, categorias.size());
     }
 
     @Test
@@ -549,7 +554,7 @@ public class JpqlTest {
         assertNotNull(categoria.getId());
         logger.log(Level.INFO, "Categoria {0} incluída com sucesso.", categoria);
     }
-    
+
     @Test
     public void t33_atualizarCategoria() {
         logger.info("Executando t33: atualizar Categoria");
@@ -561,7 +566,7 @@ public class JpqlTest {
         em.flush();
         assertEquals(0, query.getResultList().size());
     }
-    
+
     @Test
     public void t33_removerCategoria() {
         logger.info("Executando t33: atualizar Categoria");
@@ -572,5 +577,5 @@ public class JpqlTest {
         em.remove(categoria);
         em.flush();
         assertEquals(0, query.getResultList().size());
-    }  
+    }
 }
