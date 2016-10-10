@@ -607,8 +607,22 @@ public class JpqlTest {
     }
 
     @Test
-    public void t34_removerCategoria() {
-        logger.info("Executando t33: atualizar Categoria");
+    public void t34_atualizarCategoriaMerge() {
+        logger.info("Executando t33: atualizar Categoria com Merge");
+        TypedQuery<Categoria> query = em.createNamedQuery("Categoria.PorNome", Categoria.class);
+        query.setParameter("nome", "Pedais");
+        Categoria categoria = query.getSingleResult();
+        assertNotNull(categoria);
+        em.clear();
+        categoria.setNome("Pedais de Guitarra");
+        em.merge(categoria);
+        em.flush();
+        assertEquals(0, query.getResultList().size());
+    }
+    
+    @Test
+    public void t35_removerCategoria() {
+        logger.info("Executando t35: remover Categoria");
         TypedQuery<Categoria> query = em.createNamedQuery("Categoria.PorNome", Categoria.class);
         query.setParameter("nome", "Carros");
         Categoria categoria = query.getSingleResult();
