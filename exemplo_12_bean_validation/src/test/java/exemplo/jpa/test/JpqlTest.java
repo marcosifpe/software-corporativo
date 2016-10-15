@@ -39,35 +39,32 @@ import org.junit.runners.MethodSorters;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JpqlTest {
-
+    
     private static EntityManagerFactory emf;
-    private static final Logger logger = Logger.getGlobal();
+    private static Logger logger;
     private EntityManager em;
     private EntityTransaction et;
-
-    public JpqlTest() {
-        Logger.getGlobal().setLevel(Level.INFO);
-    }
-
+    
     @BeforeClass
     public static void setUpClass() {
+        logger = Logger.getGlobal();
         logger.setLevel(Level.INFO);
         emf = Persistence.createEntityManagerFactory("exemplo_12");
         DbUnitUtil.inserirDados();
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
         emf.close();
     }
-
+    
     @Before
     public void setUp() {
         em = emf.createEntityManager();
         et = em.getTransaction();
         et.begin();
     }
-
+    
     @After
     public void tearDown() {
         try {
@@ -76,15 +73,15 @@ public class JpqlTest {
             if (et.isActive()) {
                 et.rollback();
             }
-
+            
             if (ex.getCause() instanceof ConstraintViolationException) {
                 ConstraintViolationException e = (ConstraintViolationException) ex.getCause();
                 Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
-
+                
                 for (ConstraintViolation violation : constraintViolations) {
                     Logger.getGlobal().log(Level.INFO, "{0}.{1}: {2}", new Object[]{violation.getRootBeanClass(), violation.getPropertyPath(), violation.getMessage()});
                 }
-
+                
                 assertEquals(1, constraintViolations.size());
             }
         } finally {
@@ -93,7 +90,7 @@ public class JpqlTest {
             et = null;
         }
     }
-
+    
     @Test
     public void t01_criarVendedorValido() {
         Vendedor vendedor = new Vendedor();
@@ -120,7 +117,7 @@ public class JpqlTest {
         em.persist(vendedor);
         assertNotNull(vendedor.getId());
     }
-
+    
     @Test //Usuario, Vendedor, Endereco
     public void t02_criarVendedorInvalido() {
         Vendedor vendedor = null;
@@ -154,18 +151,20 @@ public class JpqlTest {
             assertTrue(false);
         } catch (ConstraintViolationException ex) {
             Logger.getGlobal().info(ex.getMessage());
-
+            
             Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
-
-            for (ConstraintViolation violation : constraintViolations) {
-                Logger.getGlobal().log(Level.INFO, "{0}.{1}: {2}", new Object[]{violation.getRootBeanClass(), violation.getPropertyPath(), violation.getMessage()});
+            
+            if (logger.isLoggable(Level.INFO)) {
+                for (ConstraintViolation violation : constraintViolations) {
+                    Logger.getGlobal().log(Level.INFO, "{0}.{1}: {2}", new Object[]{violation.getRootBeanClass(), violation.getPropertyPath(), violation.getMessage()});
+                }
             }
-
+            
             assertEquals(10, constraintViolations.size());
             assertNull(vendedor.getId());
         }
     }
-
+    
     @Test //Comprador, CartaoCredito
     public void t03_criarCompradorValido() {
         Comprador comprador = new Comprador();
@@ -192,7 +191,7 @@ public class JpqlTest {
         endereco.setNumero(20);
         endereco.setComplemento("AP 301");
         endereco.setLogradouro("Av. Professor Moraes Rego");
-
+        
         TypedQuery query
                 = em.createQuery("SELECT i FROM Item i WHERE i.titulo LIKE ?1", Item.class);
         query.setParameter(1, "boss DD-7");
@@ -206,7 +205,7 @@ public class JpqlTest {
         assertNotNull(cartaoCredito.getId());
         assertNotNull(oferta.getId());
     }
-
+    
     @Test //Comprador, CartaoCredito
     public void t04_criarCompradorInvalido() {
         Comprador comprador = new Comprador();
@@ -241,14 +240,14 @@ public class JpqlTest {
         cartaoCredito.setDataExpiracao(calendar.getTime());
         comprador.setCartaoCredito(cartaoCredito);
         Set<ConstraintViolation<Comprador>> constraintViolations = validator.validate(comprador);
-
+        
         for (ConstraintViolation violation : constraintViolations) {
             Logger.getGlobal().log(Level.INFO, "{0}.{1}: {2}", new Object[]{violation.getRootBeanClass(), violation.getPropertyPath(), violation.getMessage()});
         }
-
+        
         assertEquals(6, constraintViolations.size());
     }
-
+    
     @Test
     public void t05_criarCompradorInvalido() {
         Logger.getGlobal().log(Level.INFO, "t05_criarCompradorInvalido");
