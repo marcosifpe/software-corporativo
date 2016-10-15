@@ -69,6 +69,8 @@ public class JpqlTest {
         try {
             et.commit();
         } catch (Exception ex) {
+            logger.log(Level.SEVERE, ex.getMessage());
+            
             if (et.isActive()) {
                 et.rollback();
             }
