@@ -241,7 +241,7 @@ public class JpqlTest {
     }
 
     @Test
-    public void t05_criarCompradorInvalido() {
+    public void t05_atualizarCompradorInvalido() {
         Logger.getGlobal().log(Level.INFO, "t05_criarCompradorInvalido");
         TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.cpf like :cpf", Usuario.class);
         query.setParameter("cpf", "787.829.223-06");
