@@ -39,7 +39,7 @@ import org.junit.runners.MethodSorters;
 public class JpqlTest {
 
     private static EntityManagerFactory emf;
-    private static Logger logger = Logger.getGlobal();
+    private static Logger logger;
     private EntityManager em;
     private EntityTransaction et;
 
@@ -48,6 +48,7 @@ public class JpqlTest {
 
     @BeforeClass
     public static void setUpClass() {
+        logger = Logger.getGlobal();
         //logger.setLevel(Level.INFO);
         logger.setLevel(Level.SEVERE);
         emf = Persistence.createEntityManagerFactory("exemplo_11");
@@ -289,7 +290,7 @@ public class JpqlTest {
         logger.info("Executando t12: SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE");
         TypedQuery<CartaoCredito> query = em.createQuery("SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE", CartaoCredito.class);
         List<CartaoCredito> cartoesExpirados = query.getResultList();
-        assertEquals(2, cartoesExpirados.size());
+        assertEquals(3, cartoesExpirados.size());
     }
 
     @Test
