@@ -290,7 +290,7 @@ public class JpqlTest {
         logger.info("Executando t12: SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE");
         TypedQuery<CartaoCredito> query = em.createQuery("SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE", CartaoCredito.class);
         List<CartaoCredito> cartoesExpirados = query.getResultList();
-        assertEquals(3, cartoesExpirados.size());
+        assertEquals(4, cartoesExpirados.size());
     }
 
     @Test
