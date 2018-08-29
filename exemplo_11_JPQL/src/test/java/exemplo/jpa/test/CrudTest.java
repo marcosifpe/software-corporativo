@@ -86,7 +86,7 @@ public class CrudTest extends GenericTest {
         Comprador comprador = em.find(Comprador.class, 1L);
         comprador.setEmail(novoEmail);
         comprador.addTelefone(telefone);
-        commit();
+        em.flush();
         comprador = em.find(Comprador.class, 1L);
         assertEquals(novoEmail, comprador.getEmail());        
         assertTrue(comprador.possui(telefone));
