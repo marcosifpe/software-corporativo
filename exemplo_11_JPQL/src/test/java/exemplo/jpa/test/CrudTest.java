@@ -10,6 +10,8 @@ import exemplo.jpa.Comprador;
 import exemplo.jpa.Endereco;
 import exemplo.jpa.Usuario;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import javax.persistence.CacheRetrieveMode;
 import javax.persistence.TypedQuery;
 import org.junit.Test;
@@ -57,11 +59,9 @@ public class CrudTest extends GenericTest {
         comprador.addTelefone(telefone);
         em.clear();
         em.merge(comprador);
-        String jpql = "SELECT c FROM Comprador c WHERE c.cpf = :cpf";
-        TypedQuery<Comprador> query = em.createQuery(jpql, Comprador.class);
-        query.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
-        query.setParameter("cpf", comprador.getCpf());
-        comprador = query.getSingleResult();
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        comprador = em.find(Comprador.class, 1L, properties);
         assertEquals(novoEmail, comprador.getEmail());        
         assertTrue(comprador.possui(telefone));
     }    
