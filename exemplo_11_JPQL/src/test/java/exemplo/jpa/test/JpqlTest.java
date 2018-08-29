@@ -237,20 +237,18 @@ public class JpqlTest extends GenericTest {
 
     @Test
     public void ordenacaoCartao() {
-        logger.info("Executando t15: SELECT c FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC");
+        logger.info("Executando ordenacaoCartao()");
         TypedQuery<CartaoCredito> query;
         query = em.createQuery(
-                "SELECT c FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC",
+                "SELECT c FROM CartaoCredito c ORDER BY c.bandeira DESC",
                 CartaoCredito.class);
         List<CartaoCredito> cartoes = query.getResultList();
-
-        if (logger.isLoggable(Level.INFO)) {
-            for (CartaoCredito cartao : cartoes) {
-                logger.log(Level.INFO, "{0}: {1}", new Object[]{cartao.getBandeira(), cartao.getDono().getNome()});
-            }
-        }
-
         assertEquals(5, cartoes.size());
+        assertEquals("VISA", cartoes.get(0).getBandeira());
+        assertEquals("VISA", cartoes.get(1).getBandeira());
+        assertEquals("MASTERCARD", cartoes.get(2).getBandeira());
+        assertEquals("MAESTRO", cartoes.get(3).getBandeira());
+        assertEquals("HIPERCARD", cartoes.get(4).getBandeira());
     }
 
     @Test

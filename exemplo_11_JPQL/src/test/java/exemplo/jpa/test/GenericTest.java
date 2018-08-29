@@ -33,8 +33,8 @@ public class GenericTest {
     @BeforeClass
     public static void setUpClass() {
         logger = Logger.getGlobal();
-        //logger.setLevel(Level.INFO);
-        logger.setLevel(Level.SEVERE);
+        logger.setLevel(Level.INFO);
+        //logger.setLevel(Level.SEVERE);
         emf = Persistence.createEntityManagerFactory("exemplo_11");
         DbUnitUtil.inserirDados();
     }
