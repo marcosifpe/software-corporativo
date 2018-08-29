@@ -24,6 +24,7 @@ import static org.junit.Assert.*;
 public class CompradorCrudTest extends GenericTest {
     @Test
     public void persistirComprador() {
+        logger.info("Executando persistirComprador()");
         Comprador comprador = criarComprador();
         em.persist(comprador);
         em.flush();
@@ -34,6 +35,7 @@ public class CompradorCrudTest extends GenericTest {
         
     @Test
     public void atualizarComprador() {
+        logger.info("Executando atualizarComprador()");
         String novoEmail = "fulano_de_tal@gmail.com";
         String telefone = "(81) 990901010";
         Long id = 1L;
@@ -51,7 +53,8 @@ public class CompradorCrudTest extends GenericTest {
     }
     
     @Test
-    public void atualizarMergeComprador() {
+    public void atualizarCompradorMerge() {
+        logger.info("Executando atualizarCompradorMerge()");
         String novoEmail = "fulano_de_tal2@gmail.com";
         String telefone = "(81) 990901010";
         Long id = 1L;
@@ -69,6 +72,7 @@ public class CompradorCrudTest extends GenericTest {
     
     @Test
     public void removerComprador() {
+        logger.info("Executando removerComprador()");
         Comprador comprador = em.find(Comprador.class, 9L);
         em.remove(comprador);
         Usuario usuario = em.find(Usuario.class, 9L);
