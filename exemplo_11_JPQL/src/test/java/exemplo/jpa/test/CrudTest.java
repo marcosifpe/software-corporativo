@@ -11,6 +11,7 @@ import exemplo.jpa.Comprador;
 import exemplo.jpa.Endereco;
 import exemplo.jpa.Usuario;
 import java.util.Calendar;
+import javax.persistence.CacheRetrieveMode;
 import javax.persistence.TypedQuery;
 import org.eclipse.persistence.config.CacheUsage;
 import org.eclipse.persistence.config.QueryHints;
@@ -23,7 +24,7 @@ import static org.junit.Assert.*;
  */
 public class CrudTest extends GenericTest {
     @Test
-    public void persisteVendedor() {
+    public void persistirComprador() {
         Comprador comprador = criarComprador();
         em.persist(comprador);
         em.flush();
@@ -77,7 +78,7 @@ public class CrudTest extends GenericTest {
     }    
     
     @Test
-    public void updateComprador() {
+    public void atualizarComprador() {
         String novoEmail = "fulano_de_tal@gmail.com";
         String telefone = "(81) 990901010";
         Comprador comprador = em.find(Comprador.class, 1L);
@@ -86,7 +87,7 @@ public class CrudTest extends GenericTest {
         em.flush();
         String jpql = "SELECT c FROM Comprador c WHERE c.id = ?1";
         TypedQuery<Comprador> query = em.createQuery(jpql, Comprador.class);
-        query.setHint(QueryHints.CACHE_USAGE, CacheUsage.NoCache);
+        query.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
         query.setParameter(1, comprador.getId());
         comprador = query.getSingleResult();
         assertEquals(novoEmail, comprador.getEmail());        
@@ -105,7 +106,7 @@ public class CrudTest extends GenericTest {
         em.flush();
         String jpql = "SELECT c FROM Comprador c WHERE c.cpf = :cpf";
         TypedQuery<Comprador> query = em.createQuery(jpql, Comprador.class);
-        query.setHint(QueryHints.CACHE_USAGE, CacheUsage.NoCache);
+        query.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
         query.setParameter("cpf", comprador.getCpf());
         comprador = query.getSingleResult();
         assertEquals(novoEmail, comprador.getEmail());        
