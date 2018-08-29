@@ -252,21 +252,20 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t16_ordenacaoCartao() {
-        logger.info("Executando t16: SELECT c.bandeira, c.dono.nome FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC");
+    public void ordenacaoCartaoNome() {
+        logger.info("Executando ordenacaoCartaoNome()");
         TypedQuery<Object[]> query;
         query = em.createQuery(
                 "SELECT c.bandeira, c.dono.nome FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC",
                 Object[].class);
         List<Object[]> cartoes = query.getResultList();
-
-        if (logger.isLoggable(Level.INFO)) {
-            for (Object[] cartao : cartoes) {
-                logger.log(Level.INFO, "{0}: {1}", new Object[]{cartao[0], cartao[1]});
-            }
-        }
-
         assertEquals(5, cartoes.size());
+        assertEquals("VISA:Beltrano Silva", cartoes.get(0)[0] + ":" + cartoes.get(0)[1]);
+        assertEquals("VISA:Fulano Silva", cartoes.get(1)[0] + ":" + cartoes.get(1)[1]);
+        assertEquals("MASTERCARD:Sicrano Silva", cartoes.get(2)[0] + ":" + cartoes.get(2)[1]);
+        assertEquals("MAESTRO:José da Silva", cartoes.get(3)[0] + ":" + cartoes.get(3)[1]);
+        assertEquals("HIPERCARD:Fulano Silva", cartoes.get(4)[0] + ":" + cartoes.get(4)[1]);
+
     }
 
     @Test
