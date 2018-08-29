@@ -507,8 +507,7 @@ public class JpqlTest extends GenericTest {
         Query update = em.createQuery("UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
         update.setParameter(1, getData(10, 10, 1983));
         update.setParameter(2, id);
-        update.executeUpdate();
-        em.flush();      
+        update.executeUpdate();    
         String jpql = "SELECT v FROM Vendedor v WHERE v.id = :id";
         TypedQuery<Vendedor> query = em.createQuery(jpql, Vendedor.class);
         query.setParameter("id", id);
@@ -526,7 +525,6 @@ public class JpqlTest extends GenericTest {
         Query delete = em.createQuery("DELETE FROM Oferta AS o WHERE o.id = ?1");
         delete.setParameter(1, id);
         delete.executeUpdate();
-        em.flush();
         String jpql = "SELECT o FROM Oferta o WHERE o.id =?1";
         TypedQuery<Oferta> query = em.createQuery(jpql, Oferta.class);
         query.setParameter(1, id);
