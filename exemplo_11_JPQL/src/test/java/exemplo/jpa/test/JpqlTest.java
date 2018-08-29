@@ -76,8 +76,8 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t05_maximaEMinimaDataNascimento() {
-        logger.info("Executando t05: SELECT NEW exemplo.jpa.DatasLimite(MAX(c.dataNascimento), MIN(c.dataNascimento)) FROM Comprador c");
+    public void maximaEMinimaDataNascimentoQueryObjeto() {
+        logger.info("Executando maximaEMinimaDataNascimentoQueryObjeto()");
         TypedQuery<DatasLimite> query = em.createQuery(
                 "SELECT NEW exemplo.jpa.DatasLimite(MAX(c.dataNascimento), MIN(c.dataNascimento)) FROM Comprador c",
                 DatasLimite.class);
@@ -90,8 +90,8 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t06_categoriasMaes() {
-        logger.info("Executando t06: SELECT c FROM Categoria c WHERE c.filhas IS NOT EMPTY");
+    public void categoriasMaes() {
+        logger.info("Executando categoriasMaes()");
         TypedQuery<Categoria> query;
         query = em.createQuery(
                 "SELECT c FROM Categoria c WHERE c.filhas IS NOT EMPTY",
@@ -106,8 +106,8 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t07_compradoresVisa() {
-        logger.info("Executando t07: SELECT c FROM Comprador c WHERE c.cartaoCredito.bandeira like ?1 ORDER BY c.nome DESC");
+    public void compradoresVisa() {
+        logger.info("Executando compradoresVisa()");
         TypedQuery<Comprador> query;
         query = em.createQuery(
                 "SELECT c FROM Comprador c WHERE c.cartaoCredito.bandeira like ?1 ORDER BY c.nome DESC",
@@ -124,8 +124,8 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t08_compradoresVisaMastercard() {
-        logger.info("Executando t08: SELECT c FROM Comprador c WHERE c.cartaoCredito.bandeira LIKE ?1 OR c.cartaoCredito.bandeira LIKE ?2 ORDER BY c.nome DESC");
+    public void compradoresVisaMastercard() {
+        logger.info("Executando compradoresVisaMastercard()");
         TypedQuery<Comprador> query;
         query = em.createQuery(
                 "SELECT c FROM Comprador c "
@@ -154,8 +154,8 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t09_compradoresMastercardMaestro() {
-        logger.info("Executando t09: SELECT c FROM Comprador c WHERE c.cartaoCredito.bandeira IN ('MAESTRO', 'MASTERCARD') ORDER BY c.nome DESC");
+    public void compradoresMastercardMaestro() {
+        logger.info("Executando compradoresMastercardMaestro()");
         TypedQuery<Comprador> query;
         query = em.createQuery(
                 "SELECT c FROM Comprador c "
@@ -181,8 +181,8 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t10_usuariosPorDataNascimento() {
-        logger.info("Executando t10: SELECT u FROM Usuario u WHERE u.dataNascimento BETWEEN ?1 AND ?2");
+    public void usuariosPorDataNascimento() {
+        logger.info("Executando usuariosPorDataNascimento()");
         TypedQuery<Usuario> query;
         query = em.createQuery(
                 "SELECT u FROM Usuario u WHERE u.dataNascimento BETWEEN ?1 AND ?2",
