@@ -54,14 +54,15 @@ public class CrudTest extends GenericTest {
     public void mergeComprador() {
         String novoEmail = "fulano_de_tal2@gmail.com";
         String telefone = "(81) 990901010";
-        Comprador comprador = em.find(Comprador.class, 1L);
+        Long id = 1L;
+        Comprador comprador = em.find(Comprador.class, id);
         comprador.setEmail(novoEmail);
         comprador.addTelefone(telefone);
         em.clear();
         em.merge(comprador);
         Map<String, Object> properties = new HashMap<>();
         properties.put("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
-        comprador = em.find(Comprador.class, 1L, properties);
+        comprador = em.find(Comprador.class, id, properties);
         assertEquals(novoEmail, comprador.getEmail());        
         assertTrue(comprador.possui(telefone));
     }    
