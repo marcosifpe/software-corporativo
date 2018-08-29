@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.logging.Level;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import org.hamcrest.CoreMatchers;
+import static org.hamcrest.CoreMatchers.startsWith;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -270,8 +272,8 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t17_itensPorReputacaoVendedor() {
-        logger.info("Executando t17: SELECT i FROM Item i WHERE i.vendedor IN (SELECT v FROM Vendedor v WHERE v.reputacao = :reputacao");
+    public void itensPorReputacaoVendedor() {
+        logger.info("Executando itensPorReputacaoVendedor()");
         TypedQuery<Item> query;
         query = em.createQuery(
                 "SELECT i FROM Item i WHERE i.vendedor IN (SELECT v FROM Vendedor v WHERE v.reputacao = :reputacao)",
@@ -279,28 +281,22 @@ public class JpqlTest extends GenericTest {
         query.setParameter("reputacao", Reputacao.EXPERIENTE);
         List<Item> itens = query.getResultList();
         assertEquals(3, itens.size());
-
-        if (logger.isLoggable(Level.INFO)) {
-            for (Item item : itens) {
-                logger.log(Level.INFO, "{0}: {1}", new Object[]{item.getTitulo(), item.getDescricao()});
-            }
-        }
     }
 
     @Test
-    public void t18_itensVendidos() {
-        logger.info("Executando t18: SELECT i FROM Item i WHERE EXISTS (SELECT o FROM Oferta o WHERE o.item = i AND o.vencedora = true)");
+    public void itensVendidos() {
+        logger.info("Executando itensVendidos()");
         TypedQuery<Item> query;
         query = em.createQuery(
                 "SELECT i FROM Item i WHERE EXISTS (SELECT o FROM Oferta o WHERE o.item = i AND o.vencedora = true)",
                 Item.class);
         List<Item> itens = query.getResultList();
         assertEquals(3, itens.size());
-
-        if (logger.isLoggable(Level.INFO)) {
-            for (Item item : itens) {
-                logger.log(Level.INFO, "{0}: {1}", new Object[]{item.getTitulo(), item.getDescricao()});
-            }
+        for (Item item : itens) {
+            assertThat(item.getTitulo(), CoreMatchers.anyOf(
+                    startsWith("boss DD-7"),
+                    startsWith("Gibson SG Standard"),
+                    startsWith("Flauta Doce")));
         }
     }
 
