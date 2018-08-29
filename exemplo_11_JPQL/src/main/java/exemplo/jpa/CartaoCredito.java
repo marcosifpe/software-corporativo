@@ -20,7 +20,7 @@ public class CartaoCredito implements Serializable {
     @Column(name = "ID_CARTAO_CREDITO")
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;  
-    @OneToOne(mappedBy = "cartaoCredito", optional = false, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "cartaoCredito", optional = false)
     private Comprador dono;
     @Column(name = "TXT_BANDEIRA", nullable = false, length = 100)
     private String bandeira;
