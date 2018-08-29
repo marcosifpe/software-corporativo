@@ -5,12 +5,10 @@
  */
 package exemplo.jpa.test;
 
-import exemplo.jpa.Categoria;
 import exemplo.jpa.Oferta;
 import exemplo.jpa.Vendedor;
 import static exemplo.jpa.test.GenericTest.logger;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
 import javax.persistence.CacheRetrieveMode;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
