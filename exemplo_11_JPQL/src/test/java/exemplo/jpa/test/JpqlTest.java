@@ -14,8 +14,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import org.eclipse.persistence.config.CacheUsage;
+import org.eclipse.persistence.config.QueryHints;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.FixMethodOrder;
@@ -501,28 +504,34 @@ public class JpqlTest extends GenericTest {
     public void t30_update() {
         logger.info("Executando t30: UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
         Long id = (long) 6;
-        Query query = em.createQuery("UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
-        query.setParameter(1, getData(10, 10, 1983));
-        query.setParameter(2, id);
-        query.executeUpdate();
-        commit();
-        Vendedor vendedor = em.find(Vendedor.class, id);
+        Query update = em.createQuery("UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
+        update.setParameter(1, getData(10, 10, 1983));
+        update.setParameter(2, id);
+        update.executeUpdate();
+        em.flush();      
+        String jpql = "SELECT v FROM Vendedor v WHERE v.id = :id";
+        TypedQuery<Vendedor> query = em.createQuery(jpql, Vendedor.class);
+        query.setParameter("id", id);
+        query.setHint(QueryHints.CACHE_USAGE, CacheUsage.NoCache);
+        Vendedor vendedor = query.getSingleResult();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals(simpleDateFormat.format(getData(10, 10, 1983)), simpleDateFormat.format(vendedor.getDataNascimento()));
         logger.info(vendedor.getDataNascimento().toString());
     }
 
-    @Test
+    @Test(expected = NoResultException.class)
     public void t31_delete() {
         logger.info("Executando t31: DELETE Oferta AS o WHERE o.id = ?1");
         Long id = (long) 6;
-        Query query = em.createQuery("DELETE FROM Oferta AS o WHERE o.id = ?1");
+        Query delete = em.createQuery("DELETE FROM Oferta AS o WHERE o.id = ?1");
+        delete.setParameter(1, id);
+        delete.executeUpdate();
+        em.flush();
+        String jpql = "SELECT o FROM Oferta o WHERE o.id =?1";
+        TypedQuery<Oferta> query = em.createQuery(jpql, Oferta.class);
         query.setParameter(1, id);
-        query.executeUpdate();
-        commit();
-        Oferta oferta = em.find(Oferta.class, id);
-        assertNull(oferta);
-        logger.log(Level.INFO, "Oferta {0} removida com sucesso.", id);
+        query.setHint(QueryHints.CACHE_USAGE, CacheUsage.NoCache);
+        query.getSingleResult();
     }
 
     @Test

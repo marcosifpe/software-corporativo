@@ -67,11 +67,5 @@ public class GenericTest {
             fail(ex.getMessage());
         }
     }
-    
-    protected void commit() {
-        this.commitTransaction();
-        em = emf.createEntityManager();
-        beginTransaction();
-    }
 
 }
