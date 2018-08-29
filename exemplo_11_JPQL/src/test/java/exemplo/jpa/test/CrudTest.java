@@ -87,7 +87,11 @@ public class CrudTest extends GenericTest {
         comprador.setEmail(novoEmail);
         comprador.addTelefone(telefone);
         em.flush();
-        comprador = em.find(Comprador.class, 1L);
+        String jpql = "SELECT c FROM Comprador c WHERE c.id = ?1";
+        TypedQuery<Comprador> query = em.createQuery(jpql, Comprador.class);
+        query.setHint(QueryHints.CACHE_USAGE, CacheUsage.NoCache);
+        query.setParameter(1, comprador.getId());
+        comprador = query.getSingleResult();
         assertEquals(novoEmail, comprador.getEmail());        
         assertTrue(comprador.possui(telefone));
     }
