@@ -362,17 +362,11 @@ public class JpqlTest extends GenericTest {
                 Object[].class);
         List<Object[]> compradores = query.getResultList();
         assertEquals(6, compradores.size());
-
-        if (logger.isLoggable(Level.INFO)) {
-            for (Object[] comprador : compradores) {
-                logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador[0], comprador[1]});
-            }
-        }
     }
 
     @Test
-    public void t23_compradoresOfertas() {
-        logger.info("Executando t23: SELECT c FROM Comprador c JOIN FETCH c.cartaoCredito cc WHERE c.login = ?1");
+    public void compradorPorLogin() {
+        logger.info("Executando compradorPorLogin()");
         TypedQuery<Comprador> query;
         query = em.createQuery(
                 "SELECT c FROM Comprador c JOIN c.cartaoCredito cc WHERE c.login = ?1",
@@ -380,10 +374,7 @@ public class JpqlTest extends GenericTest {
         query.setParameter(1, "zesilva");
         Comprador comprador = query.getSingleResult();
         assertNotNull(comprador);
-
-        if (logger.isLoggable(Level.INFO)) {
-            logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador.getCartaoCredito().getBandeira(), comprador.getLogin()});
-        }
+        assertNotNull(comprador.getCartaoCredito());
     }
 
     @Test
