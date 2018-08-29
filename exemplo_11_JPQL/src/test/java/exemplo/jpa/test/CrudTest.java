@@ -57,7 +57,6 @@ public class CrudTest extends GenericTest {
         comprador.addTelefone(telefone);
         em.clear();
         em.merge(comprador);
-        em.flush();
         String jpql = "SELECT c FROM Comprador c WHERE c.cpf = :cpf";
         TypedQuery<Comprador> query = em.createQuery(jpql, Comprador.class);
         query.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
