@@ -341,7 +341,7 @@ public class JpqlTest extends GenericTest {
                 Comprador.class);
         query.setParameter(1, "zesilva");
         Comprador comprador = query.getSingleResult();
-        assertNotNull(comprador);
+        assertEquals("zesilva", comprador.getLogin());
         assertNotNull(comprador.getCartaoCredito());
     }
 
