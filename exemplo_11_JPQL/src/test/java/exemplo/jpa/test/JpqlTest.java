@@ -141,7 +141,7 @@ public class JpqlTest extends GenericTest {
         for (Comprador comprador : compradores) {
             assertThat(comprador.getCartaoCredito().getBandeira(),
                     CoreMatchers.anyOf(
-                            startsWith("MAESTRO"),
+                            startsWith("VISA"),
                             startsWith("MASTERCARD")));
         }
 
