@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  *
  * @author marcos
  */
-public class CrudTest extends GenericTest {
+public class CompradorCrudTest extends GenericTest {
     @Test
     public void persistirComprador() {
         Comprador comprador = criarComprador();
@@ -51,7 +51,7 @@ public class CrudTest extends GenericTest {
     }
     
     @Test
-    public void mergeComprador() {
+    public void atualizarMergeComprador() {
         String novoEmail = "fulano_de_tal2@gmail.com";
         String telefone = "(81) 990901010";
         Long id = 1L;
@@ -68,7 +68,7 @@ public class CrudTest extends GenericTest {
     }    
     
     @Test
-    public void removeComprador() {
+    public void removerComprador() {
         Comprador comprador = em.find(Comprador.class, 9L);
         em.remove(comprador);
         Usuario usuario = em.find(Usuario.class, 9L);

@@ -5,6 +5,8 @@
  */
 package exemplo.jpa.test;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -22,7 +24,7 @@ import static org.junit.Assert.*;
  * @author marcos
  */
 public class GenericTest {
-    
+
     protected static EntityManagerFactory emf;
     protected static Logger logger;
     protected EntityManager em;
@@ -53,7 +55,7 @@ public class GenericTest {
         commitTransaction();
         em.close();
     }
-    
+
     private void beginTransaction() {
         et = em.getTransaction();
         et.begin();
@@ -62,10 +64,17 @@ public class GenericTest {
     private void commitTransaction() {
         try {
             et.commit();
-        } catch (Exception ex) {             
+        } catch (Exception ex) {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
             fail(ex.getMessage());
         }
     }
 
+    protected Date getData(Integer dia, Integer mes, Integer ano) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, ano);
+        c.set(Calendar.MONTH, mes);
+        c.set(Calendar.DAY_OF_MONTH, dia);
+        return c.getTime();
+    }
 }

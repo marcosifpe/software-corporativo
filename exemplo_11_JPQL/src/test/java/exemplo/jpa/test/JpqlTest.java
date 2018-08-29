@@ -208,14 +208,6 @@ public class JpqlTest extends GenericTest {
         assertEquals(3, usuarios.size());
     }
 
-    private Date getData(Integer dia, Integer mes, Integer ano) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, ano);
-        c.set(Calendar.MONTH, mes);
-        c.set(Calendar.DAY_OF_MONTH, dia);
-        return c.getTime();
-    }
-
     @Test
     public void t11_categoriaMaePorFilha() {
         logger.info("Executando t11: SELECT c FROM Categoria c WHERE :categoria MEMBER OF c.filhas");
@@ -498,88 +490,5 @@ public class JpqlTest extends GenericTest {
                 logger.log(Level.INFO, "{0}: {1}", resultado);
             }
         }
-    }
-
-    @Test
-    public void t30_update() {
-        logger.info("Executando t30: UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
-        Long id = (long) 6;
-        Query update = em.createQuery("UPDATE Vendedor AS v SET v.dataNascimento = ?1 WHERE v.id = ?2");
-        update.setParameter(1, getData(10, 10, 1983));
-        update.setParameter(2, id);
-        update.executeUpdate();    
-        String jpql = "SELECT v FROM Vendedor v WHERE v.id = :id";
-        TypedQuery<Vendedor> query = em.createQuery(jpql, Vendedor.class);
-        query.setParameter("id", id);
-        query.setHint(QueryHints.CACHE_USAGE, CacheUsage.NoCache);
-        Vendedor vendedor = query.getSingleResult();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        assertEquals(simpleDateFormat.format(getData(10, 10, 1983)), simpleDateFormat.format(vendedor.getDataNascimento()));
-        logger.info(vendedor.getDataNascimento().toString());
-    }
-
-    @Test(expected = NoResultException.class)
-    public void t31_delete() {
-        logger.info("Executando t31: DELETE Oferta AS o WHERE o.id = ?1");
-        Long id = (long) 6;
-        Query delete = em.createQuery("DELETE FROM Oferta AS o WHERE o.id = ?1");
-        delete.setParameter(1, id);
-        delete.executeUpdate();
-        String jpql = "SELECT o FROM Oferta o WHERE o.id =?1";
-        TypedQuery<Oferta> query = em.createQuery(jpql, Oferta.class);
-        query.setParameter(1, id);
-        query.setHint(QueryHints.CACHE_USAGE, CacheUsage.NoCache);
-        query.getSingleResult();
-    }
-
-    @Test
-    public void t32_persistirCategoria() {
-        logger.info("Executando t32: persistir Categoria");
-        Categoria instrumentosMusicais = em.find(Categoria.class, new Long(1));
-        Categoria categoria = new Categoria();
-        categoria.setNome("Bateria");
-        categoria.setMae(instrumentosMusicais);
-        em.persist(categoria);
-        em.flush();
-        assertNotNull(categoria.getId());
-        logger.log(Level.INFO, "Categoria {0} incluída com sucesso.", categoria);
-    }
-
-    @Test
-    public void t33_atualizarCategoria() {
-        logger.info("Executando t33: atualizar Categoria");
-        TypedQuery<Categoria> query = em.createNamedQuery("Categoria.PorNome", Categoria.class);
-        query.setParameter("nome", "Guitarras");
-        Categoria categoria = query.getSingleResult();
-        assertNotNull(categoria);
-        categoria.setNome("Guitarras Elétricas");
-        em.flush();
-        assertEquals(0, query.getResultList().size());
-    }
-
-    @Test
-    public void t34_atualizarCategoriaMerge() {
-        logger.info("Executando t33: atualizar Categoria com Merge");
-        TypedQuery<Categoria> query = em.createNamedQuery("Categoria.PorNome", Categoria.class);
-        query.setParameter("nome", "Pedais");
-        Categoria categoria = query.getSingleResult();
-        assertNotNull(categoria);
-        em.clear();
-        categoria.setNome("Pedais de Guitarra");
-        em.merge(categoria);
-        em.flush();
-        assertEquals(0, query.getResultList().size());
-    }
-    
-    @Test
-    public void t35_removerCategoria() {
-        logger.info("Executando t35: remover Categoria");
-        TypedQuery<Categoria> query = em.createNamedQuery("Categoria.PorNome", Categoria.class);
-        query.setParameter("nome", "Carros");
-        Categoria categoria = query.getSingleResult();
-        assertNotNull(categoria);
-        em.remove(categoria);
-        em.flush();
-        assertEquals(0, query.getResultList().size());
     }
 }
