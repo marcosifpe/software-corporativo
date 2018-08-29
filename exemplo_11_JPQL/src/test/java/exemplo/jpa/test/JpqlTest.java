@@ -305,57 +305,44 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t19_ultimaOferta() {
-        logger.info("Executando t19: SELECT o FROM Oferta o WHERE o.data >= ALL (SELECT o1.data FROM Oferta o1))");
+    public void ultimaOferta() {
+        logger.info("Executando ultimaOferta()");
         TypedQuery<Oferta> query;
         query = em.createQuery(
                 "SELECT o FROM Oferta o WHERE o.data >= ALL (SELECT o1.data FROM Oferta o1)",
                 Oferta.class);
-        List<Oferta> ofertas = query.getResultList();
-        assertEquals(1, ofertas.size());
-        if (logger.isLoggable(Level.INFO)) {
-            Oferta oferta = ofertas.get(0);
-            logger.log(Level.INFO, "{0}: {1}", new Object[]{oferta.getData().toString(), oferta.getItem().getTitulo()});
-        }
+        Oferta oferta = query.getSingleResult();
+        assertEquals("Mon Jan 12 12:41:10 BRT 2015", oferta.getData().toString());
     }
 
     @Test
-    public void t20_todasOfertasExcetoAMaisAntiga() {
-        logger.info("Executando t20: SELECT o FROM Oferta o WHERE o.data > ANY (SELECT o1.data FROM Oferta o1)");
+    public void todasOfertasExcetoAMaisAntiga() {
+        logger.info("Executando todasOfertasExcetoAMaisAntiga()");
         TypedQuery<Oferta> query;
         query = em.createQuery(
                 "SELECT o FROM Oferta o WHERE o.data > ANY (SELECT o1.data FROM Oferta o1)",
                 Oferta.class);
         List<Oferta> ofertas = query.getResultList();
         assertEquals(7, ofertas.size());
-
-        if (logger.isLoggable(Level.INFO)) {
-            for (Oferta oferta : ofertas) {
-                logger.log(Level.INFO, "{0}: {1}", new Object[]{oferta.getData().toString(), oferta.getId()});
-            }
-        }
     }
 
     @Test
-    public void t21_compradoresComCartao() {
-        logger.info("Executando t21: SELECT c FROM Comprador c JOIN c.cartaoCredito cc ORDER BY c.dataCriacao DESC");
-        TypedQuery<Comprador> query;
-        query = em.createQuery(
+    public void compradoresComCartao() {
+        logger.info("Executando compradoresComCartao()");
+        TypedQuery<Comprador> query = em.createQuery(
                 "SELECT c FROM Comprador c JOIN c.cartaoCredito cc ORDER BY c.dataCriacao DESC",
                 Comprador.class);
         List<Comprador> compradores = query.getResultList();
         assertEquals(5, compradores.size());
 
-        if (logger.isLoggable(Level.INFO)) {
-            for (Comprador comprador : compradores) {
-                logger.log(Level.INFO, "{0}: {1}", new Object[]{comprador.getId(), comprador.getLogin()});
-            }
+        for (Comprador comprador : compradores) {
+            assertNotNull(comprador.getCartaoCredito());
         }
     }
 
     @Test
-    public void t22_compradoresCartoes() {
-        logger.info("Executando t22: SELECT c.cpf, cc.bandeira FROM Comprador c LEFT OUTER JOIN c.cartaoCredito cc ORDER BY c.cpf");
+    public void compradoresCartoesLeftJoin() {
+        logger.info("Executando compradoresCartoesLeftJoin()");
         TypedQuery<Object[]> query;
         query = em.createQuery(
                 "SELECT c.cpf, cc.bandeira FROM Comprador c LEFT JOIN c.cartaoCredito cc ORDER BY c.cpf",
