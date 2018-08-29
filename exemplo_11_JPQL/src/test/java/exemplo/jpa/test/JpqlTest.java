@@ -27,7 +27,7 @@ public class JpqlTest extends GenericTest {
     public void categoriaPorNome() {
         logger.info("Executando categoriaPorNome()");
         TypedQuery<Categoria> query = em.createQuery(
-                "SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id",
+                "SELECT c FROM Categoria c WHERE c.nome LIKE :nome",
                 Categoria.class);
         query.setParameter("nome", "Instrumentos%");
         List<Categoria> categorias = query.getResultList();
@@ -110,7 +110,7 @@ public class JpqlTest extends GenericTest {
         logger.info("Executando compradoresVisa()");
         TypedQuery<Comprador> query;
         query = em.createQuery(
-                "SELECT c FROM Comprador c WHERE c.cartaoCredito.bandeira like ?1 ORDER BY c.nome DESC",
+                "SELECT c FROM Comprador c WHERE c.cartaoCredito.bandeira like ?1",
                 Comprador.class);
         query.setParameter(1, "VISA"); //Setando parâmetro posicional.
         query.setMaxResults(20); //Determinando quantidade máxima de resultados.
@@ -130,7 +130,7 @@ public class JpqlTest extends GenericTest {
         query = em.createQuery(
                 "SELECT c FROM Comprador c "
                 + "WHERE c.cartaoCredito.bandeira LIKE ?1 "
-                + "OR c.cartaoCredito.bandeira LIKE ?2 ORDER BY c.nome DESC",
+                + "OR c.cartaoCredito.bandeira LIKE ?2",
                 Comprador.class);
         query.setParameter(1, "VISA"); //Setando parâmetro posicional.
         query.setParameter(2, "MASTERCARD"); //Setando parâmetro posicional.        
@@ -159,7 +159,7 @@ public class JpqlTest extends GenericTest {
         TypedQuery<Comprador> query;
         query = em.createQuery(
                 "SELECT c FROM Comprador c "
-                + "WHERE c.cartaoCredito.bandeira IN ('MAESTRO', 'MASTERCARD') ORDER BY c.nome DESC",
+                + "WHERE c.cartaoCredito.bandeira IN ('MAESTRO', 'MASTERCARD')",
                 Comprador.class);
         List<Comprador> compradores = query.getResultList();
 
@@ -190,19 +190,12 @@ public class JpqlTest extends GenericTest {
         query.setParameter(1, getData(21, Calendar.FEBRUARY, 1980));
         query.setParameter(2, getData(1, Calendar.DECEMBER, 1990));
         List<Usuario> usuarios = query.getResultList();
-
-        if (logger.isLoggable(Level.INFO)) {
-            for (Usuario usuario : usuarios) {
-                logger.info(usuario.toString());
-            }
-        }
-
         assertEquals(3, usuarios.size());
     }
 
     @Test
-    public void t11_categoriaMaePorFilha() {
-        logger.info("Executando t11: SELECT c FROM Categoria c WHERE :categoria MEMBER OF c.filhas");
+    public void categoriaMaePorFilha() {
+        logger.info("Executando categoriaMaePorFilha()");
         Categoria categoria = em.find(Categoria.class, new Long(2));
         TypedQuery<Categoria> query;
         query = em.createQuery(
@@ -234,8 +227,8 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t14_bandeirasDistintas() {
-        logger.info("Executando t14: SELECT DISTINCT(c.bandeira) FROM CartaoCredito c ORDER BY c.bandeira");
+    public void bandeirasDistintas() {
+        logger.info("Executando bandeirasDistintas()");
         TypedQuery<String> query
                 = em.createQuery("SELECT DISTINCT(c.bandeira) FROM CartaoCredito c ORDER BY c.bandeira", String.class);
         List<String> bandeiras = query.getResultList();
@@ -243,7 +236,7 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t15_ordenacaoCartao() {
+    public void ordenacaoCartao() {
         logger.info("Executando t15: SELECT c FROM CartaoCredito c ORDER BY c.bandeira DESC, c.dono.nome ASC");
         TypedQuery<CartaoCredito> query;
         query = em.createQuery(
