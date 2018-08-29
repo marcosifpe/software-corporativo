@@ -21,7 +21,7 @@ public class Comprador extends Usuario implements Serializable {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
     @JoinColumn(name = "ID_CARTAO_CREDITO", referencedColumnName = "ID_CARTAO_CREDITO")
     private CartaoCredito cartaoCredito;
-    @OneToMany(mappedBy = "comprador", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "comprador", fetch = FetchType.LAZY, cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<Oferta> ofertas;
 
