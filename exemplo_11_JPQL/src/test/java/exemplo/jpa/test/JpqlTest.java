@@ -387,14 +387,13 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t24_timestampSQL() {
-        logger.info("Executando t24: SELECT current_timestamp() FROM DUAL");
+    public void timestampSQL() {
+        logger.info("Executando timestampSQL()");
         Query query;
         query = em.createNativeQuery(
                 "SELECT current_timestamp() FROM DUAL");
         Date dataCorrente = (Date) query.getSingleResult();
         assertNotNull(dataCorrente);
-        logger.log(Level.INFO, dataCorrente.toString());
     }
 
     @Test
