@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import org.hamcrest.CoreMatchers;
