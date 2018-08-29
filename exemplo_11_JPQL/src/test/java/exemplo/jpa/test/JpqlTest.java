@@ -139,17 +139,10 @@ public class JpqlTest extends GenericTest {
         List<Comprador> compradores = query.getResultList();
 
         for (Comprador comprador : compradores) {
-            switch (comprador.getCartaoCredito().getBandeira()) {
-                case "VISA":
-                    assertTrue(true);
-                    break;
-                case "MASTERCARD":
-                    assertTrue(true);
-                    break;
-                default:
-                    assertTrue(false);
-                    break;
-            }
+            assertThat(comprador.getCartaoCredito().getBandeira(),
+                    CoreMatchers.anyOf(
+                            startsWith("MAESTRO"),
+                            startsWith("MASTERCARD")));
         }
 
         assertEquals(3, compradores.size());
@@ -166,17 +159,10 @@ public class JpqlTest extends GenericTest {
         List<Comprador> compradores = query.getResultList();
 
         for (Comprador comprador : compradores) {
-            switch (comprador.getCartaoCredito().getBandeira()) {
-                case "MAESTRO":
-                    assertTrue(true);
-                    break;
-                case "MASTERCARD":
-                    assertTrue(true);
-                    break;
-                default:
-                    assertTrue(false);
-                    break;
-            }
+            assertThat(comprador.getCartaoCredito().getBandeira(),
+                    CoreMatchers.anyOf(
+                            startsWith("MAESTRO"),
+                            startsWith("MASTERCARD")));
         }
 
         assertEquals(2, compradores.size());
@@ -224,8 +210,8 @@ public class JpqlTest extends GenericTest {
                 "SELECT c FROM Categoria c WHERE SIZE(c.filhas) >= ?1",
                 Categoria.class);
         query.setParameter(1, 3);
-        List<Categoria> categorias = query.getResultList();
-        assertEquals(1, categorias.size());
+        Categoria categoria = query.getSingleResult();
+        assertEquals("Instrumentos Musicais", categoria.getNome());
     }
 
     @Test
