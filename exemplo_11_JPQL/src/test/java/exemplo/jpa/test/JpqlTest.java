@@ -23,6 +23,7 @@ import static org.junit.Assert.*;
  * @author MASC
  */
 public class JpqlTest extends GenericTest {
+
     @Test
     public void categoriaPorNome() {
         logger.info("Executando categoriaPorNome()");
@@ -397,80 +398,62 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t25_categoriaSQL() {
-        logger.info("Executando t25: SELECT id, txt_nome, id_categoria_mae FROM tb_categoria WHERE id_categoria_mae is null");
+    public void categoriaSQL() {
+        logger.info("Executando categoriaSQL()");
         Query query;
         query = em.createNativeQuery(
                 "SELECT ID_CATEGORIA, TXT_NOME, ID_CATEGORIA_MAE FROM TB_CATEGORIA WHERE ID_CATEGORIA_MAE is null",
                 Categoria.class);
         List<Categoria> categorias = query.getResultList();
         assertEquals(3, categorias.size());
-
-        if (logger.isLoggable(Level.INFO)) {
-            for (Categoria categoria : categorias) {
-                logger.log(Level.INFO, categoria.getNome());
-            }
-        }
     }
 
     @Test
-    public void t26_categoriaSQLNomeada() {
-        logger.info("Executando t26: Categoria.PorNomeSQL");
+    public void categoriaSQLNomeada() {
+        logger.info("Executando categoriaSQLNomeada()");
         Query query;
         query = em.createNamedQuery("Categoria.PorNomeSQL");
         query.setParameter(1, "Guitarras");
         List<Categoria> categorias = query.getResultList();
         assertEquals(1, categorias.size());
-
-        if (logger.isLoggable(Level.INFO)) {
-            for (Categoria categoria : categorias) {
-                logger.log(Level.INFO, categoria.getNome());
-            }
-        }
     }
 
     @Test
-    public void t27_categoriaQuantidadeItens() {
-        logger.info("Executando t27: Categoria.QuantidadeItensSQL");
+    public void categoriaQuantidadeItensSQL() {
+        logger.info("Executando categoriaQuantidadeItensSQL()");
         Query query;
         query = em.createNamedQuery("Categoria.QuantidadeItensSQL");
         query.setParameter(1, "Instrumentos Musicais");
-        List<Object[]> resultados = query.getResultList();
-        assertEquals(1, resultados.size());
+        Object[] resultado = (Object[]) query.getSingleResult();
+        assertEquals("Instrumentos Musicais", ((Categoria) resultado[0]).getNome());
+        assertEquals(5L, resultado[1]);
+    }
 
-        if (logger.isLoggable(Level.INFO)) {
-            for (Object[] resultado : resultados) {
-                logger.log(Level.INFO, "{0}: {1}", resultado);
-            }
-        }
+    private String getCategoriaQuantidade(Object[] resultado) {
+        Categoria categoria = (Categoria) resultado[0];
+        Long quantidade = (Long) resultado[1];
+        return categoria.getNome() + ": " + quantidade;
     }
 
     @Test
-    public void t28_categoriaQuantidadeItens() {
-        logger.info("Executando t28: SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c");
+    public void categoriaQuantidadeItens() {
+        logger.info("Executando categoriaQuantidadeItens()");
         Query query = em.createQuery("SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c");
         List<Object[]> resultados = query.getResultList();
         assertEquals(4, resultados.size());
-
-        if (logger.isLoggable(Level.INFO)) {
-            for (Object[] resultado : resultados) {
-                logger.log(Level.INFO, "{0}: {1}", resultado);
-            }
-        }
+        assertEquals("Instrumentos Musicais: 5", getCategoriaQuantidade(resultados.get(0)));
+        assertEquals("Guitarras: 1", getCategoriaQuantidade(resultados.get(1)));
+        assertEquals("Pedais: 2", getCategoriaQuantidade(resultados.get(2)));
+        assertEquals("Instrumentos de Sopro: 2", getCategoriaQuantidade(resultados.get(3)));
     }
 
     @Test
-    public void t29_categoriaQuantidadeItens() {
-        logger.info("Executando t29: SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c HAVING COUNT(i) >= ?1");
+    public void categoriaQuantidadeItensInstrumentos() {
+        logger.info("Executando categoriaQuantidadeItensInstrumentos()");
         Query query = em.createQuery("SELECT c, COUNT(i) FROM Categoria c, Item i WHERE c MEMBER OF i.categorias GROUP BY c HAVING COUNT(i) >= ?1");
-        query.setParameter(1, (long) 3);
-        List<Object[]> resultados = query.getResultList();
-        assertEquals(1, resultados.size());
-
-        if (logger.isLoggable(Level.INFO)) {
-            for (Object[] resultado : resultados) {
-                logger.log(Level.INFO, "{0}: {1}", resultado);
-            }
-        }
+        query.setParameter(1, 3);
+        Object[] resultado = (Object[]) query.getSingleResult();
+        assertEquals("Instrumentos Musicais", ((Categoria) resultado[0]).getNome());
+        assertEquals(5L, resultado[1]);
     }
 }
