@@ -17,19 +17,15 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 
 /**
  *
  * @author MASC
  */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@SuppressWarnings("JPQLValidation")
 public class JpqlTest extends GenericTest {
     @Test
-    public void t01_categoriaPorNome() {
-        logger.info("Executando t01: SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id");
+    public void categoriaPorNome() {
+        logger.info("Executando categoriaPorNome()");
         TypedQuery<Categoria> query = em.createQuery(
                 "SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id",
                 Categoria.class);
@@ -44,8 +40,8 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t02_categoriaPorNome() {
-        logger.info("Executando t02: Categoria.PorNome");
+    public void categoriaPorNomeNamedQuery() {
+        logger.info("Executando categoriaPorNomeNamedQuery()");
         TypedQuery<Categoria> query = em.createNamedQuery("Categoria.PorNome", Categoria.class);
         query.setParameter("nome", "Instrumentos%");
         List<Categoria> categorias = query.getResultList();
@@ -58,8 +54,8 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t03_quantidadeCategoriasFilhas() {
-        logger.info("Executando t03: SELECT COUNT(c) FROM Categoria c WHERE c.mae IS NOT NULL");
+    public void quantidadeCategoriasFilhas() {
+        logger.info("Executando quantidadeCategoriasFilhas()");
         TypedQuery<Long> query = em.createQuery(
                 "SELECT COUNT(c) FROM Categoria c WHERE c.mae IS NOT NULL", Long.class);
         Long resultado = query.getSingleResult();
@@ -67,8 +63,8 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t04_maximaEMinimaDataNascimento() {
-        logger.info("Executando t04: SELECT MAX(c.dataNascimento), MIN(c.dataNascimento) FROM Comprador c");
+    public void maximaEMinimaDataNascimento() {
+        logger.info("Executando maximaEMinimaDataNascimento()");
         Query query = em.createQuery(
                 "SELECT MAX(c.dataNascimento), MIN(c.dataNascimento) FROM Comprador c");
         Object[] resultado = (Object[]) query.getSingleResult();
@@ -218,16 +214,16 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void t12_cartoesExpirados() {
-        logger.info("Executando t12: SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE");
-        TypedQuery<CartaoCredito> query = em.createQuery("SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_DATE", CartaoCredito.class);
+    public void cartoesExpirados() {
+        logger.info("Executando cartoesExpirados()");
+        TypedQuery<CartaoCredito> query = em.createQuery("SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_TIMESTAMP", CartaoCredito.class);
         List<CartaoCredito> cartoesExpirados = query.getResultList();
         assertEquals(4, cartoesExpirados.size());
     }
 
     @Test
-    public void t13_categoriasPorQuantidadeFilhas() {
-        logger.info("Executando t13: SELECT c FROM Categoria c WHERE SIZE(c.filhas) >= ?1");
+    public void categoriasPorQuantidadeFilhas() {
+        logger.info("Executando categoriasPorQuantidadeFilhas()");
         TypedQuery<Categoria> query;
         query = em.createQuery(
                 "SELECT c FROM Categoria c WHERE SIZE(c.filhas) >= ?1",
