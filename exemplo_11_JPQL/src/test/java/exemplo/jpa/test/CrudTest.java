@@ -6,15 +6,12 @@
 package exemplo.jpa.test;
 
 import exemplo.jpa.CartaoCredito;
-import exemplo.jpa.Categoria;
 import exemplo.jpa.Comprador;
 import exemplo.jpa.Endereco;
 import exemplo.jpa.Usuario;
 import java.util.Calendar;
 import javax.persistence.CacheRetrieveMode;
 import javax.persistence.TypedQuery;
-import org.eclipse.persistence.config.CacheUsage;
-import org.eclipse.persistence.config.QueryHints;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -32,6 +29,52 @@ public class CrudTest extends GenericTest {
         assertNotNull(comprador.getCartaoCredito().getId());
         
     }
+        
+    @Test
+    public void atualizarComprador() {
+        String novoEmail = "fulano_de_tal@gmail.com";
+        String telefone = "(81) 990901010";
+        Long id = 1L;
+        Comprador comprador = em.find(Comprador.class, id);
+        comprador.setEmail(novoEmail);
+        comprador.addTelefone(telefone);
+        em.flush();
+        String jpql = "SELECT c FROM Comprador c WHERE c.id = ?1";
+        TypedQuery<Comprador> query = em.createQuery(jpql, Comprador.class);
+        query.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        query.setParameter(1, id);
+        comprador = query.getSingleResult();
+        assertEquals(novoEmail, comprador.getEmail());        
+        assertTrue(comprador.possui(telefone));
+    }
+    
+    @Test
+    public void mergeComprador() {
+        String novoEmail = "fulano_de_tal2@gmail.com";
+        String telefone = "(81) 990901010";
+        Comprador comprador = em.find(Comprador.class, 1L);
+        comprador.setEmail(novoEmail);
+        comprador.addTelefone(telefone);
+        em.clear();
+        em.merge(comprador);
+        em.flush();
+        String jpql = "SELECT c FROM Comprador c WHERE c.cpf = :cpf";
+        TypedQuery<Comprador> query = em.createQuery(jpql, Comprador.class);
+        query.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
+        query.setParameter("cpf", comprador.getCpf());
+        comprador = query.getSingleResult();
+        assertEquals(novoEmail, comprador.getEmail());        
+        assertTrue(comprador.possui(telefone));
+    }    
+    
+    @Test
+    public void removeComprador() {
+        Comprador comprador = em.find(Comprador.class, 9L);
+        em.remove(comprador);
+        Usuario usuario = em.find(Usuario.class, 9L);
+        assertNull(usuario);
+    }
+      
     
    private Comprador criarComprador() {
         Comprador comprador = new Comprador();
@@ -77,56 +120,4 @@ public class CrudTest extends GenericTest {
         return cartaoCredito;
     }    
     
-    @Test
-    public void atualizarComprador() {
-        String novoEmail = "fulano_de_tal@gmail.com";
-        String telefone = "(81) 990901010";
-        Comprador comprador = em.find(Comprador.class, 1L);
-        comprador.setEmail(novoEmail);
-        comprador.addTelefone(telefone);
-        em.flush();
-        String jpql = "SELECT c FROM Comprador c WHERE c.id = ?1";
-        TypedQuery<Comprador> query = em.createQuery(jpql, Comprador.class);
-        query.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
-        query.setParameter(1, comprador.getId());
-        comprador = query.getSingleResult();
-        assertEquals(novoEmail, comprador.getEmail());        
-        assertTrue(comprador.possui(telefone));
-    }
-    
-    @Test
-    public void mergeComprador() {
-        String novoEmail = "fulano_de_tal2@gmail.com";
-        String telefone = "(81) 990901010";
-        Comprador comprador = em.find(Comprador.class, 1L);
-        comprador.setEmail(novoEmail);
-        comprador.addTelefone(telefone);
-        em.clear();
-        em.merge(comprador);
-        em.flush();
-        String jpql = "SELECT c FROM Comprador c WHERE c.cpf = :cpf";
-        TypedQuery<Comprador> query = em.createQuery(jpql, Comprador.class);
-        query.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
-        query.setParameter("cpf", comprador.getCpf());
-        comprador = query.getSingleResult();
-        assertEquals(novoEmail, comprador.getEmail());        
-        assertTrue(comprador.possui(telefone));
-    }    
-    
-    @Test
-    public void removeCategoria() {
-        Categoria categoria = em.find(Categoria.class, 6L);
-        em.remove(categoria);
-        categoria = em.find(Categoria.class, 6L);
-        assertNull(categoria);
-    } 
-    
-    @Test
-    public void removeUsuario() {
-        Usuario usuario = em.find(Usuario.class, 9L);
-        em.remove(usuario);
-        usuario = em.find(Usuario.class, 9L);
-        assertNull(usuario);
-    }
-      
 }
