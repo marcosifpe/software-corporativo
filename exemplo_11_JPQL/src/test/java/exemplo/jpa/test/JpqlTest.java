@@ -14,17 +14,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.FixMethodOrder;
@@ -36,57 +27,7 @@ import org.junit.runners.MethodSorters;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @SuppressWarnings("JPQLValidation")
-public class JpqlTest {
-
-    private static EntityManagerFactory emf;
-    private static Logger logger;
-    private EntityManager em;
-    private EntityTransaction et;
-
-    public JpqlTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-        logger = Logger.getGlobal();
-        //logger.setLevel(Level.INFO);
-        logger.setLevel(Level.SEVERE);
-        emf = Persistence.createEntityManagerFactory("exemplo_11");
-        DbUnitUtil.inserirDados();
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-        emf.close();
-    }
-
-    @Before
-    public void setUp() {
-        em = emf.createEntityManager();
-        beginTransaction();
-    }
-
-    @After
-    public void tearDown() {
-        commitTransaction();
-        em.close();
-    }
-
-    private void beginTransaction() {
-        et = em.getTransaction();
-        et.begin();
-    }
-
-    private void commitTransaction() {
-        try {
-            et.commit();
-        } catch (Exception ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
-            et.rollback();
-            fail(ex.getMessage());
-        }
-    }
-
+public class JpqlTest extends GenericTest {
     @Test
     public void t01_categoriaPorNome() {
         logger.info("Executando t01: SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id");
@@ -311,7 +252,7 @@ public class JpqlTest {
         TypedQuery<String> query
                 = em.createQuery("SELECT DISTINCT(c.bandeira) FROM CartaoCredito c ORDER BY c.bandeira", String.class);
         List<String> bandeiras = query.getResultList();
-        assertEquals(3, bandeiras.size());
+        assertEquals(4, bandeiras.size());
     }
 
     @Test
@@ -329,7 +270,7 @@ public class JpqlTest {
             }
         }
 
-        assertEquals(4, cartoes.size());
+        assertEquals(5, cartoes.size());
     }
 
     @Test
@@ -347,7 +288,7 @@ public class JpqlTest {
             }
         }
 
-        assertEquals(4, cartoes.size());
+        assertEquals(5, cartoes.size());
     }
 
     @Test
@@ -425,7 +366,7 @@ public class JpqlTest {
                 "SELECT c FROM Comprador c JOIN c.cartaoCredito cc ORDER BY c.dataCriacao DESC",
                 Comprador.class);
         List<Comprador> compradores = query.getResultList();
-        assertEquals(4, compradores.size());
+        assertEquals(5, compradores.size());
 
         if (logger.isLoggable(Level.INFO)) {
             for (Comprador comprador : compradores) {
@@ -442,7 +383,7 @@ public class JpqlTest {
                 "SELECT c.cpf, cc.bandeira FROM Comprador c LEFT JOIN c.cartaoCredito cc ORDER BY c.cpf",
                 Object[].class);
         List<Object[]> compradores = query.getResultList();
-        assertEquals(5, compradores.size());
+        assertEquals(6, compradores.size());
 
         if (logger.isLoggable(Level.INFO)) {
             for (Object[] comprador : compradores) {
@@ -486,7 +427,7 @@ public class JpqlTest {
                 "SELECT ID_CATEGORIA, TXT_NOME, ID_CATEGORIA_MAE FROM TB_CATEGORIA WHERE ID_CATEGORIA_MAE is null",
                 Categoria.class);
         List<Categoria> categorias = query.getResultList();
-        assertEquals(2, categorias.size());
+        assertEquals(3, categorias.size());
 
         if (logger.isLoggable(Level.INFO)) {
             for (Categoria categoria : categorias) {
@@ -564,6 +505,7 @@ public class JpqlTest {
         query.setParameter(1, getData(10, 10, 1983));
         query.setParameter(2, id);
         query.executeUpdate();
+        commit();
         Vendedor vendedor = em.find(Vendedor.class, id);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         assertEquals(simpleDateFormat.format(getData(10, 10, 1983)), simpleDateFormat.format(vendedor.getDataNascimento()));
@@ -574,9 +516,10 @@ public class JpqlTest {
     public void t31_delete() {
         logger.info("Executando t31: DELETE Oferta AS o WHERE o.id = ?1");
         Long id = (long) 6;
-        Query query = em.createQuery("DELETE Oferta AS o WHERE o.id = ?1");
+        Query query = em.createQuery("DELETE FROM Oferta AS o WHERE o.id = ?1");
         query.setParameter(1, id);
         query.executeUpdate();
+        commit();
         Oferta oferta = em.find(Oferta.class, id);
         assertNull(oferta);
         logger.log(Level.INFO, "Oferta {0} removida com sucesso.", id);

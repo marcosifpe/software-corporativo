@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +20,7 @@ public class CartaoCredito implements Serializable {
     @Column(name = "ID_CARTAO_CREDITO")
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;  
-    @OneToOne(mappedBy = "cartaoCredito", optional = false)
+    @OneToOne(mappedBy = "cartaoCredito", optional = false, fetch = FetchType.LAZY)
     private Comprador dono;
     @Column(name = "TXT_BANDEIRA", nullable = false, length = 100)
     private String bandeira;

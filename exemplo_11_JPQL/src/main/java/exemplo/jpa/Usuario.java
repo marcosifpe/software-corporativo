@@ -40,7 +40,7 @@ public abstract class Usuario implements Serializable {
     @ElementCollection
     @CollectionTable(name = "TB_TELEFONE",
             joinColumns = @JoinColumn(name = "ID_USUARIO"))
-    @Column(name = "TXT_NUM_TELEFONE")
+    @Column(name = "TXT_NUM_TELEFONE", length = 20)
     protected Collection<String> telefones;
     @Column(name = "TXT_CPF", length = 14, nullable = false, unique = true)
     protected String cpf;
@@ -76,6 +76,10 @@ public abstract class Usuario implements Serializable {
             telefones = new HashSet<>();
         }
         telefones.add(telefone);
+    }
+    
+    public boolean possui(String telefone) {
+        return telefones.contains(telefone);
     }
 
     public Long getId() {

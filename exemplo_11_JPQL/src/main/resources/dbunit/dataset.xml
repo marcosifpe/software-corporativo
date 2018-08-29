@@ -5,6 +5,7 @@
     <TB_CATEGORIA txt_nome="Pedais" id_categoria_mae = "1" />
     <TB_CATEGORIA txt_nome="Instrumentos de Sopro" id_categoria_mae = "1"/>
     <TB_CATEGORIA txt_nome="Carros"/>
+    <TB_CATEGORIA txt_nome="Motocicletas"/>
     <!-- Usuario id = 1 (comprador) -->
     <TB_USUARIO disc_usuario = "C" txt_cpf = "808.257.284-10" dt_nascimento = "1999-12-21" dt_criacao = "2014-11-02 22:16:23"
                 txt_email = "fulano@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
@@ -61,7 +62,15 @@
                 end_txt_complemento = "Apto. 101" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
                 end_numero = "20" txt_login = "comp1" txt_nome = "Comprador da Silva" txt_senha = "comp"/>
     <!-- CartaoCredito id = 4 -->
-    <TB_COMPRADOR id_usuario = "8" />        
+    <TB_COMPRADOR id_usuario = "8" />       
+    <!-- Usuario id = 9 (comprador) -->
+    <TB_USUARIO disc_usuario = "C" txt_cpf = "818.257.284-10" dt_nascimento = "1999-12-21" dt_criacao = "2014-11-02 22:16:23"
+                txt_email = "fulano8@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 201" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "fulano8" txt_nome = "Fulano Silva" txt_senha = "teste123"/>
+    <!-- CartaoCredito id = 5 -->
+    <TB_CARTAO_CREDITO txt_bandeira = "HIPERCARD" dt_expiracao = "2021-04-10" txt_numero = "4073020012000002"/>    
+    <TB_COMPRADOR id_usuario = "9" id_cartao_credito = "5"/>
     <!-- Item id = 1 -->
     <TB_ITEM txt_titulo = "boss DD-7" txt_descricao = "Delay digital boss (top de linha)" id_vendedor = "5" />
     <TB_ITENS_CATEGORIAS id_item = "1" id_categoria = "1" />

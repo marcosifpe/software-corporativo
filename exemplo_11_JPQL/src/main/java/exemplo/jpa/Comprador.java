@@ -13,17 +13,18 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="TB_COMPRADOR") 
+@Table(name = "TB_COMPRADOR")
 @DiscriminatorValue(value = "C")
-@PrimaryKeyJoinColumn(name="ID_USUARIO", referencedColumnName = "ID_USUARIO")
+@PrimaryKeyJoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
 public class Comprador extends Usuario implements Serializable {
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = true)
     @JoinColumn(name = "ID_CARTAO_CREDITO", referencedColumnName = "ID_CARTAO_CREDITO")
     private CartaoCredito cartaoCredito;
     @OneToMany(mappedBy = "comprador", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL, orphanRemoval = true)
+            orphanRemoval = true)
     private List<Oferta> ofertas;
-    
+
     public CartaoCredito getCartaoCredito() {
         return cartaoCredito;
     }
