@@ -37,7 +37,7 @@ import org.junit.runners.MethodSorters;
  * @author MASC
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class JpqlTest {
+public class BeanValidationTest {
 
     private static EntityManagerFactory emf;
     private static Logger logger;
