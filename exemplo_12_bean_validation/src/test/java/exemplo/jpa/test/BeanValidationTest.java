@@ -1,14 +1,9 @@
 package exemplo.jpa.test;
 
-import exemplo.jpa.CartaoCredito;
-import exemplo.jpa.Comprador;
 import exemplo.jpa.Endereco;
-import exemplo.jpa.Item;
-import exemplo.jpa.Oferta;
 import exemplo.jpa.Reputacao;
 import exemplo.jpa.Usuario;
 import exemplo.jpa.Vendedor;
-import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
@@ -21,8 +16,6 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.Validation;
-import javax.validation.Validator;
 import org.hamcrest.CoreMatchers;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -140,11 +133,11 @@ public class BeanValidationTest {
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void atualizarCompradorInvalido() {
-        TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.cpf like :cpf", Usuario.class);
-        query.setParameter("cpf", "787.829.223-06");
-        Usuario usuario = query.getSingleResult();
-        usuario.setSenha("testando1234");
+    public void atualizarVendedorInvalido() {
+        TypedQuery<Vendedor> query = em.createQuery("SELECT v FROM Vendedor v WHERE v.cpf like :cpf", Vendedor.class);
+        query.setParameter("cpf", "484.854.847-03");
+        Vendedor vendedor = query.getSingleResult();
+        vendedor.setSenha("testando1234");
 
         try {
             em.flush();
