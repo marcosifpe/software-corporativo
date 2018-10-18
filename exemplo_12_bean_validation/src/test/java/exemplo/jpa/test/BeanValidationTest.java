@@ -25,6 +25,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import org.hamcrest.CoreMatchers;
 import static org.hamcrest.CoreMatchers.startsWith;
+import static org.hamcrest.CoreMatchers.equalTo;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -118,7 +119,7 @@ public class BeanValidationTest {
             for (ConstraintViolation violation : constraintViolations) {
                 assertThat(violation.getRootBeanClass() + "." + violation.getPropertyPath() + ": " + violation.getMessage(),
                         CoreMatchers.anyOf(
-                                startsWith("class exemplo.jpa.Vendedor.email: Não é um endereço de e-mail"),
+                                equalTo("class exemplo.jpa.Vendedor.email: Não é um endereço de e-mail"),
                                 startsWith("class exemplo.jpa.Vendedor.endereco.estado: Estado inválido"),
                                 startsWith("class exemplo.jpa.Vendedor.senha: A senha deve possuir pelo menos um caractere de: pontuação, maiúscula, minúscula e número"),
                                 startsWith("class exemplo.jpa.Vendedor.endereco.estado: tamanho deve estar entre 2 e 2"),
@@ -136,50 +137,6 @@ public class BeanValidationTest {
             assertNull(vendedor.getId());
             throw ex;
         }
-    }
-
-    @Test //Comprador, CartaoCredito
-    public void criarCompradorInvalido() {
-        Comprador comprador = new Comprador();
-        CartaoCredito cartaoCredito = new CartaoCredito();
-        Calendar calendar = GregorianCalendar.getInstance();
-        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-
-        //CPF inválido
-        comprador.setCpf("453.123.472-11");
-        calendar.set(1985, Calendar.JANUARY, 1);
-        comprador.setDataNascimento(calendar.getTime());
-        comprador.setEmail("comprador@gmail.com");
-        //Primeiro nome inválido
-        comprador.setPrimeiroNome("maria");
-        comprador.setUltimoNome("Silva");
-        comprador.setLogin("comprador_bom");
-        comprador.setSenha("m1nhAs3nh4.");
-        Endereco endereco = comprador.criarEndereco();
-        endereco.setBairro("CDU");
-        endereco.setCep("50.670-230");
-        endereco.setCidade("Recife");
-        endereco.setEstado("AA");
-        endereco.setNumero(20);
-        endereco.setComplemento("AP 301");
-        endereco.setLogradouro("Av. Professor Moraes Rego");
-        //Nº inválido do cartão de crédito
-        cartaoCredito.setNumero("1929293458709012");
-        //Bandeira inválida
-        cartaoCredito.setBandeira(null);
-        //Data de expiração inválida (deveria ser data passada).
-        calendar.set(2014, Calendar.DECEMBER, 1);
-        cartaoCredito.setDataExpiracao(calendar.getTime());
-        comprador.setCartaoCredito(cartaoCredito);
-        Set<ConstraintViolation<Comprador>> constraintViolations = validator.validate(comprador);
-
-        if (logger.isLoggable(Level.INFO)) {
-            for (ConstraintViolation violation : constraintViolations) {
-                Logger.getGlobal().log(Level.INFO, "{0}.{1}: {2}", new Object[]{violation.getRootBeanClass(), violation.getPropertyPath(), violation.getMessage()});
-            }
-        }
-
-        assertEquals(6, constraintViolations.size());
     }
 
     @Test(expected = ConstraintViolationException.class)
