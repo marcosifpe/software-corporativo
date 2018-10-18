@@ -23,6 +23,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import org.hamcrest.CoreMatchers;
+import static org.hamcrest.CoreMatchers.startsWith;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -70,7 +72,7 @@ public class BeanValidationTest {
             et.commit();
         } catch (Exception ex) {
             logger.log(Level.SEVERE, ex.getMessage());
-            
+
             if (et.isActive()) {
                 et.rollback();
             }
@@ -144,10 +146,21 @@ public class BeanValidationTest {
 
             Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
 
-            if (logger.isLoggable(Level.INFO)) {
-                for (ConstraintViolation violation : constraintViolations) {
-                    Logger.getGlobal().log(Level.INFO, "{0}.{1}: {2}", new Object[]{violation.getRootBeanClass(), violation.getPropertyPath(), violation.getMessage()});
-                }
+            for (ConstraintViolation violation : constraintViolations) {
+                assertThat(violation.getRootBeanClass() + "." + violation.getPropertyPath() + ": " + violation.getMessage(),
+                        CoreMatchers.anyOf(
+                                startsWith("class exemplo.jpa.Vendedor.email: Não é um endereço de e-mail"),
+                                startsWith("class exemplo.jpa.Vendedor.endereco.estado: Estado inválido"),
+                                startsWith("class exemplo.jpa.Vendedor.senha: A senha deve possuir pelo menos um caractere de: pontuação, maiúscula, minúscula e número"),
+                                startsWith("class exemplo.jpa.Vendedor.endereco.estado: tamanho deve estar entre 2 e 2"),
+                                startsWith("class exemplo.jpa.Vendedor.telefones: tamanho deve estar entre 0 e 3"),
+                                startsWith("class exemplo.jpa.Vendedor.ultimoNome: Deve possuir uma única letra maiúscula, seguida por letras minúsculas"),
+                                startsWith("class exemplo.jpa.Vendedor.cpf: CPF inválido"),
+                                startsWith("class exemplo.jpa.Vendedor.dataNascimento: deve estar no passado"),
+                                startsWith("class exemplo.jpa.Vendedor.primeiroNome: Deve possuir uma única letra maiúscula, seguida por letras minúsculas"),
+                                startsWith("class exemplo.jpa.Vendedor.endereco.cep: CEP inválido. Deve estar no formado NN.NNN-NNN, onde N é número natural")
+                        )
+                );
             }
 
             assertEquals(10, constraintViolations.size());
