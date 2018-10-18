@@ -17,19 +17,23 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import org.hamcrest.CoreMatchers;
 import static org.hamcrest.CoreMatchers.startsWith;
-import static org.hamcrest.CoreMatchers.equalTo;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 /**
  *
  * @author MASC
  */
-public class BeanValidationTest {
+public class VendedorValidationTest {
 
     private static EntityManagerFactory emf;
     private static Logger logger;
@@ -111,7 +115,7 @@ public class BeanValidationTest {
             for (ConstraintViolation violation : constraintViolations) {
                 assertThat(violation.getRootBeanClass() + "." + violation.getPropertyPath() + ": " + violation.getMessage(),
                         CoreMatchers.anyOf(
-                                equalTo("class exemplo.jpa.Vendedor.email: Não é um endereço de e-mail"),
+                                startsWith("class exemplo.jpa.Vendedor.email: Não é um endereço de e-mail"),
                                 startsWith("class exemplo.jpa.Vendedor.endereco.estado: Estado inválido"),
                                 startsWith("class exemplo.jpa.Vendedor.senha: A senha deve possuir pelo menos um caractere de: pontuação, maiúscula, minúscula e número"),
                                 startsWith("class exemplo.jpa.Vendedor.endereco.estado: tamanho deve estar entre 2 e 2"),
