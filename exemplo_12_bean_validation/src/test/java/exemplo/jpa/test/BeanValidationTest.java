@@ -80,7 +80,7 @@ public class BeanValidationTest {
         }
     }
 
-    @Test //Usuario, Vendedor, Endereco
+    @Test(expected = ConstraintViolationException.class)
     public void persistirVendedorInvalido() {
         Vendedor vendedor = null;
         Calendar calendar = new GregorianCalendar();
@@ -110,7 +110,6 @@ public class BeanValidationTest {
             endereco.setComplemento("AP 301");
             endereco.setLogradouro("Av. Professor Moraes Rego");
             em.persist(vendedor);
-            assertTrue(false);
         } catch (ConstraintViolationException ex) {
             Logger.getGlobal().info(ex.getMessage());
 
@@ -135,6 +134,7 @@ public class BeanValidationTest {
 
             assertEquals(10, constraintViolations.size());
             assertNull(vendedor.getId());
+            throw ex;
         }
     }
 
