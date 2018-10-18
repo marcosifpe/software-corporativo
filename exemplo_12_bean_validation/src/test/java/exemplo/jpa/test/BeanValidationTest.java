@@ -31,14 +31,11 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 
 /**
  *
  * @author MASC
  */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BeanValidationTest {
 
     private static EntityManagerFactory emf;
@@ -84,7 +81,7 @@ public class BeanValidationTest {
     }
 
     @Test //Usuario, Vendedor, Endereco
-    public void t02_criarVendedorInvalido() {
+    public void persistirVendedorInvalido() {
         Vendedor vendedor = null;
         Calendar calendar = new GregorianCalendar();
         try {
@@ -142,7 +139,7 @@ public class BeanValidationTest {
     }
 
     @Test //Comprador, CartaoCredito
-    public void t04_criarCompradorInvalido() {
+    public void criarCompradorInvalido() {
         Comprador comprador = new Comprador();
         CartaoCredito cartaoCredito = new CartaoCredito();
         Calendar calendar = GregorianCalendar.getInstance();
@@ -185,9 +182,8 @@ public class BeanValidationTest {
         assertEquals(6, constraintViolations.size());
     }
 
-    @Test
-    public void t05_atualizarCompradorInvalido() {
-        Logger.getGlobal().log(Level.INFO, "t05_criarCompradorInvalido");
+    @Test(expected = ConstraintViolationException.class)
+    public void atualizarCompradorInvalido() {
         TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.cpf like :cpf", Usuario.class);
         query.setParameter("cpf", "787.829.223-06");
         Usuario usuario = query.getSingleResult();
@@ -195,17 +191,11 @@ public class BeanValidationTest {
 
         try {
             em.flush();
-            assertTrue(false);
-        } catch (ConstraintViolationException ex) {
-            Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
-
-            if (logger.isLoggable(Level.INFO)) {
-                for (ConstraintViolation violation : constraintViolations) {
-                    Logger.getGlobal().log(Level.INFO, "{0}.{1}: {2}", new Object[]{violation.getRootBeanClass(), violation.getPropertyPath(), violation.getMessage()});
-                }
-            }
-
-            assertEquals(1, constraintViolations.size());
+        } catch (ConstraintViolationException ex) {           
+            ConstraintViolation violation = ex.getConstraintViolations().iterator().next();
+            assertEquals("A senha deve possuir pelo menos um caractere de: pontuação, maiúscula, minúscula e número.", violation.getMessage());
+            assertEquals(1, ex.getConstraintViolations().size());
+            throw ex;
         }
     }
 }
