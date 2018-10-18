@@ -40,7 +40,7 @@ public class VendedorValidationTest {
     @BeforeClass
     public static void setUpClass() {
         logger = Logger.getGlobal();
-        logger.setLevel(Level.INFO);
+        logger.setLevel(Level.OFF);
         emf = Persistence.createEntityManagerFactory("exemplo_12");
         DbUnitUtil.inserirDados();
     }
@@ -105,8 +105,6 @@ public class VendedorValidationTest {
             endereco.setLogradouro("Av. Professor Moraes Rego");
             em.persist(vendedor);
         } catch (ConstraintViolationException ex) {
-            Logger.getGlobal().info(ex.getMessage());
-
             Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
 
             for (ConstraintViolation violation : constraintViolations) {
