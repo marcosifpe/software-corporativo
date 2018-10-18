@@ -83,33 +83,6 @@ public class BeanValidationTest {
         }
     }
 
-    @Test
-    public void t01_criarVendedorValido() {
-        Vendedor vendedor = new Vendedor();
-        vendedor.addTelefone("(81)234-5678");
-        vendedor.setCpf("158.171.482-34");
-        Calendar calendar = new GregorianCalendar();
-        calendar.set(1980, Calendar.OCTOBER, 23);
-        vendedor.setDataNascimento(calendar.getTime());
-        vendedor.setEmail("fulano@gmail.com");
-        vendedor.setLogin("fulano_silva");
-        vendedor.setPrimeiroNome("Fulano");
-        vendedor.setUltimoNome("Silva");
-        vendedor.setReputacao(Reputacao.NOVATO);
-        vendedor.setSenha("m1nhAs3nh4.");
-        vendedor.setValorVendas(0.0);
-        Endereco endereco = vendedor.criarEndereco();
-        endereco.setBairro("CDU");
-        endereco.setCep("50.670-230");
-        endereco.setCidade("Recife");
-        endereco.setEstado("PE");
-        endereco.setNumero(20);
-        endereco.setComplemento("AP 301");
-        endereco.setLogradouro("Av. Professor Moraes Rego");
-        em.persist(vendedor);
-        assertNotNull(vendedor.getId());
-    }
-
     @Test //Usuario, Vendedor, Endereco
     public void t02_criarVendedorInvalido() {
         Vendedor vendedor = null;
@@ -166,47 +139,6 @@ public class BeanValidationTest {
             assertEquals(10, constraintViolations.size());
             assertNull(vendedor.getId());
         }
-    }
-
-    @Test //Comprador, CartaoCredito
-    public void t03_criarCompradorValido() {
-        Comprador comprador = new Comprador();
-        CartaoCredito cartaoCredito = new CartaoCredito();
-        cartaoCredito.setNumero("4929293458709012");
-        cartaoCredito.setBandeira("VISA");
-        Calendar calendar = GregorianCalendar.getInstance();
-        calendar.set(2018, Calendar.DECEMBER, 1);
-        cartaoCredito.setDataExpiracao(calendar.getTime());
-        comprador.setCartaoCredito(cartaoCredito);
-        comprador.setCpf("453.523.472-81");
-        calendar.set(1985, Calendar.JANUARY, 1);
-        comprador.setDataNascimento(calendar.getTime());
-        comprador.setEmail("comprador@gmail.com");
-        comprador.setPrimeiroNome("Maria");
-        comprador.setUltimoNome("Silva");
-        comprador.setLogin("comprador_bom");
-        comprador.setSenha("m1nhAs3nh4.");
-        Endereco endereco = comprador.criarEndereco();
-        endereco.setBairro("CDU");
-        endereco.setCep("50.670-230");
-        endereco.setCidade("Recife");
-        endereco.setEstado("PE");
-        endereco.setNumero(20);
-        endereco.setComplemento("AP 301");
-        endereco.setLogradouro("Av. Professor Moraes Rego");
-
-        TypedQuery query
-                = em.createQuery("SELECT i FROM Item i WHERE i.titulo LIKE ?1", Item.class);
-        query.setParameter(1, "boss DD-7");
-        Item item = (Item) query.getSingleResult();
-        Oferta oferta = new Oferta();
-        oferta.setValor(new BigDecimal("575.50"));
-        item.adicionar(oferta);
-        comprador.adicionar(oferta);
-        em.persist(comprador);
-        assertNotNull(comprador.getId());
-        assertNotNull(cartaoCredito.getId());
-        assertNotNull(oferta.getId());
     }
 
     @Test //Comprador, CartaoCredito
