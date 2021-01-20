@@ -22,7 +22,7 @@ public class TesteJPA {
         EntityManager em = null;
         EntityTransaction et;
         try {
-            emf = Persistence.createEntityManagerFactory("exemplo_06");
+            emf = Persistence.createEntityManagerFactory("exemplo_03");
             em = emf.createEntityManager();
             et = em.getTransaction();
             et.begin();
@@ -51,9 +51,9 @@ public class TesteJPA {
         c.set(Calendar.DAY_OF_MONTH, 25);
         usuario.setDataNascimento(c.getTime());
         try {
-            BufferedImage img = ImageIO.read(new URL("http://40.media.tumblr.com/efb5be96e8aa867d2f42a950806629d7/tumblr_mrpsneji9h1qa9omho1_1280.jpg"));
+            BufferedImage img = ImageIO.read(new URL("https://image.flaticon.com/icons/png/512/29/29513.png"));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(img, "jpg", baos);
+            ImageIO.write(img, "png", baos);
             baos.flush();
             usuario.setFoto(baos.toByteArray());
             baos.close();
