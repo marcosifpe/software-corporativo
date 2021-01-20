@@ -68,7 +68,7 @@ public class TesteJPA {
     public static void preencherEndereco(Usuario usuario) {
         Endereco endereco = new Endereco();
         endereco.setLogradouro("Rua Iolanda Rodrigues Sobral");
-        endereco.setBairro("Iputinga");
+        endereco.setBairro("Varzea");
         endereco.setCidade("Recife");
         endereco.setEstado("Pernambuco");
         endereco.setCep("50690-220");
