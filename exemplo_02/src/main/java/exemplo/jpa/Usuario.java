@@ -2,29 +2,22 @@ package exemplo.jpa;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "TB_USUARIO") //Necessário caso o nome da tabela não seja o mesmo nome da entidade.
-@Access(AccessType.FIELD)
+@Table(name = "TB_USUARIO")
 public class Usuario implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "TB_IDS")
-    @TableGenerator(name = "TB_IDS", table = "TB_GERADOR_ID",
-                    pkColumnName = "NM_SEQUENCIA", pkColumnValue = "TB_USUARIO_ID", 
-                    valueColumnName = "ID_SEQUENCIA", allocationSize = 20)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     //Observe o nome da coluna, que não é nullable, tem length 14 e é única.
     @Column(name = "TXT_CPF", nullable = false, length = 14, unique = true)
@@ -121,11 +114,8 @@ public class Usuario implements Serializable {
         }
         Usuario other = (Usuario) object;
         
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        
-        return true;
+        return !((this.id == null && other.id != null) || 
+                (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override

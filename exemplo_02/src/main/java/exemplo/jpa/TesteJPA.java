@@ -23,6 +23,7 @@ public class TesteJPA {
             em.persist(usuario);
             et.commit();
         } catch (Exception ex) {
+            ex.printStackTrace();
             if (et != null && et.isActive())
                 et.rollback();
         } finally {
