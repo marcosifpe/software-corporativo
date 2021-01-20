@@ -9,13 +9,14 @@ import javax.persistence.Id;
 /*
  * @Entity informa que a classe é uma entidade JPA.
  * Por padrão, o nome da tabela é o nome da classe.
+ * A entidade deve possuir um construtor padrão vazio.
  */
 @Entity
 public class Usuario implements Serializable {
     /*
      * @Id informa que o atributo representa a chave primária.
      * @GeneratedValue informa como gerar a chave primária.
-     * GenerationType.IDENTITY é uma estratégia que pode ser utilizada no MySQL.
+     * GenerationType.IDENTITY é uma estratégia que pode ser utilizada no Derby.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
