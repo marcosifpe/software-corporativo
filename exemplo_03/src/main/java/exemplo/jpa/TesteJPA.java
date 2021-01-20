@@ -15,7 +15,7 @@ import javax.persistence.Persistence;
 
 public class TesteJPA {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Usuario usuario = new Usuario();
         preencherUsuario(usuario);
         EntityManagerFactory emf = null;
@@ -36,7 +36,7 @@ public class TesteJPA {
         }
     }
 
-    private static void preencherUsuario(Usuario usuario) {
+    private static void preencherUsuario(Usuario usuario) throws IOException {
         usuario.setNome("Fulano da Silva");
         usuario.setEmail("fulano@gmail.com");
         usuario.setLogin("fulano");
@@ -52,13 +52,14 @@ public class TesteJPA {
         usuario.setDataNascimento(c.getTime());
         try {
             BufferedImage img = ImageIO.read(new URL("https://image.flaticon.com/icons/png/512/29/29513.png"));
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(img, "png", baos);
-            baos.flush();
-            usuario.setFoto(baos.toByteArray());
-            baos.close();
+            try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+                ImageIO.write(img, "png", baos);
+                baos.flush();
+                usuario.setFoto(baos.toByteArray());
+            }
         } catch (IOException ex) {
-            Logger.getLogger(TesteJPA.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getGlobal().log(Level.SEVERE, null, ex);
+            throw ex;
         }
         
         preencherEndereco(usuario);
