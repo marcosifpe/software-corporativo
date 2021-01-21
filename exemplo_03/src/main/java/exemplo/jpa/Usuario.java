@@ -37,13 +37,13 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Basic(fetch = FetchType.LAZY)
+    @Basic(fetch = FetchType.EAGER)
     @Column(name = "IMG_FOTO", table = "TB_FOTO_USUARIO", nullable = true)
     private byte[] foto;
     @Embedded
     private Endereco endereco;
     //O atributo será armazenado em uma tabela que representará a coleção.
-    @ElementCollection 
+    @ElementCollection(fetch = FetchType.EAGER) 
     @CollectionTable(name = "TB_TELEFONE", //nome da tabela que representa a coleção.
             //atributo na tabela que faz referência à chave primária de TB_USUARIO
             joinColumns = @JoinColumn(name = "ID_USUARIO", nullable = false))

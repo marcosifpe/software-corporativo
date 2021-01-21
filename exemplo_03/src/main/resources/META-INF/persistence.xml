@@ -14,7 +14,8 @@
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.target-database" value="Derby"/>
-      <property name="eclipselink.jdbc.native-sql" value="true"/>   
+      <property name="eclipselink.jdbc.native-sql" value="true"/>  
+      <!-- weaving true eh necessario para o carregamento preguicoso (LAZY) funcionar. --> 
       <property name="eclipselink.weaving" value="true"/>   
     </properties>
   </persistence-unit>
