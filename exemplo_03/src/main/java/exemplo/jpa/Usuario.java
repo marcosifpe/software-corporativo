@@ -42,13 +42,15 @@ public class Usuario implements Serializable {
     private byte[] foto;
     @Embedded
     private Endereco endereco;
-    @ElementCollection //O atributo será armazenado em uma tabela que representará a coleção.
+    //O atributo será armazenado em uma tabela que representará a coleção.
+    @ElementCollection 
     @CollectionTable(name = "TB_TELEFONE", //nome da tabela que representa a coleção.
             //atributo na tabela que faz referência à chave primária de TB_USUARIO
             joinColumns = @JoinColumn(name = "ID_USUARIO", nullable = false))
     @Column(name = "TXT_NUM_TELEFONE", nullable = false, length = 20)
     private Collection<String> telefones;
-    @Enumerated(EnumType.STRING) //Use EnumType.ORDINAL para armazenar a enumeração como inteiro.
+    //Use EnumType.ORDINAL para armazenar a enumeração como inteiro.
+    @Enumerated(EnumType.STRING) 
     @Column(name = "TXT_TIPO_USUARIO", nullable = false, length = 20)
     private TipoUsuario tipo;
     @Column(name = "TXT_CPF", nullable = false, length = 14, unique = true)
