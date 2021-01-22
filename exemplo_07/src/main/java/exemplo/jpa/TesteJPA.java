@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 
 public class TesteJPA {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo_07");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo_04");
 
     static {
         Logger.getGlobal().setLevel(Level.INFO);
