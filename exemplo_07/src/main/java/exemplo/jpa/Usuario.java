@@ -176,11 +176,7 @@ public class Usuario implements Serializable {
         }
         Usuario other = (Usuario) object;
 
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
@@ -194,10 +190,10 @@ public class Usuario implements Serializable {
         sb.append(", ");
         sb.append(this.cpf);
         
-        for (String telefone : this.telefones) {
+        this.telefones.forEach(telefone -> {
             sb.append(", ");
             sb.append(telefone);
-        }
+        });
         
         sb.append("]");
         return sb.toString();
