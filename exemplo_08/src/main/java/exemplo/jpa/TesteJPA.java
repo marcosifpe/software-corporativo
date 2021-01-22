@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 public class TesteJPA {
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo_08");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo_05");
     private static final Logger logger = Logger.getGlobal();
 
     static {
@@ -71,9 +71,9 @@ public class TesteJPA {
             //Selecionando todas as categorias cadastradas
             Query query = em.createQuery("SELECT c FROM Categoria c");
             List<Categoria> categorias = query.getResultList();
-            for (Categoria categoria : categorias) {
+            categorias.forEach(categoria -> {
                 item.adicionar(categoria);
-            }
+            });
             
             oferta1.setValor(250.00);
             oferta2.setValor(275.00);
