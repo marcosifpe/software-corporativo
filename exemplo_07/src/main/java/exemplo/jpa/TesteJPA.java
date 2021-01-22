@@ -1,8 +1,11 @@
 package exemplo.jpa;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.CacheRetrieveMode;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -29,14 +32,17 @@ public class TesteJPA {
         EntityManager em = null;
         try {
             em = emf.createEntityManager();
+            Map<String, Object> properties = new HashMap<>();
+
+            properties.put("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
             System.out.println("Consultando usuário na base...");
-            Usuario usuario = em.find(Usuario.class, id);
+            Usuario usuario = em.find(Usuario.class, id, properties);
             System.out.println("Imprimindo usuário (telefones serão recuperados agora)...");
             System.out.println(usuario.toString());
         } finally {
             if (em != null) {
                 em.close();
-            }            
+            }
         }
     }
 
