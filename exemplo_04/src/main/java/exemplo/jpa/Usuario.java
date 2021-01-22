@@ -26,20 +26,11 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TB_USUARIO")
-@Access(AccessType.FIELD)
 public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    /*
-     * Com FetchType.EAGER, sempre que uma instância de Usuario for recuperada, a instância 
-     * correspondente de CartaoCredito também será.
-     * Com CascadeType.ALL, sempre que uma instância de Usuario for inserida, atualizada ou removida,
-     * a instância correspondente de CartaoCredito também será.
-     * optional = true informa que o relacionamento é obrigatório. Ou seja, toda instância de Usuario
-     * possui uma instância correspondente de CartaoCredito.
-     */
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "ID_CARTAO_CREDITO", referencedColumnName = "ID")
     private CartaoCredito cartaoCredito;
@@ -73,7 +64,6 @@ public class Usuario implements Serializable {
         return cartaoCredito;
     }
 
-    //Na classe Usuario...
     public void setCartaoCredito(CartaoCredito cartaoCredito) {
         this.cartaoCredito = cartaoCredito;
         this.cartaoCredito.setUsuario(this);

@@ -38,7 +38,7 @@ public class TesteJPA {
             System.out.println("Consultando usuário na base...");
             Usuario usuario = em.find(Usuario.class, id, properties);
             System.out.println("Imprimindo usuário (telefones serão recuperados agora)...");
-            System.out.println(usuario.toString());
+            System.out.println(usuario);
         } finally {
             if (em != null) {
                 em.close();
