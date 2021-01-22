@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>run</actionName>
+            <packagings>
+                <packaging>jar</packaging>
+            </packagings>
+            <goals>
+                <goal>process-classes</goal>
+                <goal>org.codehaus.mojo:exec-maven-plugin:3.0.0:exec</goal>
+            </goals>
+            <properties>
+                <exec.args>-javaagent:eclipselink-2.7.8.jar -classpath %classpath ${packageClassName}</exec.args>
+                <exec.executable>java</exec.executable>
+                <exec.workingdir>C:\Users\masc1.MASC\.m2\repository\org\eclipse\persistence\eclipselink\2.7.8</exec.workingdir>
+            </properties>
+        </action>
+        <action>
+            <actionName>debug</actionName>
+            <packagings>
+                <packaging>jar</packaging>
+            </packagings>
+            <goals>
+                <goal>process-classes</goal>
+                <goal>org.codehaus.mojo:exec-maven-plugin:3.0.0:exec</goal>
+            </goals>
+            <properties>
+                <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -javaagent:eclipselink-2.7.8.jar -classpath %classpath ${packageClassName}</exec.args>
+                <exec.executable>java</exec.executable>
+                <jpda.listen>true</jpda.listen>
+                <exec.workingdir>C:\Users\masc1.MASC\.m2\repository\org\eclipse\persistence\eclipselink\2.7.8</exec.workingdir>
+            </properties>
+        </action>
+        <action>
+            <actionName>profile</actionName>
+            <packagings>
+                <packaging>jar</packaging>
+            </packagings>
+            <goals>
+                <goal>process-classes</goal>
+                <goal>org.codehaus.mojo:exec-maven-plugin:3.0.0:exec</goal>
+            </goals>
+            <properties>
+                <exec.args>-javaagent:eclipselink-2.7.8.jar -classpath %classpath ${packageClassName}</exec.args>
+                <exec.executable>java</exec.executable>
+                <exec.workingdir>C:\Users\masc1.MASC\.m2\repository\org\eclipse\persistence\eclipselink\2.7.8</exec.workingdir>
+            </properties>
+        </action>
+    </actions>
