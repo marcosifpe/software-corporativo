@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TB_CARTAO_CREDITO")
-class CartaoCredito implements Serializable {
+public class CartaoCredito implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;  
@@ -83,11 +83,7 @@ class CartaoCredito implements Serializable {
 
         CartaoCredito other = (CartaoCredito) object;
 
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override

@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 
 public class TesteJPA {
     
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo_10");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo_06");
     private static final Logger logger = Logger.getGlobal();
     
     static {
@@ -123,7 +123,7 @@ public class TesteJPA {
         usuario.setEndereco(endereco);
     }
     
-    public static CartaoCredito criarCartaoCredito() {
+    private static CartaoCredito criarCartaoCredito() {
         CartaoCredito cartaoCredito = new CartaoCredito();
         cartaoCredito.setBandeira("VISA");
         Calendar c = Calendar.getInstance();
