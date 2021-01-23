@@ -278,12 +278,12 @@ public class JpqlTest extends GenericTest {
                 Item.class);
         List<Item> itens = query.getResultList();
         assertEquals(3, itens.size());
-        for (Item item : itens) {
+        itens.forEach(item -> {
             assertThat(item.getTitulo(), CoreMatchers.anyOf(
                     startsWith("boss DD-7"),
                     startsWith("Gibson SG Standard"),
                     startsWith("Flauta Doce")));
-        }
+        });
     }
 
     @Test
