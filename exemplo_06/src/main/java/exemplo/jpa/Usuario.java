@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -25,10 +23,9 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "TB_USUARIO")
-@Inheritance(strategy = InheritanceType.JOINED) //Estratégia de herança.
-@DiscriminatorColumn(name = "DISC_USUARIO", //Nome da coluna que vai discriminar subclasses.
+@Inheritance(strategy = InheritanceType.JOINED) 
+@DiscriminatorColumn(name = "DISC_USUARIO", 
         discriminatorType = DiscriminatorType.STRING, length = 1)
-@Access(AccessType.FIELD)
 public abstract class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
