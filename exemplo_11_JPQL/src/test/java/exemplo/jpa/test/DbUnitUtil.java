@@ -32,11 +32,9 @@ public class DbUnitUtil {
         IDatabaseConnection db_conn = null;
         try {
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/exemplo_11", "root", "root");
-            db_conn = new DatabaseConnection(conn, "exemplo_11");
+                    "jdbc:derby://localhost:1527/exemplo_07", "app", "app");
+            db_conn = new DatabaseConnection(conn);
             DatabaseConfig dbConfig = db_conn.getConfig();
-            dbConfig.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
-            dbConfig.setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
             FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
             builder.setColumnSensing(true);
             InputStream in = DbUnitUtil.class.getResourceAsStream(XML_FILE);

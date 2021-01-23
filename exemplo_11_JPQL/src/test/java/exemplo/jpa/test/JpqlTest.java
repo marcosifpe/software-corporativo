@@ -197,7 +197,8 @@ public class JpqlTest extends GenericTest {
     @Test
     public void cartoesExpirados() {
         logger.info("Executando cartoesExpirados()");
-        TypedQuery<CartaoCredito> query = em.createQuery("SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < CURRENT_TIMESTAMP", CartaoCredito.class);
+        TypedQuery<CartaoCredito> query = em.createQuery("SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < ?1", CartaoCredito.class);
+        query.setParameter(1, new Date());
         List<CartaoCredito> cartoesExpirados = query.getResultList();
         assertEquals(4, cartoesExpirados.size());
     }
@@ -293,7 +294,7 @@ public class JpqlTest extends GenericTest {
                 "SELECT o FROM Oferta o WHERE o.data >= ALL (SELECT o1.data FROM Oferta o1)",
                 Oferta.class);
         Oferta oferta = query.getSingleResult();
-        assertEquals("Mon Jan 12 12:41:10 BRT 2015", oferta.getData().toString());
+        assertEquals("Mon Jan 12 12:41:10 BRST 2015", oferta.getData().toString());
     }
 
     @Test
@@ -346,16 +347,6 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void timestampSQL() {
-        logger.info("Executando timestampSQL()");
-        Query query;
-        query = em.createNativeQuery(
-                "SELECT current_timestamp() FROM DUAL");
-        Date dataCorrente = (Date) query.getSingleResult();
-        assertNotNull(dataCorrente);
-    }
-
-    @Test
     public void categoriaSQL() {
         logger.info("Executando categoriaSQL()");
         Query query;
@@ -374,17 +365,6 @@ public class JpqlTest extends GenericTest {
         query.setParameter(1, "Guitarras");
         List<Categoria> categorias = query.getResultList();
         assertEquals(1, categorias.size());
-    }
-
-    @Test
-    public void categoriaQuantidadeItensSQL() {
-        logger.info("Executando categoriaQuantidadeItensSQL()");
-        Query query;
-        query = em.createNamedQuery("Categoria.QuantidadeItensSQL");
-        query.setParameter(1, "Instrumentos Musicais");
-        Object[] resultado = (Object[]) query.getSingleResult();
-        assertEquals("Instrumentos Musicais", ((Categoria) resultado[0]).getNome());
-        assertEquals(5L, resultado[1]);
     }
 
     private String getCategoriaQuantidade(Object[] resultado) {
