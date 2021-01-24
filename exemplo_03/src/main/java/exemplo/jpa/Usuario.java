@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Basic(fetch = FetchType.EAGER)
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "IMG_FOTO", table = "TB_FOTO_USUARIO", nullable = true)
     private byte[] foto;
     @Embedded
