@@ -53,8 +53,9 @@ public class UsuarioTeste {
 
     @Test
     public void persistirUsuario() {
-        Usuario usuario = criarUsuario();
+        Usuario usuario;
         et.begin();
+        usuario = criarUsuario();
         em.persist(usuario);
         et.commit();
         
