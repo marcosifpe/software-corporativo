@@ -20,6 +20,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.junit.runners.model.MultipleFailureException;
 
 /**
  *
@@ -70,6 +71,10 @@ public class UsuarioTeste {
         Usuario usuario = em.find(Usuario.class, 1L);
         assertEquals("808.257.284-10", usuario.getCpf());
         assertEquals("COMPRADOR", usuario.getTipo().toString());
+        
+        assertEquals(2, usuario.getTelefones().size());
+        assertTrue(usuario.getTelefones().contains("(81)99800-7846"));
+        
         CartaoCredito cartaoCredito = usuario.getCartaoCredito();
         assertNotNull(cartaoCredito);
         assertEquals("VISA", cartaoCredito.getBandeira());
