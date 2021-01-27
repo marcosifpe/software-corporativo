@@ -3,9 +3,7 @@ package exemplo.jpa.test;
 import exemplo.jpa.CartaoCredito;
 import exemplo.jpa.Categoria;
 import exemplo.jpa.Comprador;
-import exemplo.jpa.DatasLimite;
 import exemplo.jpa.Item;
-import exemplo.jpa.Oferta;
 import exemplo.jpa.Reputacao;
 import exemplo.jpa.Usuario;
 import java.text.SimpleDateFormat;
@@ -34,9 +32,9 @@ public class JpqlTest extends GenericTest {
         query.setParameter("nome", "Instrumentos%");
         List<Categoria> categorias = query.getResultList();
 
-        for (Categoria categoria : categorias) {
+        categorias.forEach(categoria -> {
             assertTrue(categoria.getNome().startsWith("Instrumentos"));
-        }
+        });
 
         assertEquals(2, categorias.size());
     }
@@ -48,9 +46,9 @@ public class JpqlTest extends GenericTest {
         query.setParameter("nome", "Instrumentos%");
         List<Categoria> categorias = query.getResultList();
 
-        for (Categoria categoria : categorias) {
+        categorias.forEach(categoria -> {
             assertTrue(categoria.getNome().startsWith("Instrumentos"));
-        }
+        });
 
         assertEquals(2, categorias.size());
     }
@@ -78,20 +76,6 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void maximaEMinimaDataNascimentoQueryObjeto() {
-        logger.info("Executando maximaEMinimaDataNascimentoQueryObjeto()");
-        TypedQuery<DatasLimite> query = em.createQuery(
-                "SELECT NEW exemplo.jpa.DatasLimite(MAX(c.dataNascimento), MIN(c.dataNascimento)) FROM Comprador c",
-                DatasLimite.class);
-        DatasLimite datasLimite = query.getSingleResult();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String dataMaxima = dateFormat.format((Date) datasLimite.getDataMaxima());
-        String dataMinima = dateFormat.format((Date) datasLimite.getDataMinima());
-        assertEquals("21-12-1999", dataMaxima);
-        assertEquals("11-08-1973", dataMinima);
-    }
-
-    @Test
     public void categoriasMaes() {
         logger.info("Executando categoriasMaes()");
         TypedQuery<Categoria> query;
@@ -100,9 +84,9 @@ public class JpqlTest extends GenericTest {
                 Categoria.class);
         List<Categoria> categorias = query.getResultList();
 
-        for (Categoria categoria : categorias) {
+        categorias.forEach(categoria -> {
             assertTrue(!categoria.getFilhas().isEmpty());
-        }
+        });
 
         assertEquals(1, categorias.size());
     }
@@ -118,9 +102,9 @@ public class JpqlTest extends GenericTest {
         query.setMaxResults(20); //Determinando quantidade máxima de resultados.
         List<Comprador> compradores = query.getResultList();
 
-        for (Comprador comprador : compradores) {
+        compradores.forEach(comprador -> {
             assertEquals("VISA", comprador.getCartaoCredito().getBandeira());
-        }
+        });
 
         assertEquals(2, compradores.size());
     }
@@ -138,12 +122,12 @@ public class JpqlTest extends GenericTest {
         query.setParameter(2, "MASTERCARD"); //Setando parâmetro posicional.        
         List<Comprador> compradores = query.getResultList();
 
-        for (Comprador comprador : compradores) {
+        compradores.forEach(comprador -> {
             assertThat(comprador.getCartaoCredito().getBandeira(),
                     CoreMatchers.anyOf(
                             startsWith("VISA"),
                             startsWith("MASTERCARD")));
-        }
+        });
 
         assertEquals(3, compradores.size());
     }
@@ -158,12 +142,12 @@ public class JpqlTest extends GenericTest {
                 Comprador.class);
         List<Comprador> compradores = query.getResultList();
 
-        for (Comprador comprador : compradores) {
+        compradores.forEach(comprador -> {
             assertThat(comprador.getCartaoCredito().getBandeira(),
                     CoreMatchers.anyOf(
                             startsWith("MAESTRO"),
                             startsWith("MASTERCARD")));
-        }
+        });
 
         assertEquals(2, compradores.size());
     }
@@ -262,7 +246,7 @@ public class JpqlTest extends GenericTest {
         logger.info("Executando itensPorReputacaoVendedor()");
         TypedQuery<Item> query;
         query = em.createQuery(
-                "SELECT i FROM Item i WHERE i.vendedor IN (SELECT v FROM Vendedor v WHERE v.reputacao = :reputacao)",
+                "SELECT i FROM Item i WHERE i.vendedor.reputacao = :reputacao",
                 Item.class);
         query.setParameter("reputacao", Reputacao.EXPERIENTE);
         List<Item> itens = query.getResultList();
@@ -274,7 +258,7 @@ public class JpqlTest extends GenericTest {
         logger.info("Executando itensVendidos()");
         TypedQuery<Item> query;
         query = em.createQuery(
-                "SELECT i FROM Item i WHERE EXISTS (SELECT o FROM Oferta o WHERE o.item = i AND o.vencedora = true)",
+                "SELECT o.item FROM Oferta o WHERE o.vencedora = true",
                 Item.class);
         List<Item> itens = query.getResultList();
         assertEquals(3, itens.size());
@@ -287,28 +271,6 @@ public class JpqlTest extends GenericTest {
     }
 
     @Test
-    public void ultimaOferta() {
-        logger.info("Executando ultimaOferta()");
-        TypedQuery<Oferta> query;
-        query = em.createQuery(
-                "SELECT o FROM Oferta o WHERE o.data >= ALL (SELECT o1.data FROM Oferta o1)",
-                Oferta.class);
-        Oferta oferta = query.getSingleResult();
-        assertEquals("Mon Jan 12 12:41:10 BRST 2015", oferta.getData().toString());
-    }
-
-    @Test
-    public void todasOfertasExcetoAMaisAntiga() {
-        logger.info("Executando todasOfertasExcetoAMaisAntiga()");
-        TypedQuery<Oferta> query;
-        query = em.createQuery(
-                "SELECT o FROM Oferta o WHERE o.data > ANY (SELECT o1.data FROM Oferta o1)",
-                Oferta.class);
-        List<Oferta> ofertas = query.getResultList();
-        assertEquals(7, ofertas.size());
-    }
-
-    @Test
     public void compradoresComCartao() {
         logger.info("Executando compradoresComCartao()");
         TypedQuery<Comprador> query = em.createQuery(
@@ -317,9 +279,9 @@ public class JpqlTest extends GenericTest {
         List<Comprador> compradores = query.getResultList();
         assertEquals(5, compradores.size());
 
-        for (Comprador comprador : compradores) {
+        compradores.forEach(comprador -> {
             assertNotNull(comprador.getCartaoCredito());
-        }
+        });
     }
 
     @Test
@@ -344,27 +306,6 @@ public class JpqlTest extends GenericTest {
         Comprador comprador = query.getSingleResult();
         assertEquals("zesilva", comprador.getLogin());
         assertNotNull(comprador.getCartaoCredito());
-    }
-
-    @Test
-    public void categoriaSQL() {
-        logger.info("Executando categoriaSQL()");
-        Query query;
-        query = em.createNativeQuery(
-                "SELECT ID_CATEGORIA, TXT_NOME, ID_CATEGORIA_MAE FROM TB_CATEGORIA WHERE ID_CATEGORIA_MAE is null",
-                Categoria.class);
-        List<Categoria> categorias = query.getResultList();
-        assertEquals(3, categorias.size());
-    }
-
-    @Test
-    public void categoriaSQLNomeada() {
-        logger.info("Executando categoriaSQLNomeada()");
-        Query query;
-        query = em.createNamedQuery("Categoria.PorNomeSQL");
-        query.setParameter(1, "Guitarras");
-        List<Categoria> categorias = query.getResultList();
-        assertEquals(1, categorias.size());
     }
 
     private String getCategoriaQuantidade(Object[] resultado) {
