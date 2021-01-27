@@ -74,6 +74,7 @@ public class UsuarioTeste {
         
         assertEquals(2, usuario.getTelefones().size());
         assertTrue(usuario.getTelefones().contains("(81)99800-7846"));
+        assertTrue(usuario.getTelefones().contains("(81)3232-6899"));
         
         CartaoCredito cartaoCredito = usuario.getCartaoCredito();
         assertNotNull(cartaoCredito);
