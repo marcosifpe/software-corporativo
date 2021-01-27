@@ -75,6 +75,11 @@ public class UsuarioTeste {
         assertTrue(usuario.getTelefones().contains("(81)99800-7846"));
         assertTrue(usuario.getTelefones().contains("(81)3232-6899"));
         
+        Endereco endereco = usuario.getEndereco();
+        assertNotNull(endereco);
+        assertEquals("Iputinga", endereco.getBairro());
+        assertEquals("50670-210", endereco.getCep());
+        
         CartaoCredito cartaoCredito = usuario.getCartaoCredito();
         assertNotNull(cartaoCredito);
         assertEquals("VISA", cartaoCredito.getBandeira());
