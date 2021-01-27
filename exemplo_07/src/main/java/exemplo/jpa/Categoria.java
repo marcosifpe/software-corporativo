@@ -3,21 +3,16 @@ package exemplo.jpa;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.ColumnResult;
 import javax.persistence.Entity;
-import javax.persistence.EntityResult;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedNativeQueries;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
 @Entity
@@ -29,27 +24,6 @@ import javax.persistence.Table;
                     query = "SELECT c FROM Categoria c WHERE c.nome LIKE :nome ORDER BY c.id"
             )
         }
-)
-@NamedNativeQueries(
-        {
-            @NamedNativeQuery(
-                    name = "Categoria.PorNomeSQL",
-                    query = "SELECT ID_CATEGORIA, TXT_NOME, ID_CATEGORIA_MAE FROM TB_CATEGORIA WHERE TXT_NOME LIKE ? ORDER BY ID_CATEGORIA",
-                    resultClass = Categoria.class
-            ),
-            @NamedNativeQuery(
-                    name = "Categoria.QuantidadeItensSQL",
-                    query = "SELECT c.ID_CATEGORIA, c.TXT_NOME, c.ID_CATEGORIA_MAE, count(ic.ID_ITEM) as TOTAL_ITENS from TB_CATEGORIA c, TB_ITENS_CATEGORIAS ic where c.TXT_NOME LIKE ? and c.ID_CATEGORIA = ic.ID_CATEGORIA GROUP BY c.ID_CATEGORIA",
-                    resultSetMapping = "Categoria.QuantidadeItens"
-            )
-        }
-)
-@SqlResultSetMapping(
-        name = "Categoria.QuantidadeItens",
-        entities = {
-            @EntityResult(entityClass = Categoria.class)},
-        columns = {
-            @ColumnResult(name = "TOTAL_ITENS", type = Long.class)}
 )
 public class Categoria implements Serializable {
 
@@ -111,10 +85,7 @@ public class Categoria implements Serializable {
             return false;
         }
         Categoria other = (Categoria) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
