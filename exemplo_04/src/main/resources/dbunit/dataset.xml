@@ -12,6 +12,9 @@
                 end_txt_logradouro = "Rua Ribeirão" end_numero = "20" 
                 txt_login = "fulano" txt_nome = "Fulano Silva" 
                 txt_senha = "teste123" id_cartao_credito="1"/>
+    
+    <TB_TELEFONE id_usuario = "1" txt_num_telefone = "(81)99800-7846"/>
+    <TB_TELEFONE id_usuario = "1" txt_num_telefone = "(81)3232-6899"/>
     <!-- CartaoCredito id = 2  -->
     <TB_CARTAO_CREDITO txt_bandeira = "MASTERCARD" dt_expiracao = "2022-04-10" 
                        txt_numero = "5555666677778884"/>
