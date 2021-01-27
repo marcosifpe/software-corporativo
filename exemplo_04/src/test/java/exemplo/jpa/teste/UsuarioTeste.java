@@ -70,7 +70,10 @@ public class UsuarioTeste {
         Usuario usuario = em.find(Usuario.class, 1L);
         assertEquals("808.257.284-10", usuario.getCpf());
         assertEquals("COMPRADOR", usuario.getTipo().toString());
-        assertEquals("VISA", usuario.getCartaoCredito().getBandeira());
+        CartaoCredito cartaoCredito = usuario.getCartaoCredito();
+        assertNotNull(cartaoCredito);
+        assertEquals("VISA", cartaoCredito.getBandeira());
+        assertEquals("4073020000000002", cartaoCredito.getNumero());
     }
 
     private Usuario criarUsuario() {
