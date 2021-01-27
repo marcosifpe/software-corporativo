@@ -20,19 +20,20 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 import org.junit.Test;
+
 /**
  *
  * @author masc1
  */
 public class UsuarioTeste {
-
-    private static final EntityManagerFactory emf
-            = Persistence.createEntityManagerFactory("exemplo_04");
+    private static EntityManagerFactory emf;
     private EntityManager em;
     private EntityTransaction et;
 
     @BeforeClass
     public static void setUpClass() {
+        emf = Persistence.createEntityManagerFactory("exemplo_04");
+        DbUnitUtil.inserirDados();
     }
 
     @AfterClass
@@ -44,32 +45,41 @@ public class UsuarioTeste {
     public void setUp() {
         em = emf.createEntityManager();
         et = em.getTransaction();
+        et.begin();
     }
 
     @After
     public void tearDown() {
+        et.commit();
         em.close();
     }
 
     @Test
     public void persistirUsuario() {
         Usuario usuario;
-        et.begin();
         usuario = criarUsuario();
         em.persist(usuario);
-        et.commit();
-        
+        em.flush(); //força que a persistência realizada vá para o banco neste momento.
+
         assertNotNull(usuario.getId());
         assertNotNull(usuario.getCartaoCredito().getId());
+    }
+    
+    @Test
+    public void consultarUsuario() {
+        Usuario usuario = em.find(Usuario.class, 1L);
+        assertEquals("808.257.284-10", usuario.getCpf());
+        assertEquals("COMPRADOR", usuario.getTipo().toString());
+        assertEquals("VISA", usuario.getCartaoCredito().getBandeira());
     }
 
     private Usuario criarUsuario() {
         Usuario usuario = new Usuario();
-        usuario.setNome("Fulano da Silva");
-        usuario.setEmail("fulano@gmail.com");
-        usuario.setLogin("fulano");
+        usuario.setNome("Fulaninho da Silva");
+        usuario.setEmail("fulano6@gmail.com");
+        usuario.setLogin("fulano6");
         usuario.setSenha("teste");
-        usuario.setCpf("534.585.764-45");
+        usuario.setCpf("118.729.500-00");
         usuario.setTipo(TipoUsuario.ADMIN);
         usuario.addTelefone("(81) 3456-2525");
         usuario.addTelefone("(81) 9122-4528");
@@ -104,5 +114,5 @@ public class UsuarioTeste {
         cartaoCredito.setDataExpiracao(c.getTime());
         cartaoCredito.setNumero("120000-100");
         usuario.setCartaoCredito(cartaoCredito);
-    }    
+    }
 }
