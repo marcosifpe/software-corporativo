@@ -15,7 +15,7 @@
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.target-database" value="Derby"/>
       <property name="eclipselink.jdbc.native-sql" value="true"/>   
-      <property name="eclipselink.weaving" value="true"/>      
+      <property name="eclipselink.weaving" value="static"/>      
     </properties>
   </persistence-unit>
 </persistence>

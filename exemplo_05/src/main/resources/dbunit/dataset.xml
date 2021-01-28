@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <TB_CATEGORIA txt_nome="Instrumentos Musicais"/>
+    <TB_CATEGORIA txt_nome="Guitarras" id_categoria_mae = "1"/>
+    <TB_CATEGORIA txt_nome="Pedais" id_categoria_mae = "1" />
+    <TB_CATEGORIA txt_nome="Instrumentos de Sopro" id_categoria_mae = "1"/>
+    <TB_CATEGORIA txt_nome="Meios de Transporte"/>
+    <TB_CATEGORIA txt_nome="Motocicletas" id_categoria_mae = "5"/>
+    <!-- Item id = 1 -->
+    <TB_ITEM txt_titulo = "boss DD-7" txt_descricao = "Delay digital boss" />
+    <TB_ITENS_CATEGORIAS id_item = "1" id_categoria = "1" />
+    <TB_ITENS_CATEGORIAS id_item = "1" id_categoria = "3" />
+    <!-- Item id = 2 -->
+    <TB_ITEM txt_titulo = "boss DM-2 waza" txt_descricao = "Delay analógico Boss (reedição)" />
+    <TB_ITENS_CATEGORIAS id_item = "2" id_categoria = "1" />
+    <TB_ITENS_CATEGORIAS id_item = "2" id_categoria = "3" />    
+    <!-- Item id = 3 -->
+    <TB_ITEM txt_titulo = "Gibson SG Standard" txt_descricao = "Guitarra Gibson em estado de nova" />
+    <TB_ITENS_CATEGORIAS id_item = "3" id_categoria = "1" />
+    <TB_ITENS_CATEGORIAS id_item = "3" id_categoria = "2" />
+    <!-- Item id = 4 -->
+    <TB_ITEM txt_titulo = "Flauta Doce" txt_descricao = "Flauta Doce Usada" />
+    <TB_ITENS_CATEGORIAS id_item = "4" id_categoria = "1" />
+    <TB_ITENS_CATEGORIAS id_item = "4" id_categoria = "4" /> 
+    <!-- Item id = 5 -->
+    <TB_ITEM txt_titulo = "Flauta Doce" txt_descricao = "Flauta Doce Nova" />
+    <TB_ITENS_CATEGORIAS id_item = "5" id_categoria = "1" />
+    <TB_ITENS_CATEGORIAS id_item = "5" id_categoria = "4" />
+    <!-- Oferta id = 1 -->
+    <TB_OFERTA id_item = "1" num_valor = "500.00" dt_oferta = "2020-01-12 12:00:30" />
+    <!-- Oferta id = 2 -->
+    <TB_OFERTA id_item = "1" num_valor = "520.00" dt_oferta = "2020-01-12 12:30:52" />
+    <!-- Oferta id = 3 -->
+    <TB_OFERTA id_item = "2" num_valor = "720.00" dt_oferta = "2020-01-12 12:31:20" />
+    <!-- Oferta id = 4 -->
+    <TB_OFERTA id_item = "2" num_valor = "725.00" dt_oferta = "2020-01-12 12:35:00" />
+    <!-- Oferta id = 5 -->
+    <TB_OFERTA id_item = "2" num_valor = "726.00" dt_oferta = "2020-01-12 12:38:10" />
+    <!-- Oferta id = 6 -->
+    <TB_OFERTA id_item = "3" num_valor = "6000.00" dt_oferta = "2020-01-12 12:38:40" />
+    <!-- Oferta id = 7 -->
+    <TB_OFERTA id_item = "3" num_valor = "6300.00" dt_oferta = "2020-01-12 12:39:10" />        
+    <!-- Oferta id = 8 -->
+    <TB_OFERTA id_item = "4" num_valor = "100.00" dt_oferta = "2020-01-12 12:41:10" />        
+</dataset>

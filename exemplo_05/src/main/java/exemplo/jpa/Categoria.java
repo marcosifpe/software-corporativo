@@ -3,9 +3,12 @@ package exemplo.jpa;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +19,9 @@ public class Categoria implements Serializable {
     private Long id;
     @Column(name = "TXT_NOME", length = 50, nullable = false)
     private String nome;
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "ID_CATEGORIA_MAE", referencedColumnName = "ID")
+    private Categoria mae;    
 
     public Long getId() {
         return id;
@@ -33,6 +39,14 @@ public class Categoria implements Serializable {
         this.nome = nome;
     }
 
+    public Categoria getMae() {
+        return mae;
+    }
+
+    public void setMae(Categoria mae) {
+        this.mae = mae;
+    }    
+    
     @Override
     public int hashCode() {
         int hash = 0;
