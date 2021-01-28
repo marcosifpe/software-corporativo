@@ -27,9 +27,9 @@
     <TB_ITENS_CATEGORIAS id_item = "5" id_categoria = "1" />
     <TB_ITENS_CATEGORIAS id_item = "5" id_categoria = "4" />
     <!-- Oferta id = 1 -->
-    <TB_OFERTA id_item = "1" num_valor = "500.00" dt_oferta = "2020-01-12 12:00:30" />
+    <TB_OFERTA id_item = "1" num_valor = "500.00" dt_oferta = "2020-01-12 1:00:30" />
     <!-- Oferta id = 2 -->
-    <TB_OFERTA id_item = "1" num_valor = "520.00" dt_oferta = "2020-01-12 12:30:52" />
+    <TB_OFERTA id_item = "1" num_valor = "520.00" dt_oferta = "2020-01-12 1:30:52" />
     <!-- Oferta id = 3 -->
     <TB_OFERTA id_item = "2" num_valor = "720.00" dt_oferta = "2020-01-12 12:31:20" />
     <!-- Oferta id = 4 -->
