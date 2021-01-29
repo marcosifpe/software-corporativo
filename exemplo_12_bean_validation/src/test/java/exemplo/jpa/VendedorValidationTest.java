@@ -55,14 +55,14 @@ public class VendedorValidationTest extends Teste {
             constraintViolations.forEach(violation -> {
                 assertThat(violation.getRootBeanClass() + "." + violation.getPropertyPath() + ": " + violation.getMessage(),
                         CoreMatchers.anyOf(
-                                startsWith("class exemplo.jpa.Vendedor.email: Não é um endereço de e-mail"),
+                                startsWith("class exemplo.jpa.Vendedor.email: deve ser um endereço de e-mail bem formado"),
                                 startsWith("class exemplo.jpa.Vendedor.endereco.estado: Estado inválido"),
                                 startsWith("class exemplo.jpa.Vendedor.senha: A senha deve possuir pelo menos um caractere de: pontuação, maiúscula, minúscula e número"),
-                                startsWith("class exemplo.jpa.Vendedor.endereco.estado: tamanho deve estar entre 2 e 2"),
-                                startsWith("class exemplo.jpa.Vendedor.telefones: tamanho deve estar entre 0 e 3"),
+                                startsWith("class exemplo.jpa.Vendedor.endereco.estado: tamanho deve ser entre 2 e 2"),
+                                startsWith("class exemplo.jpa.Vendedor.telefones: tamanho deve ser entre 0 e 3"),
                                 startsWith("class exemplo.jpa.Vendedor.ultimoNome: Deve possuir uma única letra maiúscula, seguida por letras minúsculas"),
-                                startsWith("class exemplo.jpa.Vendedor.cpf: CPF inválido"),
-                                startsWith("class exemplo.jpa.Vendedor.dataNascimento: deve estar no passado"),
+                                startsWith("class exemplo.jpa.Vendedor.cpf: número do registro de contribuinte individual brasileiro (CPF) inválido"),
+                                startsWith("class exemplo.jpa.Vendedor.dataNascimento: deve ser uma data passada"),
                                 startsWith("class exemplo.jpa.Vendedor.primeiroNome: Deve possuir uma única letra maiúscula, seguida por letras minúsculas"),
                                 startsWith("class exemplo.jpa.Vendedor.endereco.cep: CEP inválido. Deve estar no formado NN.NNN-NNN, onde N é número natural")
                         )
