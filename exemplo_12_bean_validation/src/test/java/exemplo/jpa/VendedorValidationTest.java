@@ -43,7 +43,7 @@ public class VendedorValidationTest extends Teste {
             endereco.setBairro("CDU");
             endereco.setCep("50670-230"); //CEP inválido
             endereco.setCidade("Recife");
-            endereco.setEstado("Pernambuco"); //Estado inválido
+            endereco.setEstado("ZZ"); //Estado inválido
             endereco.setNumero(20);
             endereco.setComplemento("AP 301");
             endereco.setLogradouro("Av. Professor Moraes Rego");
@@ -58,7 +58,6 @@ public class VendedorValidationTest extends Teste {
                                 startsWith("class exemplo.jpa.Vendedor.email: deve ser um endereço de e-mail bem formado"),
                                 startsWith("class exemplo.jpa.Vendedor.endereco.estado: Estado inválido"),
                                 startsWith("class exemplo.jpa.Vendedor.senha: A senha deve possuir pelo menos um caractere de: pontuação, maiúscula, minúscula e número"),
-                                startsWith("class exemplo.jpa.Vendedor.endereco.estado: tamanho deve ser entre 2 e 2"),
                                 startsWith("class exemplo.jpa.Vendedor.telefones: tamanho deve ser entre 0 e 3"),
                                 startsWith("class exemplo.jpa.Vendedor.ultimoNome: Deve possuir uma única letra maiúscula, seguida por letras minúsculas"),
                                 startsWith("class exemplo.jpa.Vendedor.cpf: número do registro de contribuinte individual brasileiro (CPF) inválido"),
@@ -69,7 +68,7 @@ public class VendedorValidationTest extends Teste {
                 );
             });
 
-            assertEquals(10, constraintViolations.size());
+            assertEquals(9, constraintViolations.size());
             assertNull(vendedor.getId());
             throw ex;
         }
