@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <!-- Usuario id = 1 (comprador) -->
+    <TB_USUARIO disc_usuario = "C" txt_cpf = "808.257.284-10" dt_nascimento = "1999-12-21"
+                txt_email = "fulano@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 201" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "fulano" txt_nome = "Fulano Silva" txt_senha = "teste123"/>
+    <!-- CartaoCredito id = 1 -->
+    <TB_CARTAO_CREDITO txt_bandeira = "VISA" dt_expiracao = "2018-04-10" txt_numero = "4073020000000002"/>    
+    <TB_COMPRADOR id_usuario = "1" id_cartao_credito = "1"/>
+    <!-- Usuario id = 2 (comprador) -->
+    <TB_USUARIO disc_usuario = "C" txt_cpf = "740.707.044-00" dt_nascimento = "1973-08-11"
+                txt_email = "sicrano@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 202" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "sicrano" txt_nome = "Sicrano Silva" txt_senha = "sicrano123"/>
+    <!-- CartaoCredito id = 2  -->
+    <TB_CARTAO_CREDITO txt_bandeira = "MASTERCARD" dt_expiracao = "2023-04-10" txt_numero = "5555666677778884"/>    
+    <TB_COMPRADOR id_usuario = "2" id_cartao_credito = "2"/>    
+    <!-- Usuario id = 3 (comprador) -->
+    <TB_USUARIO disc_usuario = "C" txt_cpf = "026.605.218-59" dt_nascimento = "1979-09-01"
+                txt_email = "beltrano@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 302" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "beltrano" txt_nome = "Beltrano Silva" txt_senha = "beltrano_mesmo"/>
+    <!-- CartaoCredito id = 3 -->
+    <TB_CARTAO_CREDITO txt_bandeira = "VISA" dt_expiracao = "2016-06-17" txt_numero = "4084770193100046"/>    
+    <TB_COMPRADOR id_usuario = "3" id_cartao_credito = "3"/>    
+    <!-- Usuario id = 4 (comprador) -->
+    <TB_USUARIO disc_usuario = "C" txt_cpf = "787.829.223-06" dt_nascimento = "1989-10-23" 
+                txt_email = "ze@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 401" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "zesilva" txt_nome = "José da Silva" txt_senha = "ze123"/>
+    <!-- CartaoCredito id = 4 -->
+    <TB_CARTAO_CREDITO txt_bandeira = "MAESTRO" dt_expiracao = "2015-01-17" txt_numero = "6759744303415452"/>    
+    <TB_COMPRADOR id_usuario = "4" id_cartao_credito = "4"/>    
+    <!-- Usuario id = 5 (vendedor) -->
+    <TB_USUARIO disc_usuario = "V" txt_cpf = "484.854.847-03" dt_nascimento = "1995-11-23" 
+                txt_email = "vendedor1@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 704" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "v1silva" txt_nome = "Vendedor da Silva" txt_senha = "v1123"/>
+    <TB_VENDEDOR id_usuario = "5" num_valor_vendas = "10500.50" txt_reputacao = "EXPERIENTE" />
+    <!-- Usuario id = 6 (vendedor) -->
+    <TB_USUARIO disc_usuario = "V" txt_cpf = "316.819.699-12" dt_nascimento = "1985-11-23" 
+                txt_email = "vendedor2@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 902" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "v2silva" txt_nome = "Vendedor Segundo da Silva" txt_senha = "segs123"/>
+    <TB_VENDEDOR id_usuario = "6" num_valor_vendas = "5500.99" txt_reputacao = "EXPERIENTE" />    
+    <!-- Usuario id = 7 (vendedor) -->
+    <TB_USUARIO disc_usuario = "V" txt_cpf = "548.578.464-03" dt_nascimento = "1995-11-23" 
+                txt_email = "vendedor3@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 702" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "v3silva" txt_nome = "Vendedor Terceiro da Silva" txt_senha = "segredos123"/>
+    <TB_VENDEDOR id_usuario = "7" num_valor_vendas = "100.00" txt_reputacao = "NOVATO" />
+    <!-- Usuario id = 8 (comprador) -->    
+    <TB_USUARIO disc_usuario = "C" txt_cpf = "772.633.604-89" dt_nascimento = "1987-10-21" 
+                txt_email = "comp@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 101" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "comp1" txt_nome = "Comprador da Silva" txt_senha = "comp"/>
+    <!-- CartaoCredito id = 4 -->
+    <TB_COMPRADOR id_usuario = "8" />       
+    <!-- Usuario id = 9 (comprador) -->
+    <TB_USUARIO disc_usuario = "C" txt_cpf = "818.257.284-10" dt_nascimento = "1999-12-21"
+                txt_email = "fulano8@gmail.com" end_txt_bairro = "Iputinga" end_txt_cep = "50670-210" end_txt_cidade = "Recife"
+                end_txt_complemento = "Apto. 201" end_txt_estado = "Pernambuco" end_txt_logradouro = "Rua Ribeirão" 
+                end_numero = "20" txt_login = "fulano8" txt_nome = "Fulano Silva" txt_senha = "teste123"/>
+    <!-- CartaoCredito id = 5 -->
+    <TB_CARTAO_CREDITO txt_bandeira = "HIPERCARD" dt_expiracao = "2021-04-10" txt_numero = "4073020012000002"/>    
+    <TB_COMPRADOR id_usuario = "9" id_cartao_credito = "5"/>
+</dataset>
