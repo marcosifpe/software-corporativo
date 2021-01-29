@@ -5,7 +5,6 @@
  */
 package exemplo.jpa;
 
-import exemplo.jpa.Categoria;
 import static exemplo.jpa.GenericTest.logger;
 import javax.persistence.CacheRetrieveMode;
 import javax.persistence.TypedQuery;

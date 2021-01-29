@@ -5,10 +5,6 @@
  */
 package exemplo.jpa;
 
-import exemplo.jpa.CartaoCredito;
-import exemplo.jpa.Comprador;
-import exemplo.jpa.Endereco;
-import exemplo.jpa.Usuario;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,11 +1,5 @@
 package exemplo.jpa;
 
-import exemplo.jpa.CartaoCredito;
-import exemplo.jpa.Categoria;
-import exemplo.jpa.Comprador;
-import exemplo.jpa.Item;
-import exemplo.jpa.Reputacao;
-import exemplo.jpa.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
