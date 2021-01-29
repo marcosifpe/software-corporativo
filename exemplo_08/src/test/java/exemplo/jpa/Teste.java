@@ -26,7 +26,7 @@ public abstract class Teste {
 
     @BeforeClass
     public static void setUpClass() {
-        emf = Persistence.createEntityManagerFactory("exemplo_07");
+        emf = Persistence.createEntityManagerFactory("exemplo_08");
         DbUnitUtil.inserirDados();
     }
 
