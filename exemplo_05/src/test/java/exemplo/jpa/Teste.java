@@ -43,7 +43,9 @@ public abstract class Teste {
     
     @After
     public void tearDown() {
-        et.commit();
+        if (!et.getRollbackOnly()) {
+            et.commit();
+        }
         em.close();        
     }
 }
