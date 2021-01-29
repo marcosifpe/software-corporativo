@@ -34,7 +34,6 @@ public class GenericTest {
     public static void setUpClass() {
         logger = Logger.getGlobal();
         logger.setLevel(Level.INFO);
-        //logger.setLevel(Level.SEVERE);
         emf = Persistence.createEntityManagerFactory("exemplo_07");
         DbUnitUtil.inserirDados();
     }
@@ -62,11 +61,8 @@ public class GenericTest {
     }
 
     private void commitTransaction() {
-        try {
+        if (!et.getRollbackOnly()) {
             et.commit();
-        } catch (Exception ex) {
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
-            fail(ex.getMessage());
         }
     }
 
