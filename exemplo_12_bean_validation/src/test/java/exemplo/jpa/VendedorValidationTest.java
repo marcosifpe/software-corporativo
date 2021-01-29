@@ -1,26 +1,13 @@
-package exemplo.jpa.test;
+package exemplo.jpa;
 
-import exemplo.jpa.Endereco;
-import exemplo.jpa.Reputacao;
-import exemplo.jpa.Vendedor;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import org.hamcrest.CoreMatchers;
 import static org.hamcrest.CoreMatchers.startsWith;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -30,50 +17,7 @@ import static org.junit.Assert.assertThat;
  *
  * @author MASC
  */
-public class VendedorValidationTest {
-
-    private static EntityManagerFactory emf;
-    private static Logger logger;
-    private EntityManager em;
-    private EntityTransaction et;
-
-    @BeforeClass
-    public static void setUpClass() {
-        logger = Logger.getGlobal();
-        logger.setLevel(Level.OFF);
-        emf = Persistence.createEntityManagerFactory("exemplo_12");
-        DbUnitUtil.inserirDados();
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-        emf.close();
-    }
-
-    @Before
-    public void setUp() {
-        em = emf.createEntityManager();
-        et = em.getTransaction();
-        et.begin();
-    }
-
-    @After
-    public void tearDown() {
-        try {
-            et.commit();
-        } catch (Exception ex) {
-            logger.log(Level.SEVERE, ex.getMessage());
-
-            if (et.isActive()) {
-                et.rollback();
-            }
-        } finally {
-            em.close();
-            em = null;
-            et = null;
-        }
-    }
-
+public class VendedorValidationTest extends Teste {
     @Test(expected = ConstraintViolationException.class)
     public void persistirVendedorInvalido() {
         Vendedor vendedor = null;
@@ -81,7 +25,7 @@ public class VendedorValidationTest {
         try {
             vendedor = new Vendedor();
             vendedor.setCpf("258.171.482-34"); //CPF inválido
-            calendar.set(2020, Calendar.JANUARY, 1);
+            calendar.set(2025, Calendar.JANUARY, 1);
             //Data de nascimento inválida            
             vendedor.setDataNascimento(calendar.getTime());
             vendedor.setEmail("email_invalido@"); //E-mail inválido
@@ -104,10 +48,11 @@ public class VendedorValidationTest {
             endereco.setComplemento("AP 301");
             endereco.setLogradouro("Av. Professor Moraes Rego");
             em.persist(vendedor);
+            em.flush();
         } catch (ConstraintViolationException ex) {
             Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
 
-            for (ConstraintViolation violation : constraintViolations) {
+            constraintViolations.forEach(violation -> {
                 assertThat(violation.getRootBeanClass() + "." + violation.getPropertyPath() + ": " + violation.getMessage(),
                         CoreMatchers.anyOf(
                                 startsWith("class exemplo.jpa.Vendedor.email: Não é um endereço de e-mail"),
@@ -122,7 +67,7 @@ public class VendedorValidationTest {
                                 startsWith("class exemplo.jpa.Vendedor.endereco.cep: CEP inválido. Deve estar no formado NN.NNN-NNN, onde N é número natural")
                         )
                 );
-            }
+            });
 
             assertEquals(10, constraintViolations.size());
             assertNull(vendedor.getId());
@@ -135,11 +80,11 @@ public class VendedorValidationTest {
         TypedQuery<Vendedor> query = em.createQuery("SELECT v FROM Vendedor v WHERE v.cpf like :cpf", Vendedor.class);
         query.setParameter("cpf", "484.854.847-03");
         Vendedor vendedor = query.getSingleResult();
-        vendedor.setSenha("testando1234");
+        vendedor.setSenha("teste123456");
 
         try {
             em.flush();
-        } catch (ConstraintViolationException ex) {           
+        } catch (ConstraintViolationException ex) {    
             ConstraintViolation violation = ex.getConstraintViolations().iterator().next();
             assertEquals("A senha deve possuir pelo menos um caractere de: pontuação, maiúscula, minúscula e número.", violation.getMessage());
             assertEquals(1, ex.getConstraintViolations().size());
