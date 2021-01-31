@@ -2,7 +2,6 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
-[java:global/test-classes/ejb/vendedorServico, java:global/test-classes/ejb/vendedorServico!exemplo.servico.VendedorServico]
  */
 package exemplo.servico;
 
@@ -26,9 +25,4 @@ public class VendedorServico extends Servico<Vendedor> {
     public void init() {
         super.setClasse(Vendedor.class);
     }
-
-    @Override
-    public Vendedor criar() {
-        return new Vendedor();
-    } 
 }

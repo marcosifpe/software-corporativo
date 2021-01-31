@@ -37,10 +37,7 @@ public abstract class Servico<T extends Object> {
     protected void setClasse(@NotNull Class<T> classe) {
         this.classe = classe;
     }
-
-    @TransactionAttribute(SUPPORTS)
-    public abstract T criar();
-
+    
     @TransactionAttribute(SUPPORTS)
     public boolean existe(@NotNull T entidade) {
         return true;

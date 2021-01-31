@@ -5,8 +5,12 @@
  */
 package exemplo.jpa;
 
+import exemplo.servico.VendedorServico;
 import javax.ejb.embeddable.EJBContainer;
+import javax.naming.NamingException;
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 
 /**
@@ -16,6 +20,7 @@ import org.junit.BeforeClass;
 public abstract class Teste {
 
     protected static EJBContainer container;
+    protected VendedorServico vendedorServico;
 
     @BeforeClass
     public static void setUpClass() {
@@ -27,4 +32,14 @@ public abstract class Teste {
     public static void tearDownClass() {
         container.close();
     }
+    
+    @Before
+    public void setUp() throws NamingException {
+        vendedorServico = (VendedorServico) container.getContext().lookup("java:global/classes/ejb/vendedorServico!exemplo.servico.VendedorServico");
+    }
+    
+    @After
+    public void tearDown() {
+        vendedorServico = null;
+    }    
 }

@@ -1,33 +1,19 @@
 package exemplo.jpa;
 
-import exemplo.servico.VendedorServico;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
 import javax.ejb.EJBException;
-import javax.naming.NamingException;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
 
 /**
  *
  * @author MASC
  */
 public class ValidacaoVendedorTeste extends Teste {
-    private VendedorServico vendedorServico;
-    @Before
-    public void setUp() throws NamingException {
-        vendedorServico = (VendedorServico) container.getContext().lookup("java:global/classes/ejb/vendedorServico!exemplo.servico.VendedorServico");
-    }
-
-    @After
-    public void tearDown() {
-        vendedorServico = null;
-    } 
     
     @Test(expected = EJBException.class)
     public void persistirVendedorInvalido() {
