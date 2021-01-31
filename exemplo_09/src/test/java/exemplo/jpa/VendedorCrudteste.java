@@ -14,6 +14,7 @@ import static org.junit.Assert.*;
  * @author masc1
  */
 public class VendedorCrudteste extends Teste {
+
     @Test
     public void persistirVendedor() {
         Vendedor vendedor = criarVendedor();
@@ -22,7 +23,7 @@ public class VendedorCrudteste extends Teste {
     }
 
     private Vendedor criarVendedor() {
-                Vendedor vendedor = new Vendedor();
+        Vendedor vendedor = new Vendedor();
         vendedor.setPrimeiroNome("Sicrano");
         vendedor.setUltimoNome("Silva");
         vendedor.setEmail("sicrano_da_silva@gmail.com");
@@ -38,9 +39,9 @@ public class VendedorCrudteste extends Teste {
         vendedor.setDataNascimento(c.getTime());
         vendedor.setReputacao(Reputacao.NOVATO);
         vendedor.setValorVendas(Double.parseDouble("0"));
-        
+
         criarEndereco(vendedor);
-        
+
         return vendedor;
     }
 
