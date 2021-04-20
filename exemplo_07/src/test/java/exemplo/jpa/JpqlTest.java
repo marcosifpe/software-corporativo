@@ -178,7 +178,7 @@ public class JpqlTest extends GenericTest {
         TypedQuery<CartaoCredito> query = em.createQuery("SELECT c FROM CartaoCredito c WHERE c.dataExpiracao < ?1", CartaoCredito.class);
         query.setParameter(1, new Date());
         List<CartaoCredito> cartoesExpirados = query.getResultList();
-        assertEquals(4, cartoesExpirados.size());
+        assertEquals(5, cartoesExpirados.size());
     }
 
     @Test
